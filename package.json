@@ -1,0 +1,42 @@
+{
+  "name": "database-oskm",
+  "version": "1.0.0",
+  "description": "KAT ITB 2025 Database Repository",
+  "license": "MIT",
+  "homepage": "https://github.com/KAT-ITB-2025/database--oskm#readme",
+  "bugs": {
+    "url": "https://github.com/KAT-ITB-2025/database--oskm/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KAT-ITB-2025/database--oskm.git"
+  },
+  "author": "",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsup src/schema/index.ts --dts --format cjs,esm --out-dir dist",
+    "view": "node --experimental-specifier-resolution=node --loader ts-node/esm src/dbml.ts",
+    "generate": "drizzle-kit generate",
+    "migrate": "drizzle-kit migrate"
+  },
+  "dependencies": {
+    "@paralleldrive/cuid2": "^2.2.2",
+    "bcrypt": "^5.1.1",
+    "csv-parser": "^3.2.0",
+    "database": "file:",
+    "drizzle-dbml-generator": "^0.8.0",
+    "drizzle-kit": "^0.31.1",
+    "drizzle-orm": "^0.44.0",
+    "postgres": "^3.4.7",
+    "tsup": "^8.5.0",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "ts-node": "^10.9.2"
+  }
+}

@@ -1,0 +1,1 @@
+ALTER TABLE "account" ADD COLUMN "last_logged_in" timestamp;

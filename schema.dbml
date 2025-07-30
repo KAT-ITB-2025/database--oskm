@@ -1,0 +1,55 @@
+enum account_role_enum {
+  admin
+  mamet
+  mentor
+  user
+  guest
+}
+
+enum media_bucket_enum {
+  core
+  oskm
+  dikpus
+  profile
+  "submission-dikpus"
+  "submission-oskm"
+  other
+}
+
+table account {
+  id text [pk, not null]
+  nim text [not null, unique]
+  password text [not null]
+  role account_role_enum [not null, default: 'user']
+  created_at timestamp [default: `now()`]
+  updated_at timestamp
+}
+
+table media {
+  id text [pk, not null]
+  creator_id text [not null]
+  name text [not null, unique]
+  bucket media_bucket_enum [not null, default: 'other']
+  type text [not null]
+  url text [not null]
+  updated_at "timestamp with time zone" [not null]
+  created_at "timestamp with time zone" [not null, default: `now()`]
+}
+
+table user {
+  id text [pk, not null]
+  nim text [not null, unique]
+  email text [unique]
+  full_name text
+  birth_date date
+  phone_number text
+  id_line text
+  id_discord text
+  id_instagram text
+  created_at timestamp [default: `now()`]
+  updated_at timestamp
+}
+
+ref media_creator_id_user_id_fk: media.creator_id > user.id [delete: cascade, update: no action]
+
+ref user_id_account_id_fk: user.id > account.id [delete: no action, update: no action]
