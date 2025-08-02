@@ -1,3 +1,11 @@
-export * from './user.schema';
-export * from './auth.schema';
-export * from './analytics.schema';
+// Export all tables by domain
+export * from './analytics';
+export * from './auth';
+export * from './class';
+export * from './engagement';
+export * from './media';
+export * from './profil-kat';
+export * from './rundown';
+
+// Export all relations
+export * from './relations';

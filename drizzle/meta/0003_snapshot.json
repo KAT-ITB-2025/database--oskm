@@ -1,6 +1,6 @@
 {
-  "id": "59b6bb09-eeff-4a42-a40a-a0cf398e6b09",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "a756622a-9fc1-4111-b8d4-6ec526d177c3",
+  "prevId": "96a46d6d-caa7-4725-901f-896ad61f9ccd",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -75,15 +75,15 @@
         "endpoint_analytics_user_id_users_id_fk": {
           "name": "endpoint_analytics_user_id_users_id_fk",
           "tableFrom": "endpoint_analytics",
-          "tableTo": "users",
           "columnsFrom": [
             "user_id"
           ],
+          "tableTo": "users",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "set null"
         }
       },
       "compositePrimaryKeys": {},
@@ -148,10 +148,10 @@
       "uniqueConstraints": {
         "accounts_nim_unique": {
           "name": "accounts_nim_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "nim"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       },
       "policies": {},
@@ -235,45 +235,45 @@
         "users_id_accounts_id_fk": {
           "name": "users_id_accounts_id_fk",
           "tableFrom": "users",
-          "tableTo": "accounts",
           "columnsFrom": [
             "id"
           ],
+          "tableTo": "accounts",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "users_foto_media_id_media_id_fk": {
           "name": "users_foto_media_id_media_id_fk",
           "tableFrom": "users",
-          "tableTo": "media",
           "columnsFrom": [
             "foto_media_id"
           ],
+          "tableTo": "media",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "users_nim_unique": {
           "name": "users_nim_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "nim"
-          ]
+          ],
+          "nullsNotDistinct": false
         },
         "users_email_unique": {
           "name": "users_email_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "email"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       },
       "policies": {},
@@ -328,28 +328,28 @@
         "class_registrations_user_id_users_id_fk": {
           "name": "class_registrations_user_id_users_id_fk",
           "tableFrom": "class_registrations",
-          "tableTo": "users",
           "columnsFrom": [
             "user_id"
           ],
+          "tableTo": "users",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "class_registrations_class_id_classes_id_fk": {
           "name": "class_registrations_class_id_classes_id_fk",
           "tableFrom": "class_registrations",
-          "tableTo": "classes",
           "columnsFrom": [
             "class_id"
           ],
+          "tableTo": "classes",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -418,15 +418,15 @@
         "classes_mentor_id_users_id_fk": {
           "name": "classes_mentor_id_users_id_fk",
           "tableFrom": "classes",
-          "tableTo": "users",
           "columnsFrom": [
             "mentor_id"
           ],
+          "tableTo": "users",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -443,6 +443,12 @@
           "name": "id",
           "type": "text",
           "primaryKey": true,
+          "notNull": true
+        },
+        "day_number": {
+          "name": "day_number",
+          "type": "integer",
+          "primaryKey": false,
           "notNull": true
         },
         "title": {
@@ -533,28 +539,28 @@
         "user_attendance_schedule_id_attendances_id_fk": {
           "name": "user_attendance_schedule_id_attendances_id_fk",
           "tableFrom": "user_attendance",
-          "tableTo": "attendances",
           "columnsFrom": [
             "schedule_id"
           ],
+          "tableTo": "attendances",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "user_attendance_user_id_users_id_fk": {
           "name": "user_attendance_user_id_users_id_fk",
           "tableFrom": "user_attendance",
-          "tableTo": "users",
           "columnsFrom": [
             "user_id"
           ],
+          "tableTo": "users",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -623,15 +629,15 @@
         "media_creator_id_users_id_fk": {
           "name": "media_creator_id_users_id_fk",
           "tableFrom": "media",
-          "tableTo": "users",
           "columnsFrom": [
             "creator_id"
           ],
+          "tableTo": "users",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -700,15 +706,15 @@
         "assignments_profil_profil_kat_id_profil_kats_id_fk": {
           "name": "assignments_profil_profil_kat_id_profil_kats_id_fk",
           "tableFrom": "assignments_profil",
-          "tableTo": "profil_kats",
           "columnsFrom": [
             "profil_kat_id"
           ],
+          "tableTo": "profil_kats",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -727,6 +733,12 @@
           "primaryKey": true,
           "notNull": true
         },
+        "profil_number": {
+          "name": "profil_number",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
         "title": {
           "name": "title",
           "type": "text",
@@ -743,7 +755,15 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
+      "uniqueConstraints": {
+        "profil_kats_profil_number_unique": {
+          "name": "profil_kats_profil_number_unique",
+          "columns": [
+            "profil_number"
+          ],
+          "nullsNotDistinct": false
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
@@ -802,41 +822,41 @@
         "submissions_profil_assignment_id_assignments_profil_id_fk": {
           "name": "submissions_profil_assignment_id_assignments_profil_id_fk",
           "tableFrom": "submissions_profil",
-          "tableTo": "assignments_profil",
           "columnsFrom": [
             "assignment_id"
           ],
+          "tableTo": "assignments_profil",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "submissions_profil_user_id_users_id_fk": {
           "name": "submissions_profil_user_id_users_id_fk",
           "tableFrom": "submissions_profil",
-          "tableTo": "users",
           "columnsFrom": [
             "user_id"
           ],
+          "tableTo": "users",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "submissions_profil_submission_media_id_media_id_fk": {
           "name": "submissions_profil_submission_media_id_media_id_fk",
           "tableFrom": "submissions_profil",
-          "tableTo": "media",
           "columnsFrom": [
             "submission_media_id"
           ],
+          "tableTo": "media",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -871,7 +891,8 @@
           "name": "quiz_weight",
           "type": "real",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "default": 0
         },
         "created_at": {
           "name": "created_at",
@@ -892,15 +913,15 @@
         "stages_profil_id_profil_kats_id_fk": {
           "name": "stages_profil_id_profil_kats_id_fk",
           "tableFrom": "stages",
-          "tableTo": "profil_kats",
           "columnsFrom": [
             "profil_id"
           ],
+          "tableTo": "profil_kats",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -962,28 +983,28 @@
         "user_stage_progress_user_id_users_id_fk": {
           "name": "user_stage_progress_user_id_users_id_fk",
           "tableFrom": "user_stage_progress",
-          "tableTo": "users",
           "columnsFrom": [
             "user_id"
           ],
+          "tableTo": "users",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         },
         "user_stage_progress_stage_id_stages_id_fk": {
           "name": "user_stage_progress_stage_id_stages_id_fk",
           "tableFrom": "user_stage_progress",
-          "tableTo": "stages",
           "columnsFrom": [
             "stage_id"
           ],
+          "tableTo": "stages",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -1040,15 +1061,15 @@
         "question_answer_options_question_id_questions_id_fk": {
           "name": "question_answer_options_question_id_questions_id_fk",
           "tableFrom": "question_answer_options",
-          "tableTo": "questions",
           "columnsFrom": [
             "question_id"
           ],
+          "tableTo": "questions",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -1105,15 +1126,15 @@
         "questions_stage_id_stages_id_fk": {
           "name": "questions_stage_id_stages_id_fk",
           "tableFrom": "questions",
-          "tableTo": "stages",
           "columnsFrom": [
             "stage_id"
           ],
+          "tableTo": "stages",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -1222,9 +1243,7 @@
       "schema": "public",
       "values": [
         "hadir",
-        "tidak_hadir",
-        "izin",
-        "sakit"
+        "tidak_hadir"
       ]
     },
     "public.media_bucket_enum": {
@@ -1255,10 +1274,227 @@
     }
   },
   "schemas": {},
+  "views": {
+    "public.user_ranking_view": {
+      "name": "user_ranking_view",
+      "schema": "public",
+      "columns": {
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "nim": {
+          "name": "nim",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "full_name": {
+          "name": "full_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fakultas": {
+          "name": "fakultas",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "keluarga": {
+          "name": "keluarga",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "bata": {
+          "name": "bata",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rumpun": {
+          "name": "rumpun",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "foto_media_id": {
+          "name": "foto_media_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "profil1_quiz_weight": {
+          "name": "profil1_quiz_weight",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "profil1_quiz_score": {
+          "name": "profil1_quiz_score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "profil1_avg_assignment_score": {
+          "name": "profil1_avg_assignment_score",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "profil1_total_score": {
+          "name": "profil1_total_score",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "profil2_quiz_weight": {
+          "name": "profil2_quiz_weight",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "profil2_quiz_score": {
+          "name": "profil2_quiz_score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "profil2_avg_assignment_score": {
+          "name": "profil2_avg_assignment_score",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "profil2_total_score": {
+          "name": "profil2_total_score",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "profil3_quiz_weight": {
+          "name": "profil3_quiz_weight",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "profil3_quiz_score": {
+          "name": "profil3_quiz_score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "profil3_avg_assignment_score": {
+          "name": "profil3_avg_assignment_score",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "profil3_total_score": {
+          "name": "profil3_total_score",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "profil4_quiz_weight": {
+          "name": "profil4_quiz_weight",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "profil4_quiz_score": {
+          "name": "profil4_quiz_score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "profil4_avg_assignment_score": {
+          "name": "profil4_avg_assignment_score",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "profil4_total_score": {
+          "name": "profil4_total_score",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "profil5_quiz_weight": {
+          "name": "profil5_quiz_weight",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "profil5_quiz_score": {
+          "name": "profil5_quiz_score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "profil5_avg_assignment_score": {
+          "name": "profil5_avg_assignment_score",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "profil5_total_score": {
+          "name": "profil5_total_score",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "total_score": {
+          "name": "total_score",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "last_activity_at": {
+          "name": "last_activity_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ranking": {
+          "name": "ranking",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "definition": "\n  WITH user_assignment_scores AS (\n    SELECT \n      u.id as user_id,\n      pk.profil_number,\n      COALESCE(AVG(sp.score), 0) as avg_assignment_score,\n      MAX(sp.created_at) as last_assignment_at\n    FROM users u\n    CROSS JOIN profil_kats pk \n    LEFT JOIN assignments_profil ap ON ap.profil_kat_id = pk.id\n    LEFT JOIN submissions_profil sp ON sp.assignment_id = ap.id AND sp.user_id = u.id\n    WHERE pk.profil_number IN (1, 2, 3, 4, 5)\n    GROUP BY u.id, pk.profil_number\n  ),\n  user_quiz_scores AS (\n    SELECT \n      u.id as user_id,\n      pk.profil_number,\n      COALESCE(s.quiz_weight, 0.0) as quiz_weight,\n      COALESCE(usp.quiz_score, 0) as quiz_score,\n      usp.completed_at as quiz_completed_at\n    FROM users u\n    CROSS JOIN profil_kats pk \n    LEFT JOIN stages s ON s.profil_id = pk.id\n    LEFT JOIN user_stage_progress usp ON usp.user_id = u.id AND usp.stage_id = s.id AND usp.status = 'completed'\n    WHERE pk.profil_number IN (1, 2, 3, 4, 5)\n  ),\n  user_scores AS (\n    SELECT \n      u.id as user_id,\n      u.nim,\n      u.full_name,\n      u.fakultas,\n      u.keluarga,\n      u.bata,\n      u.rumpun,\n      u.foto_media_id,\n      \n      -- Profil 1 scores (all with COALESCE to ensure NOT NULL)\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 1 THEN uqs.quiz_weight END), 0.0) as profil1_quiz_weight,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 1 THEN uqs.quiz_score END), 0) as profil1_quiz_score,\n      COALESCE(MAX(CASE WHEN uas.profil_number = 1 THEN uas.avg_assignment_score END), 0.0) as profil1_avg_assignment_score,\n      \n      -- Profil 2 scores  \n      COALESCE(MAX(CASE WHEN uqs.profil_number = 2 THEN uqs.quiz_weight END), 0.0) as profil2_quiz_weight,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 2 THEN uqs.quiz_score END), 0) as profil2_quiz_score,\n      COALESCE(MAX(CASE WHEN uas.profil_number = 2 THEN uas.avg_assignment_score END), 0.0) as profil2_avg_assignment_score,\n      \n      -- Profil 3 scores\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 3 THEN uqs.quiz_weight END), 0.0) as profil3_quiz_weight,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 3 THEN uqs.quiz_score END), 0) as profil3_quiz_score,\n      COALESCE(MAX(CASE WHEN uas.profil_number = 3 THEN uas.avg_assignment_score END), 0.0) as profil3_avg_assignment_score,\n      \n      -- Profil 4 scores\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 4 THEN uqs.quiz_weight END), 0.0) as profil4_quiz_weight,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 4 THEN uqs.quiz_score END), 0) as profil4_quiz_score,\n      COALESCE(MAX(CASE WHEN uas.profil_number = 4 THEN uas.avg_assignment_score END), 0.0) as profil4_avg_assignment_score,\n      \n      -- Profil 5 scores\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 5 THEN uqs.quiz_weight END), 0.0) as profil5_quiz_weight,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 5 THEN uqs.quiz_score END), 0) as profil5_quiz_score,\n      COALESCE(MAX(CASE WHEN uas.profil_number = 5 THEN uas.avg_assignment_score END), 0.0) as profil5_avg_assignment_score,\n\n      -- Last activity timestamps\n      MAX(CASE WHEN uqs.profil_number = 1 THEN GREATEST(COALESCE(uqs.quiz_completed_at, '1970-01-01'::timestamp), COALESCE(uas.last_assignment_at, '1970-01-01'::timestamp)) END) as profil1_last_activity,\n      MAX(CASE WHEN uqs.profil_number = 2 THEN GREATEST(COALESCE(uqs.quiz_completed_at, '1970-01-01'::timestamp), COALESCE(uas.last_assignment_at, '1970-01-01'::timestamp)) END) as profil2_last_activity,\n      MAX(CASE WHEN uqs.profil_number = 3 THEN GREATEST(COALESCE(uqs.quiz_completed_at, '1970-01-01'::timestamp), COALESCE(uas.last_assignment_at, '1970-01-01'::timestamp)) END) as profil3_last_activity,\n      MAX(CASE WHEN uqs.profil_number = 4 THEN GREATEST(COALESCE(uqs.quiz_completed_at, '1970-01-01'::timestamp), COALESCE(uas.last_assignment_at, '1970-01-01'::timestamp)) END) as profil4_last_activity,\n      MAX(CASE WHEN uqs.profil_number = 5 THEN GREATEST(COALESCE(uqs.quiz_completed_at, '1970-01-01'::timestamp), COALESCE(uas.last_assignment_at, '1970-01-01'::timestamp)) END) as profil5_last_activity\n\n    FROM users u\n    LEFT JOIN user_quiz_scores uqs ON uqs.user_id = u.id\n    LEFT JOIN user_assignment_scores uas ON uas.user_id = u.id AND uas.profil_number = uqs.profil_number\n    GROUP BY u.id, u.nim, u.full_name, u.fakultas, u.keluarga, u.bata, u.rumpun, u.foto_media_id\n  )\n  SELECT \n    user_id,\n    nim,\n    full_name,\n    fakultas,\n    keluarga,\n    bata,\n    rumpun,\n    foto_media_id,\n    profil1_quiz_weight,\n    profil1_quiz_score,\n    profil1_avg_assignment_score,\n    (profil1_quiz_weight * profil1_quiz_score) + ((1 - profil1_quiz_weight) * profil1_avg_assignment_score) as profil1_total_score,\n    \n    profil2_quiz_weight,\n    profil2_quiz_score,\n    profil2_avg_assignment_score,\n    (profil2_quiz_weight * profil2_quiz_score) + ((1 - profil2_quiz_weight) * profil2_avg_assignment_score) as profil2_total_score,\n    \n    profil3_quiz_weight,\n    profil3_quiz_score,\n    profil3_avg_assignment_score,\n    (profil3_quiz_weight * profil3_quiz_score) + ((1 - profil3_quiz_weight) * profil3_avg_assignment_score) as profil3_total_score,\n    \n    profil4_quiz_weight,\n    profil4_quiz_score,\n    profil4_avg_assignment_score,\n    (profil4_quiz_weight * profil4_quiz_score) + ((1 - profil4_quiz_weight) * profil4_avg_assignment_score) as profil4_total_score,\n    \n    profil5_quiz_weight,\n    profil5_quiz_score,\n    profil5_avg_assignment_score,\n    (profil5_quiz_weight * profil5_quiz_score) + ((1 - profil5_quiz_weight) * profil5_avg_assignment_score) as profil5_total_score,\n    \n    -- Total score across all profils\n    (profil1_quiz_weight * profil1_quiz_score) + ((1 - profil1_quiz_weight) * profil1_avg_assignment_score) + \n    (profil2_quiz_weight * profil2_quiz_score) + ((1 - profil2_quiz_weight) * profil2_avg_assignment_score) + \n    (profil3_quiz_weight * profil3_quiz_score) + ((1 - profil3_quiz_weight) * profil3_avg_assignment_score) + \n    (profil4_quiz_weight * profil4_quiz_score) + ((1 - profil4_quiz_weight) * profil4_avg_assignment_score) + \n    (profil5_quiz_weight * profil5_quiz_score) + ((1 - profil5_quiz_weight) * profil5_avg_assignment_score) as total_score,\n    \n    -- Latest activity timestamp\n    GREATEST(\n      COALESCE(profil1_last_activity, '1970-01-01'::timestamp),\n      COALESCE(profil2_last_activity, '1970-01-01'::timestamp),\n      COALESCE(profil3_last_activity, '1970-01-01'::timestamp),\n      COALESCE(profil4_last_activity, '1970-01-01'::timestamp),\n      COALESCE(profil5_last_activity, '1970-01-01'::timestamp)\n    ) as last_activity_at,\n    \n    ROW_NUMBER() OVER (ORDER BY \n      (profil1_quiz_weight * profil1_quiz_score) + ((1 - profil1_quiz_weight) * profil1_avg_assignment_score) + \n      (profil2_quiz_weight * profil2_quiz_score) + ((1 - profil2_quiz_weight) * profil2_avg_assignment_score) + \n      (profil3_quiz_weight * profil3_quiz_score) + ((1 - profil3_quiz_weight) * profil3_avg_assignment_score) + \n      (profil4_quiz_weight * profil4_quiz_score) + ((1 - profil4_quiz_weight) * profil4_avg_assignment_score) + \n      (profil5_quiz_weight * profil5_quiz_score) + ((1 - profil5_quiz_weight) * profil5_avg_assignment_score) DESC, \n      GREATEST(\n        COALESCE(profil1_last_activity, '1970-01-01'::timestamp),\n        COALESCE(profil2_last_activity, '1970-01-01'::timestamp),\n        COALESCE(profil3_last_activity, '1970-01-01'::timestamp),\n        COALESCE(profil4_last_activity, '1970-01-01'::timestamp),\n        COALESCE(profil5_last_activity, '1970-01-01'::timestamp)\n      ) DESC\n    ) as ranking\n  FROM user_scores\n  ORDER BY ranking\n",
+      "materialized": true,
+      "isExisting": false
+    }
+  },
   "sequences": {},
   "roles": {},
   "policies": {},
-  "views": {},
   "_meta": {
     "columns": {},
     "schemas": {},
