@@ -28,8 +28,15 @@ export const assignmentsProfil = pgTable('assignments_profil', {
     .notNull()
     .references(() => profilKATs.id),
   title: text('title').notNull(),
+  assignmentMediaId: text('assignment_media_id')
+    .notNull()
+    .references(() => media.id),
   description: text('description'),
-  dueDate: timestamp('due_date').notNull(),
+  dueDate: timestamp('due_date', {
+    mode: 'date',
+    withTimezone: true
+  })
+    .notNull(),
   isOpen: boolean('is_open').default(false).notNull(),
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').$onUpdate(getNow),
