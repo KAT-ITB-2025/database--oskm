@@ -1,7 +1,7 @@
 import { relations } from 'drizzle-orm';
 
 // Import all tables
-import { accounts, users } from './auth';
+import { accounts, emailVerificationOtps, users } from './auth';
 import { media } from './media';
 import { attendances, userAttendance } from './engagement';
 import {
@@ -16,6 +16,7 @@ import {
 import { endpointAnalytics } from './analytics';
 import { classes, classRegistrations } from './class';
 import { activities } from './rundown';
+import { verificationToken } from './auth/verificationToken';
 
 // Auth Relations
 export const accountsRelation = relations(accounts, ({ one }) => ({
@@ -42,6 +43,26 @@ export const usersRelation = relations(users, ({ one, many }) => ({
   classRegistrations: many(classRegistrations),
   mentorClasses: many(classes),
 }));
+
+export const emailVerificationOtpsRelations = relations(
+  emailVerificationOtps,
+  ({ one }) => ({
+    user: one(users, {
+      fields: [emailVerificationOtps.userId],
+      references: [users.id],
+    }),
+  }),
+);
+
+export const verificationTokenRelations = relations(
+  verificationToken,
+  ({ one }) => ({
+    user: one(users, {
+      fields: [verificationToken.identifier],
+      references: [users.email],
+    }),
+  }),
+);
 
 // Media Relations
 export const mediaRelation = relations(media, ({ one, many }) => ({

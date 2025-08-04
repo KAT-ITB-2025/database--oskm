@@ -1,6 +1,7 @@
 import { relations } from 'drizzle-orm';
 import {
   AnyPgColumn,
+  boolean,
   date,
   pgTable,
   text,
@@ -17,6 +18,7 @@ export const users = pgTable('users', {
     .primaryKey(),
   nim: text('nim').notNull().unique(),
   email: text('email').unique(),
+  emailVerified: boolean('email_verified').notNull().default(false),
   fullName: text('full_name'),
   fakultas: text('fakultas'),
   keluarga: text('keluarga'),
@@ -25,4 +27,17 @@ export const users = pgTable('users', {
   fotoMediaId: text('foto_media_id').references((): AnyPgColumn => media.id),
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').$onUpdate(getNow),
+});
+
+export const emailVerificationOtps = pgTable('email_verification_otps', {
+  userId: text('user_id')
+    .notNull()
+    .references((): AnyPgColumn => users.id, { onDelete: 'cascade' }),
+  otp: text('otp').notNull(),
+  expiresAt: timestamp('expires_at', {
+    mode: 'date',
+    withTimezone: true
+  })
+    .notNull(),
+  createdAt: timestamp('created_at').defaultNow(),
 });
