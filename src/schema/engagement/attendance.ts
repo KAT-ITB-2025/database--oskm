@@ -9,21 +9,43 @@ import {
 } from 'drizzle-orm/pg-core';
 import { getNow, createId } from '../../drizzle-schema-util';
 import { users } from '../auth/users';
+import { profilKATs } from '../profil-kat';
 
 export const attendanceStatusEnum = pgEnum('attendance_status', [
   'hadir',
   'tidak_hadir',
 ]);
 
+export const attendanceTypeEnum = pgEnum('attendance_type', [
+  'opening',
+  'closing',
+]);
+
 export const attendances = pgTable('attendances', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => createId()),
+  profilKATId: text('profil_kat_id')
+    .notNull()
+    .references(() => profilKATs.id),
+  attendanceType: attendanceTypeEnum('attendance_type').notNull(),
   dayNumber: integer('day_number').notNull(),
-  title: text('title').notNull(),
-  description: text('description'),
   startTime: timestamp('start_time').notNull(),
   durationMinutes: integer('duration_minutes').notNull(),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').$onUpdate(getNow),
+});
+
+export const profilKATAttendances = pgTable('profil_kat_attendance', {
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => createId()),
+  profilKATId: text('profil_kat_id')
+    .notNull()
+    .references(() => profilKATs.id),
+  attendanceId: text('attendance_id')
+    .notNull()
+    .references(() => attendances.id),
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').$onUpdate(getNow),
 });

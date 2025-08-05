@@ -21,7 +21,6 @@ export const stages = pgTable('stages', {
     .notNull()
     .references(() => profilKATs.id),
   stageNumber: integer('stage_number').notNull(),
-  quizWeight: real('quiz_weight').notNull().default(0.0),
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').$onUpdate(getNow),
 });

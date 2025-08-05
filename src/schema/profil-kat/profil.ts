@@ -4,6 +4,7 @@ import {
   boolean,
   integer,
   pgTable,
+  real,
   text,
   timestamp,
 } from 'drizzle-orm/pg-core';
@@ -16,6 +17,9 @@ export const profilKATs = pgTable('profil_kats', {
     .primaryKey()
     .$defaultFn(() => createId()),
   profilNumber: integer('profil_number').notNull().unique(),
+  quizWeight: real('quiz_weight').notNull().default(0.0),
+  assignmentWeight: real('assignment_weight').notNull().default(0.0),
+  attendanceWeight: real('attendance_weight').notNull().default(0.0),
   title: text('title').notNull(),
   description: text('description'),
 });
