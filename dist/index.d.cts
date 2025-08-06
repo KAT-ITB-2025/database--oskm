@@ -908,6 +908,7 @@ declare const classRegistrations: drizzle_orm_pg_core.PgTableWithColumns<{
 }>;
 
 declare const attendanceStatusEnum: drizzle_orm_pg_core.PgEnum<["hadir", "tidak_hadir"]>;
+declare const attendanceTypeEnum: drizzle_orm_pg_core.PgEnum<["opening", "closing"]>;
 declare const attendances: drizzle_orm_pg_core.PgTableWithColumns<{
     name: "attendances";
     schema: undefined;
@@ -929,6 +930,23 @@ declare const attendances: drizzle_orm_pg_core.PgTableWithColumns<{
             identity: undefined;
             generated: undefined;
         }, {}, {}>;
+        attendanceType: drizzle_orm_pg_core.PgColumn<{
+            name: "attendance_type";
+            tableName: "attendances";
+            dataType: "string";
+            columnType: "PgEnumColumn";
+            data: "opening" | "closing";
+            driverParam: string;
+            notNull: true;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: ["opening", "closing"];
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
         dayNumber: drizzle_orm_pg_core.PgColumn<{
             name: "day_number";
             tableName: "attendances";
@@ -942,40 +960,6 @@ declare const attendances: drizzle_orm_pg_core.PgTableWithColumns<{
             isAutoincrement: false;
             hasRuntimeDefault: false;
             enumValues: undefined;
-            baseColumn: never;
-            identity: undefined;
-            generated: undefined;
-        }, {}, {}>;
-        title: drizzle_orm_pg_core.PgColumn<{
-            name: "title";
-            tableName: "attendances";
-            dataType: "string";
-            columnType: "PgText";
-            data: string;
-            driverParam: string;
-            notNull: true;
-            hasDefault: false;
-            isPrimaryKey: false;
-            isAutoincrement: false;
-            hasRuntimeDefault: false;
-            enumValues: [string, ...string[]];
-            baseColumn: never;
-            identity: undefined;
-            generated: undefined;
-        }, {}, {}>;
-        description: drizzle_orm_pg_core.PgColumn<{
-            name: "description";
-            tableName: "attendances";
-            dataType: "string";
-            columnType: "PgText";
-            data: string;
-            driverParam: string;
-            notNull: false;
-            hasDefault: false;
-            isPrimaryKey: false;
-            isAutoincrement: false;
-            hasRuntimeDefault: false;
-            enumValues: [string, ...string[]];
             baseColumn: never;
             identity: undefined;
             generated: undefined;
@@ -1034,6 +1018,98 @@ declare const attendances: drizzle_orm_pg_core.PgTableWithColumns<{
         updatedAt: drizzle_orm_pg_core.PgColumn<{
             name: "updated_at";
             tableName: "attendances";
+            dataType: "date";
+            columnType: "PgTimestamp";
+            data: Date;
+            driverParam: string;
+            notNull: false;
+            hasDefault: true;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+    };
+    dialect: "pg";
+}>;
+declare const profilKATAttendances: drizzle_orm_pg_core.PgTableWithColumns<{
+    name: "profil_kat_attendance";
+    schema: undefined;
+    columns: {
+        id: drizzle_orm_pg_core.PgColumn<{
+            name: "id";
+            tableName: "profil_kat_attendance";
+            dataType: "string";
+            columnType: "PgText";
+            data: string;
+            driverParam: string;
+            notNull: true;
+            hasDefault: true;
+            isPrimaryKey: true;
+            isAutoincrement: false;
+            hasRuntimeDefault: true;
+            enumValues: [string, ...string[]];
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        profilKATId: drizzle_orm_pg_core.PgColumn<{
+            name: "profil_kat_id";
+            tableName: "profil_kat_attendance";
+            dataType: "string";
+            columnType: "PgText";
+            data: string;
+            driverParam: string;
+            notNull: true;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: [string, ...string[]];
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        attendanceId: drizzle_orm_pg_core.PgColumn<{
+            name: "attendance_id";
+            tableName: "profil_kat_attendance";
+            dataType: "string";
+            columnType: "PgText";
+            data: string;
+            driverParam: string;
+            notNull: true;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: [string, ...string[]];
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        createdAt: drizzle_orm_pg_core.PgColumn<{
+            name: "created_at";
+            tableName: "profil_kat_attendance";
+            dataType: "date";
+            columnType: "PgTimestamp";
+            data: Date;
+            driverParam: string;
+            notNull: false;
+            hasDefault: true;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        updatedAt: drizzle_orm_pg_core.PgColumn<{
+            name: "updated_at";
+            tableName: "profil_kat_attendance";
             dataType: "date";
             columnType: "PgTimestamp";
             data: Date;
@@ -1319,6 +1395,57 @@ declare const profilKATs: drizzle_orm_pg_core.PgTableWithColumns<{
             driverParam: string | number;
             notNull: true;
             hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        quizWeight: drizzle_orm_pg_core.PgColumn<{
+            name: "quiz_weight";
+            tableName: "profil_kats";
+            dataType: "number";
+            columnType: "PgReal";
+            data: number;
+            driverParam: string | number;
+            notNull: true;
+            hasDefault: true;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        assignmentWeight: drizzle_orm_pg_core.PgColumn<{
+            name: "assignment_weight";
+            tableName: "profil_kats";
+            dataType: "number";
+            columnType: "PgReal";
+            data: number;
+            driverParam: string | number;
+            notNull: true;
+            hasDefault: true;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        attendanceWeight: drizzle_orm_pg_core.PgColumn<{
+            name: "attendance_weight";
+            tableName: "profil_kats";
+            dataType: "number";
+            columnType: "PgReal";
+            data: number;
+            driverParam: string | number;
+            notNull: true;
+            hasDefault: true;
             isPrimaryKey: false;
             isAutoincrement: false;
             hasRuntimeDefault: false;
@@ -1699,23 +1826,6 @@ declare const stages: drizzle_orm_pg_core.PgTableWithColumns<{
             driverParam: string | number;
             notNull: true;
             hasDefault: false;
-            isPrimaryKey: false;
-            isAutoincrement: false;
-            hasRuntimeDefault: false;
-            enumValues: undefined;
-            baseColumn: never;
-            identity: undefined;
-            generated: undefined;
-        }, {}, {}>;
-        quizWeight: drizzle_orm_pg_core.PgColumn<{
-            name: "quiz_weight";
-            tableName: "stages";
-            dataType: "number";
-            columnType: "PgReal";
-            data: number;
-            driverParam: string | number;
-            notNull: true;
-            hasDefault: true;
             isPrimaryKey: false;
             isAutoincrement: false;
             hasRuntimeDefault: false;
@@ -2279,8 +2389,59 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
         identity: undefined;
         generated: undefined;
     }, {}, {}>;
+    profil1AssignmentWeight: drizzle_orm_pg_core.PgColumn<{
+        name: "profil1_assignment_weight";
+        tableName: "user_ranking_view";
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
+        notNull: true;
+        hasDefault: true;
+        isPrimaryKey: false;
+        isAutoincrement: false;
+        hasRuntimeDefault: false;
+        enumValues: undefined;
+        baseColumn: never;
+        identity: undefined;
+        generated: undefined;
+    }, {}, {}>;
     profil1AvgAssignmentScore: drizzle_orm_pg_core.PgColumn<{
         name: "profil1_avg_assignment_score";
+        tableName: "user_ranking_view";
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
+        notNull: true;
+        hasDefault: true;
+        isPrimaryKey: false;
+        isAutoincrement: false;
+        hasRuntimeDefault: false;
+        enumValues: undefined;
+        baseColumn: never;
+        identity: undefined;
+        generated: undefined;
+    }, {}, {}>;
+    profil1AttendanceWeight: drizzle_orm_pg_core.PgColumn<{
+        name: "profil1_attendance_weight";
+        tableName: "user_ranking_view";
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
+        notNull: true;
+        hasDefault: true;
+        isPrimaryKey: false;
+        isAutoincrement: false;
+        hasRuntimeDefault: false;
+        enumValues: undefined;
+        baseColumn: never;
+        identity: undefined;
+        generated: undefined;
+    }, {}, {}>;
+    profil1AvgAttendanceScore: drizzle_orm_pg_core.PgColumn<{
+        name: "profil1_avg_attendance_score";
         tableName: "user_ranking_view";
         dataType: "number";
         columnType: "PgReal";
@@ -2347,8 +2508,59 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
         identity: undefined;
         generated: undefined;
     }, {}, {}>;
+    profil2AssignmentWeight: drizzle_orm_pg_core.PgColumn<{
+        name: "profil2_assignment_weight";
+        tableName: "user_ranking_view";
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
+        notNull: true;
+        hasDefault: true;
+        isPrimaryKey: false;
+        isAutoincrement: false;
+        hasRuntimeDefault: false;
+        enumValues: undefined;
+        baseColumn: never;
+        identity: undefined;
+        generated: undefined;
+    }, {}, {}>;
     profil2AvgAssignmentScore: drizzle_orm_pg_core.PgColumn<{
         name: "profil2_avg_assignment_score";
+        tableName: "user_ranking_view";
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
+        notNull: true;
+        hasDefault: true;
+        isPrimaryKey: false;
+        isAutoincrement: false;
+        hasRuntimeDefault: false;
+        enumValues: undefined;
+        baseColumn: never;
+        identity: undefined;
+        generated: undefined;
+    }, {}, {}>;
+    profil2AttendanceWeight: drizzle_orm_pg_core.PgColumn<{
+        name: "profil2_attendance_weight";
+        tableName: "user_ranking_view";
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
+        notNull: true;
+        hasDefault: true;
+        isPrimaryKey: false;
+        isAutoincrement: false;
+        hasRuntimeDefault: false;
+        enumValues: undefined;
+        baseColumn: never;
+        identity: undefined;
+        generated: undefined;
+    }, {}, {}>;
+    profil2AvgAttendanceScore: drizzle_orm_pg_core.PgColumn<{
+        name: "profil2_avg_attendance_score";
         tableName: "user_ranking_view";
         dataType: "number";
         columnType: "PgReal";
@@ -2415,8 +2627,59 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
         identity: undefined;
         generated: undefined;
     }, {}, {}>;
+    profil3AssignmentWeight: drizzle_orm_pg_core.PgColumn<{
+        name: "profil3_assignment_weight";
+        tableName: "user_ranking_view";
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
+        notNull: true;
+        hasDefault: true;
+        isPrimaryKey: false;
+        isAutoincrement: false;
+        hasRuntimeDefault: false;
+        enumValues: undefined;
+        baseColumn: never;
+        identity: undefined;
+        generated: undefined;
+    }, {}, {}>;
     profil3AvgAssignmentScore: drizzle_orm_pg_core.PgColumn<{
         name: "profil3_avg_assignment_score";
+        tableName: "user_ranking_view";
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
+        notNull: true;
+        hasDefault: true;
+        isPrimaryKey: false;
+        isAutoincrement: false;
+        hasRuntimeDefault: false;
+        enumValues: undefined;
+        baseColumn: never;
+        identity: undefined;
+        generated: undefined;
+    }, {}, {}>;
+    profil3AttendanceWeight: drizzle_orm_pg_core.PgColumn<{
+        name: "profil3_attendance_weight";
+        tableName: "user_ranking_view";
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
+        notNull: true;
+        hasDefault: true;
+        isPrimaryKey: false;
+        isAutoincrement: false;
+        hasRuntimeDefault: false;
+        enumValues: undefined;
+        baseColumn: never;
+        identity: undefined;
+        generated: undefined;
+    }, {}, {}>;
+    profil3AvgAttendanceScore: drizzle_orm_pg_core.PgColumn<{
+        name: "profil3_avg_attendance_score";
         tableName: "user_ranking_view";
         dataType: "number";
         columnType: "PgReal";
@@ -2483,8 +2746,59 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
         identity: undefined;
         generated: undefined;
     }, {}, {}>;
+    profil4AssignmentWeight: drizzle_orm_pg_core.PgColumn<{
+        name: "profil4_assignment_weight";
+        tableName: "user_ranking_view";
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
+        notNull: true;
+        hasDefault: true;
+        isPrimaryKey: false;
+        isAutoincrement: false;
+        hasRuntimeDefault: false;
+        enumValues: undefined;
+        baseColumn: never;
+        identity: undefined;
+        generated: undefined;
+    }, {}, {}>;
     profil4AvgAssignmentScore: drizzle_orm_pg_core.PgColumn<{
         name: "profil4_avg_assignment_score";
+        tableName: "user_ranking_view";
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
+        notNull: true;
+        hasDefault: true;
+        isPrimaryKey: false;
+        isAutoincrement: false;
+        hasRuntimeDefault: false;
+        enumValues: undefined;
+        baseColumn: never;
+        identity: undefined;
+        generated: undefined;
+    }, {}, {}>;
+    profil4AttendanceWeight: drizzle_orm_pg_core.PgColumn<{
+        name: "profil4_attendance_weight";
+        tableName: "user_ranking_view";
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
+        notNull: true;
+        hasDefault: true;
+        isPrimaryKey: false;
+        isAutoincrement: false;
+        hasRuntimeDefault: false;
+        enumValues: undefined;
+        baseColumn: never;
+        identity: undefined;
+        generated: undefined;
+    }, {}, {}>;
+    profil4AvgAttendanceScore: drizzle_orm_pg_core.PgColumn<{
+        name: "profil4_avg_attendance_score";
         tableName: "user_ranking_view";
         dataType: "number";
         columnType: "PgReal";
@@ -2551,8 +2865,59 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
         identity: undefined;
         generated: undefined;
     }, {}, {}>;
+    profil5AssignmentWeight: drizzle_orm_pg_core.PgColumn<{
+        name: "profil5_assignment_weight";
+        tableName: "user_ranking_view";
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
+        notNull: true;
+        hasDefault: true;
+        isPrimaryKey: false;
+        isAutoincrement: false;
+        hasRuntimeDefault: false;
+        enumValues: undefined;
+        baseColumn: never;
+        identity: undefined;
+        generated: undefined;
+    }, {}, {}>;
     profil5AvgAssignmentScore: drizzle_orm_pg_core.PgColumn<{
         name: "profil5_avg_assignment_score";
+        tableName: "user_ranking_view";
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
+        notNull: true;
+        hasDefault: true;
+        isPrimaryKey: false;
+        isAutoincrement: false;
+        hasRuntimeDefault: false;
+        enumValues: undefined;
+        baseColumn: never;
+        identity: undefined;
+        generated: undefined;
+    }, {}, {}>;
+    profil5AttendanceWeight: drizzle_orm_pg_core.PgColumn<{
+        name: "profil5_attendance_weight";
+        tableName: "user_ranking_view";
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
+        notNull: true;
+        hasDefault: true;
+        isPrimaryKey: false;
+        isAutoincrement: false;
+        hasRuntimeDefault: false;
+        enumValues: undefined;
+        baseColumn: never;
+        identity: undefined;
+        generated: undefined;
+    }, {}, {}>;
+    profil5AvgAttendanceScore: drizzle_orm_pg_core.PgColumn<{
+        name: "profil5_avg_attendance_score";
         tableName: "user_ranking_view";
         dataType: "number";
         columnType: "PgReal";
@@ -2844,10 +3209,15 @@ declare const mediaRelation: drizzle_orm.Relations<"media", {
 }>;
 declare const attendancesRelation: drizzle_orm.Relations<"attendances", {
     userAttendance: drizzle_orm.Many<"user_attendance">;
+    profilKATAttendances: drizzle_orm.Many<"profil_kat_attendance">;
 }>;
 declare const userAttendanceRelation: drizzle_orm.Relations<"user_attendance", {
     attendance: drizzle_orm.One<"attendances", true>;
     user: drizzle_orm.One<"users", true>;
+}>;
+declare const profilKATAttendancesRelation: drizzle_orm.Relations<"profil_kat_attendance", {
+    profilKAT: drizzle_orm.One<"profil_kats", true>;
+    attendance: drizzle_orm.One<"attendances", true>;
 }>;
 declare const stagesRelation: drizzle_orm.Relations<"stages", {
     userProgress: drizzle_orm.Many<"user_stage_progress">;
@@ -2867,6 +3237,7 @@ declare const questionAnswerOptionsRelation: drizzle_orm.Relations<"question_ans
 }>;
 declare const profilKATsRelation: drizzle_orm.Relations<"profil_kats", {
     assignments: drizzle_orm.Many<"assignments_profil">;
+    attendances: drizzle_orm.Many<"profil_kat_attendance">;
     stage: drizzle_orm.One<"stages", true>;
 }>;
 declare const assignmentsProfilRelation: drizzle_orm.Relations<"assignments_profil", {
@@ -2890,4 +3261,4 @@ declare const endpointAnalyticsRelation: drizzle_orm.Relations<"endpoint_analyti
     user: drizzle_orm.One<"users", false>;
 }>;
 
-export { accounts, accountsRelation, accountsRoleEnum, activities, assignmentsProfil, assignmentsProfilRelation, attendanceStatusEnum, attendances, attendancesRelation, classEnum, classRegistrations, classRegistrationsRelation, classes, classesRelation, createUserRankingViewIndexes, emailVerificationOtps, emailVerificationOtpsRelations, endpointAnalytics, endpointAnalyticsRelation, media, mediaBucketEnum, mediaRelation, profilKATs, profilKATsRelation, questionAnswerOptions, questionAnswerOptionsRelation, questionTypeEnum, questions, questionsRelation, refreshUserRankingView, stageStatusEnum, stages, stagesRelation, submissionsProfil, submissionsProfilRelation, userAttendance, userAttendanceRelation, userRankingView, userStageProgress, userStageProgressRelation, users, usersRelation, verificationToken, verificationTokenRelations };
+export { accounts, accountsRelation, accountsRoleEnum, activities, assignmentsProfil, assignmentsProfilRelation, attendanceStatusEnum, attendanceTypeEnum, attendances, attendancesRelation, classEnum, classRegistrations, classRegistrationsRelation, classes, classesRelation, createUserRankingViewIndexes, emailVerificationOtps, emailVerificationOtpsRelations, endpointAnalytics, endpointAnalyticsRelation, media, mediaBucketEnum, mediaRelation, profilKATAttendances, profilKATAttendancesRelation, profilKATs, profilKATsRelation, questionAnswerOptions, questionAnswerOptionsRelation, questionTypeEnum, questions, questionsRelation, refreshUserRankingView, stageStatusEnum, stages, stagesRelation, submissionsProfil, submissionsProfilRelation, userAttendance, userAttendanceRelation, userRankingView, userStageProgress, userStageProgressRelation, users, usersRelation, verificationToken, verificationTokenRelations };

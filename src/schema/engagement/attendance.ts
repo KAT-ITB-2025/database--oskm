@@ -25,9 +25,6 @@ export const attendances = pgTable('attendances', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => createId()),
-  profilKATId: text('profil_kat_id')
-    .notNull()
-    .references(() => profilKATs.id),
   attendanceType: attendanceTypeEnum('attendance_type').notNull(),
   dayNumber: integer('day_number').notNull(),
   startTime: timestamp('start_time').notNull(),

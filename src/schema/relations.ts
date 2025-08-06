@@ -3,7 +3,7 @@ import { relations } from 'drizzle-orm';
 // Import all tables
 import { accounts, emailVerificationOtps, users } from './auth';
 import { media } from './media';
-import { attendances, userAttendance } from './engagement';
+import { attendances, userAttendance, profilKATAttendances } from './engagement';
 import {
   stages,
   userStageProgress,
@@ -76,6 +76,7 @@ export const mediaRelation = relations(media, ({ one, many }) => ({
 // Engagement Relations
 export const attendancesRelation = relations(attendances, ({ many }) => ({
   userAttendance: many(userAttendance),
+  profilKATAttendances: many(profilKATAttendances),
 }));
 
 export const userAttendanceRelation = relations(userAttendance, ({ one }) => ({
@@ -86,6 +87,17 @@ export const userAttendanceRelation = relations(userAttendance, ({ one }) => ({
   user: one(users, {
     fields: [userAttendance.userId],
     references: [users.id],
+  }),
+}));
+
+export const profilKATAttendancesRelation = relations(profilKATAttendances, ({ one }) => ({
+  profilKAT: one(profilKATs, {
+    fields: [profilKATAttendances.profilKATId],
+    references: [profilKATs.id],
+  }),
+  attendance: one(attendances, {
+    fields: [profilKATAttendances.attendanceId],
+    references: [attendances.id],
   }),
 }));
 
@@ -133,6 +145,7 @@ export const questionAnswerOptionsRelation = relations(
 
 export const profilKATsRelation = relations(profilKATs, ({ many, one }) => ({
   assignments: many(assignmentsProfil),
+  attendances: many(profilKATAttendances),
   stage: one(stages, {
     fields: [profilKATs.id],
     references: [stages.profilId],

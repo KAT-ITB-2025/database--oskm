@@ -20,7 +20,12 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
   // Profil 1 - all NOT NULL with defaults
   profil1QuizWeight: real('profil1_quiz_weight').notNull().default(0.0),
   profil1QuizScore: integer('profil1_quiz_score').notNull().default(0),
+  profil1AssignmentWeight: real('profil1_assignment_weight').notNull().default(0.0),
   profil1AvgAssignmentScore: real('profil1_avg_assignment_score')
+    .notNull()
+    .default(0.0),
+  profil1AttendanceWeight: real('profil1_attendance_weight').notNull().default(0.0),
+  profil1AvgAttendanceScore: real('profil1_avg_attendance_score')
     .notNull()
     .default(0.0),
   profil1TotalScore: real('profil1_total_score').notNull().default(0.0),
@@ -28,7 +33,12 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
   // Profil 2
   profil2QuizWeight: real('profil2_quiz_weight').notNull().default(0.0),
   profil2QuizScore: integer('profil2_quiz_score').notNull().default(0),
+  profil2AssignmentWeight: real('profil2_assignment_weight').notNull().default(0.0),
   profil2AvgAssignmentScore: real('profil2_avg_assignment_score')
+    .notNull()
+    .default(0.0),
+  profil2AttendanceWeight: real('profil2_attendance_weight').notNull().default(0.0),
+  profil2AvgAttendanceScore: real('profil2_avg_attendance_score')
     .notNull()
     .default(0.0),
   profil2TotalScore: real('profil2_total_score').notNull().default(0.0),
@@ -36,7 +46,12 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
   // Profil 3
   profil3QuizWeight: real('profil3_quiz_weight').notNull().default(0.0),
   profil3QuizScore: integer('profil3_quiz_score').notNull().default(0),
+  profil3AssignmentWeight: real('profil3_assignment_weight').notNull().default(0.0),
   profil3AvgAssignmentScore: real('profil3_avg_assignment_score')
+    .notNull()
+    .default(0.0),
+  profil3AttendanceWeight: real('profil3_attendance_weight').notNull().default(0.0),
+  profil3AvgAttendanceScore: real('profil3_avg_attendance_score')
     .notNull()
     .default(0.0),
   profil3TotalScore: real('profil3_total_score').notNull().default(0.0),
@@ -44,7 +59,12 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
   // Profil 4
   profil4QuizWeight: real('profil4_quiz_weight').notNull().default(0.0),
   profil4QuizScore: integer('profil4_quiz_score').notNull().default(0),
+  profil4AssignmentWeight: real('profil4_assignment_weight').notNull().default(0.0),
   profil4AvgAssignmentScore: real('profil4_avg_assignment_score')
+    .notNull()
+    .default(0.0),
+  profil4AttendanceWeight: real('profil4_attendance_weight').notNull().default(0.0),
+  profil4AvgAttendanceScore: real('profil4_avg_attendance_score')
     .notNull()
     .default(0.0),
   profil4TotalScore: real('profil4_total_score').notNull().default(0.0),
@@ -52,7 +72,12 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
   // Profil 5
   profil5QuizWeight: real('profil5_quiz_weight').notNull().default(0.0),
   profil5QuizScore: integer('profil5_quiz_score').notNull().default(0),
+  profil5AssignmentWeight: real('profil5_assignment_weight').notNull().default(0.0),
   profil5AvgAssignmentScore: real('profil5_avg_assignment_score')
+    .notNull()
+    .default(0.0),
+  profil5AttendanceWeight: real('profil5_attendance_weight').notNull().default(0.0),
+  profil5AvgAttendanceScore: real('profil5_avg_attendance_score')
     .notNull()
     .default(0.0),
   profil5TotalScore: real('profil5_total_score').notNull().default(0.0),
@@ -78,7 +103,9 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
     SELECT 
       u.id as user_id,
       pk.profil_number,
-      COALESCE(s.quiz_weight, 0.0) as quiz_weight,
+      COALESCE(pk.quiz_weight, 0.0) as quiz_weight,
+      COALESCE(pk.assignment_weight, 0.0) as assignment_weight,
+      COALESCE(pk.attendance_weight, 0.0) as attendance_weight,
       COALESCE(usp.quiz_score, 0) as quiz_score,
       usp.completed_at as quiz_completed_at
     FROM users u
@@ -86,6 +113,20 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
     LEFT JOIN stages s ON s.profil_id = pk.id
     LEFT JOIN user_stage_progress usp ON usp.user_id = u.id AND usp.stage_id = s.id AND usp.status = 'completed'
     WHERE pk.profil_number IN (1, 2, 3, 4, 5)
+  ),
+  user_attendance_scores AS (
+    SELECT 
+      u.id as user_id,
+      pk.profil_number,
+      COALESCE(AVG(CASE WHEN ua.status = 'hadir' THEN 100.0 ELSE 0.0 END), 0.0) as avg_attendance_score,
+      MAX(ua.updated_at) as last_attendance_at
+    FROM users u
+    CROSS JOIN profil_kats pk
+    LEFT JOIN profil_kat_attendance pka ON pka.profil_kat_id = pk.id
+    LEFT JOIN attendances a ON a.id = pka.attendance_id
+    LEFT JOIN user_attendance ua ON ua.schedule_id = a.id AND ua.user_id = u.id
+    WHERE pk.profil_number IN (1, 2, 3, 4, 5)
+    GROUP BY u.id, pk.profil_number
   ),
   user_scores AS (
     SELECT 
@@ -101,38 +142,54 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
       -- Profil 1 scores (all with COALESCE to ensure NOT NULL)
       COALESCE(MAX(CASE WHEN uqs.profil_number = 1 THEN uqs.quiz_weight END), 0.0) as profil1_quiz_weight,
       COALESCE(MAX(CASE WHEN uqs.profil_number = 1 THEN uqs.quiz_score END), 0) as profil1_quiz_score,
+      COALESCE(MAX(CASE WHEN uqs.profil_number = 1 THEN uqs.assignment_weight END), 0.0) as profil1_assignment_weight,
       COALESCE(MAX(CASE WHEN uas.profil_number = 1 THEN uas.avg_assignment_score END), 0.0) as profil1_avg_assignment_score,
+      COALESCE(MAX(CASE WHEN uqs.profil_number = 1 THEN uqs.attendance_weight END), 0.0) as profil1_attendance_weight,
+      COALESCE(MAX(CASE WHEN uats.profil_number = 1 THEN uats.avg_attendance_score END), 0.0) as profil1_avg_attendance_score,
       
       -- Profil 2 scores  
       COALESCE(MAX(CASE WHEN uqs.profil_number = 2 THEN uqs.quiz_weight END), 0.0) as profil2_quiz_weight,
       COALESCE(MAX(CASE WHEN uqs.profil_number = 2 THEN uqs.quiz_score END), 0) as profil2_quiz_score,
+      COALESCE(MAX(CASE WHEN uqs.profil_number = 2 THEN uqs.assignment_weight END), 0.0) as profil2_assignment_weight,
       COALESCE(MAX(CASE WHEN uas.profil_number = 2 THEN uas.avg_assignment_score END), 0.0) as profil2_avg_assignment_score,
+      COALESCE(MAX(CASE WHEN uqs.profil_number = 2 THEN uqs.attendance_weight END), 0.0) as profil2_attendance_weight,
+      COALESCE(MAX(CASE WHEN uats.profil_number = 2 THEN uats.avg_attendance_score END), 0.0) as profil2_avg_attendance_score,
       
       -- Profil 3 scores
       COALESCE(MAX(CASE WHEN uqs.profil_number = 3 THEN uqs.quiz_weight END), 0.0) as profil3_quiz_weight,
       COALESCE(MAX(CASE WHEN uqs.profil_number = 3 THEN uqs.quiz_score END), 0) as profil3_quiz_score,
+      COALESCE(MAX(CASE WHEN uqs.profil_number = 3 THEN uqs.assignment_weight END), 0.0) as profil3_assignment_weight,
       COALESCE(MAX(CASE WHEN uas.profil_number = 3 THEN uas.avg_assignment_score END), 0.0) as profil3_avg_assignment_score,
+      COALESCE(MAX(CASE WHEN uqs.profil_number = 3 THEN uqs.attendance_weight END), 0.0) as profil3_attendance_weight,
+      COALESCE(MAX(CASE WHEN uats.profil_number = 3 THEN uats.avg_attendance_score END), 0.0) as profil3_avg_attendance_score,
       
       -- Profil 4 scores
       COALESCE(MAX(CASE WHEN uqs.profil_number = 4 THEN uqs.quiz_weight END), 0.0) as profil4_quiz_weight,
       COALESCE(MAX(CASE WHEN uqs.profil_number = 4 THEN uqs.quiz_score END), 0) as profil4_quiz_score,
+      COALESCE(MAX(CASE WHEN uqs.profil_number = 4 THEN uqs.assignment_weight END), 0.0) as profil4_assignment_weight,
       COALESCE(MAX(CASE WHEN uas.profil_number = 4 THEN uas.avg_assignment_score END), 0.0) as profil4_avg_assignment_score,
+      COALESCE(MAX(CASE WHEN uqs.profil_number = 4 THEN uqs.attendance_weight END), 0.0) as profil4_attendance_weight,
+      COALESCE(MAX(CASE WHEN uats.profil_number = 4 THEN uats.avg_attendance_score END), 0.0) as profil4_avg_attendance_score,
       
       -- Profil 5 scores
       COALESCE(MAX(CASE WHEN uqs.profil_number = 5 THEN uqs.quiz_weight END), 0.0) as profil5_quiz_weight,
       COALESCE(MAX(CASE WHEN uqs.profil_number = 5 THEN uqs.quiz_score END), 0) as profil5_quiz_score,
+      COALESCE(MAX(CASE WHEN uqs.profil_number = 5 THEN uqs.assignment_weight END), 0.0) as profil5_assignment_weight,
       COALESCE(MAX(CASE WHEN uas.profil_number = 5 THEN uas.avg_assignment_score END), 0.0) as profil5_avg_assignment_score,
+      COALESCE(MAX(CASE WHEN uqs.profil_number = 5 THEN uqs.attendance_weight END), 0.0) as profil5_attendance_weight,
+      COALESCE(MAX(CASE WHEN uats.profil_number = 5 THEN uats.avg_attendance_score END), 0.0) as profil5_avg_attendance_score,
 
       -- Last activity timestamps
-      MAX(CASE WHEN uqs.profil_number = 1 THEN GREATEST(COALESCE(uqs.quiz_completed_at, '1970-01-01'::timestamp), COALESCE(uas.last_assignment_at, '1970-01-01'::timestamp)) END) as profil1_last_activity,
-      MAX(CASE WHEN uqs.profil_number = 2 THEN GREATEST(COALESCE(uqs.quiz_completed_at, '1970-01-01'::timestamp), COALESCE(uas.last_assignment_at, '1970-01-01'::timestamp)) END) as profil2_last_activity,
-      MAX(CASE WHEN uqs.profil_number = 3 THEN GREATEST(COALESCE(uqs.quiz_completed_at, '1970-01-01'::timestamp), COALESCE(uas.last_assignment_at, '1970-01-01'::timestamp)) END) as profil3_last_activity,
-      MAX(CASE WHEN uqs.profil_number = 4 THEN GREATEST(COALESCE(uqs.quiz_completed_at, '1970-01-01'::timestamp), COALESCE(uas.last_assignment_at, '1970-01-01'::timestamp)) END) as profil4_last_activity,
-      MAX(CASE WHEN uqs.profil_number = 5 THEN GREATEST(COALESCE(uqs.quiz_completed_at, '1970-01-01'::timestamp), COALESCE(uas.last_assignment_at, '1970-01-01'::timestamp)) END) as profil5_last_activity
+      MAX(CASE WHEN uqs.profil_number = 1 THEN GREATEST(COALESCE(uqs.quiz_completed_at, '1970-01-01'::timestamp), COALESCE(uas.last_assignment_at, '1970-01-01'::timestamp), COALESCE(uats.last_attendance_at, '1970-01-01'::timestamp)) END) as profil1_last_activity,
+      MAX(CASE WHEN uqs.profil_number = 2 THEN GREATEST(COALESCE(uqs.quiz_completed_at, '1970-01-01'::timestamp), COALESCE(uas.last_assignment_at, '1970-01-01'::timestamp), COALESCE(uats.last_attendance_at, '1970-01-01'::timestamp)) END) as profil2_last_activity,
+      MAX(CASE WHEN uqs.profil_number = 3 THEN GREATEST(COALESCE(uqs.quiz_completed_at, '1970-01-01'::timestamp), COALESCE(uas.last_assignment_at, '1970-01-01'::timestamp), COALESCE(uats.last_attendance_at, '1970-01-01'::timestamp)) END) as profil3_last_activity,
+      MAX(CASE WHEN uqs.profil_number = 4 THEN GREATEST(COALESCE(uqs.quiz_completed_at, '1970-01-01'::timestamp), COALESCE(uas.last_assignment_at, '1970-01-01'::timestamp), COALESCE(uats.last_attendance_at, '1970-01-01'::timestamp)) END) as profil4_last_activity,
+      MAX(CASE WHEN uqs.profil_number = 5 THEN GREATEST(COALESCE(uqs.quiz_completed_at, '1970-01-01'::timestamp), COALESCE(uas.last_assignment_at, '1970-01-01'::timestamp), COALESCE(uats.last_attendance_at, '1970-01-01'::timestamp)) END) as profil5_last_activity
 
     FROM users u
     LEFT JOIN user_quiz_scores uqs ON uqs.user_id = u.id
     LEFT JOIN user_assignment_scores uas ON uas.user_id = u.id AND uas.profil_number = uqs.profil_number
+    LEFT JOIN user_attendance_scores uats ON uats.user_id = u.id AND uats.profil_number = uqs.profil_number
     GROUP BY u.id, u.nim, u.full_name, u.fakultas, u.keluarga, u.bata, u.rumpun, u.foto_media_id
   )
   SELECT 
@@ -146,35 +203,115 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
     foto_media_id,
     profil1_quiz_weight,
     profil1_quiz_score,
+    profil1_assignment_weight,
     profil1_avg_assignment_score,
-    (profil1_quiz_weight * profil1_quiz_score) + ((1 - profil1_quiz_weight) * profil1_avg_assignment_score) as profil1_total_score,
+    profil1_attendance_weight,
+    profil1_avg_attendance_score,
+    -- Normalized scoring for profil 1
+    CASE 
+      WHEN (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight) > 0 THEN
+        ((profil1_quiz_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_quiz_score) +
+        ((profil1_assignment_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_assignment_score) +
+        ((profil1_attendance_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_attendance_score)
+      ELSE 0.0
+    END as profil1_total_score,
     
     profil2_quiz_weight,
     profil2_quiz_score,
+    profil2_assignment_weight,
     profil2_avg_assignment_score,
-    (profil2_quiz_weight * profil2_quiz_score) + ((1 - profil2_quiz_weight) * profil2_avg_assignment_score) as profil2_total_score,
+    profil2_attendance_weight,
+    profil2_avg_attendance_score,
+    -- Normalized scoring for profil 2
+    CASE 
+      WHEN (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight) > 0 THEN
+        ((profil2_quiz_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_quiz_score) +
+        ((profil2_assignment_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_avg_assignment_score) +
+        ((profil2_attendance_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_avg_attendance_score)
+      ELSE 0.0
+    END as profil2_total_score,
     
     profil3_quiz_weight,
     profil3_quiz_score,
+    profil3_assignment_weight,
     profil3_avg_assignment_score,
-    (profil3_quiz_weight * profil3_quiz_score) + ((1 - profil3_quiz_weight) * profil3_avg_assignment_score) as profil3_total_score,
+    profil3_attendance_weight,
+    profil3_avg_attendance_score,
+    -- Normalized scoring for profil 3
+    CASE 
+      WHEN (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight) > 0 THEN
+        ((profil3_quiz_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_quiz_score) +
+        ((profil3_assignment_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_avg_assignment_score) +
+        ((profil3_attendance_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_avg_attendance_score)
+      ELSE 0.0
+    END as profil3_total_score,
     
     profil4_quiz_weight,
     profil4_quiz_score,
+    profil4_assignment_weight,
     profil4_avg_assignment_score,
-    (profil4_quiz_weight * profil4_quiz_score) + ((1 - profil4_quiz_weight) * profil4_avg_assignment_score) as profil4_total_score,
+    profil4_attendance_weight,
+    profil4_avg_attendance_score,
+    -- Normalized scoring for profil 4
+    CASE 
+      WHEN (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight) > 0 THEN
+        ((profil4_quiz_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_quiz_score) +
+        ((profil4_assignment_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_avg_assignment_score) +
+        ((profil4_attendance_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_avg_attendance_score)
+      ELSE 0.0
+    END as profil4_total_score,
     
     profil5_quiz_weight,
     profil5_quiz_score,
+    profil5_assignment_weight,
     profil5_avg_assignment_score,
-    (profil5_quiz_weight * profil5_quiz_score) + ((1 - profil5_quiz_weight) * profil5_avg_assignment_score) as profil5_total_score,
+    profil5_attendance_weight,
+    profil5_avg_attendance_score,
+    -- Normalized scoring for profil 5
+    CASE 
+      WHEN (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight) > 0 THEN
+        ((profil5_quiz_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_quiz_score) +
+        ((profil5_assignment_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_assignment_score) +
+        ((profil5_attendance_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_attendance_score)
+      ELSE 0.0
+    END as profil5_total_score,
     
-    -- Total score across all profils
-    (profil1_quiz_weight * profil1_quiz_score) + ((1 - profil1_quiz_weight) * profil1_avg_assignment_score) + 
-    (profil2_quiz_weight * profil2_quiz_score) + ((1 - profil2_quiz_weight) * profil2_avg_assignment_score) + 
-    (profil3_quiz_weight * profil3_quiz_score) + ((1 - profil3_quiz_weight) * profil3_avg_assignment_score) + 
-    (profil4_quiz_weight * profil4_quiz_score) + ((1 - profil4_quiz_weight) * profil4_avg_assignment_score) + 
-    (profil5_quiz_weight * profil5_quiz_score) + ((1 - profil5_quiz_weight) * profil5_avg_assignment_score) as total_score,
+    -- Total score across all profils with normalized weights
+    (CASE 
+      WHEN (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight) > 0 THEN
+        ((profil1_quiz_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_quiz_score) +
+        ((profil1_assignment_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_assignment_score) +
+        ((profil1_attendance_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_attendance_score)
+      ELSE 0.0
+    END) + 
+    (CASE 
+      WHEN (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight) > 0 THEN
+        ((profil2_quiz_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_quiz_score) +
+        ((profil2_assignment_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_avg_assignment_score) +
+        ((profil2_attendance_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_avg_attendance_score)
+      ELSE 0.0
+    END) + 
+    (CASE 
+      WHEN (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight) > 0 THEN
+        ((profil3_quiz_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_quiz_score) +
+        ((profil3_assignment_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_avg_assignment_score) +
+        ((profil3_attendance_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_avg_attendance_score)
+      ELSE 0.0
+    END) + 
+    (CASE 
+      WHEN (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight) > 0 THEN
+        ((profil4_quiz_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_quiz_score) +
+        ((profil4_assignment_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_avg_assignment_score) +
+        ((profil4_attendance_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_avg_attendance_score)
+      ELSE 0.0
+    END) + 
+    (CASE 
+      WHEN (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight) > 0 THEN
+        ((profil5_quiz_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_quiz_score) +
+        ((profil5_assignment_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_assignment_score) +
+        ((profil5_attendance_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_attendance_score)
+      ELSE 0.0
+    END) as total_score,
     
     -- Latest activity timestamp
     GREATEST(
@@ -186,11 +323,41 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
     ) as last_activity_at,
     
     ROW_NUMBER() OVER (ORDER BY 
-      (profil1_quiz_weight * profil1_quiz_score) + ((1 - profil1_quiz_weight) * profil1_avg_assignment_score) + 
-      (profil2_quiz_weight * profil2_quiz_score) + ((1 - profil2_quiz_weight) * profil2_avg_assignment_score) + 
-      (profil3_quiz_weight * profil3_quiz_score) + ((1 - profil3_quiz_weight) * profil3_avg_assignment_score) + 
-      (profil4_quiz_weight * profil4_quiz_score) + ((1 - profil4_quiz_weight) * profil4_avg_assignment_score) + 
-      (profil5_quiz_weight * profil5_quiz_score) + ((1 - profil5_quiz_weight) * profil5_avg_assignment_score) DESC, 
+      (CASE 
+        WHEN (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight) > 0 THEN
+          ((profil1_quiz_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_quiz_score) +
+          ((profil1_assignment_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_assignment_score) +
+          ((profil1_attendance_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_attendance_score)
+        ELSE 0.0
+      END) + 
+      (CASE 
+        WHEN (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight) > 0 THEN
+          ((profil2_quiz_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_quiz_score) +
+          ((profil2_assignment_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_avg_assignment_score) +
+          ((profil2_attendance_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_avg_attendance_score)
+        ELSE 0.0
+      END) + 
+      (CASE 
+        WHEN (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight) > 0 THEN
+          ((profil3_quiz_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_quiz_score) +
+          ((profil3_assignment_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_avg_assignment_score) +
+          ((profil3_attendance_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_avg_attendance_score)
+        ELSE 0.0
+      END) + 
+      (CASE 
+        WHEN (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight) > 0 THEN
+          ((profil4_quiz_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_quiz_score) +
+          ((profil4_assignment_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_avg_assignment_score) +
+          ((profil4_attendance_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_avg_attendance_score)
+        ELSE 0.0
+      END) + 
+      (CASE 
+        WHEN (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight) > 0 THEN
+          ((profil5_quiz_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_quiz_score) +
+          ((profil5_assignment_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_assignment_score) +
+          ((profil5_attendance_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_attendance_score)
+        ELSE 0.0
+      END) DESC, 
       GREATEST(
         COALESCE(profil1_last_activity, '1970-01-01'::timestamp),
         COALESCE(profil2_last_activity, '1970-01-01'::timestamp),
