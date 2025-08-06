@@ -38,10 +38,13 @@ export const assignmentsProfil = pgTable('assignments_profil', {
   description: text('description'),
   dueDate: timestamp('due_date', {
     mode: 'date',
-    withTimezone: true
-  })
-    .notNull(),
+    withTimezone: true,
+  }).notNull(),
   isOpen: boolean('is_open').default(false).notNull(),
+  startDate: timestamp('start_date', {
+    mode: 'date',
+    withTimezone: true,
+  }).notNull(),
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').$onUpdate(getNow),
 });
