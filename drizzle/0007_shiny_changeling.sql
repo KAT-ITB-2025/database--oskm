@@ -1,92 +1,11 @@
-import {
-  pgMaterializedView,
-  numeric,
-  text,
-  integer,
-  timestamp,
-} from 'drizzle-orm/pg-core';
-import { sql } from 'drizzle-orm';
-
-export const userRankingView = pgMaterializedView('user_ranking_view', {
-  userId: text('user_id').primaryKey(),
-  nim: text('nim'),
-  fullName: text('full_name'),
-  fakultas: text('fakultas'),
-  keluarga: text('keluarga'),
-  bata: text('bata'),
-  rumpun: text('rumpun'),
-  fotoMediaId: text('foto_media_id'),
-
-  // Profil 1 - all NOT NULL with defaults
-  profil1QuizWeight: numeric('profil1_quiz_weight', { precision: 5, scale: 2 }).notNull().default('0.00'),
-  profil1QuizScore: integer('profil1_quiz_score').notNull().default(0),
-  profil1AssignmentWeight: numeric('profil1_assignment_weight', { precision: 5, scale: 2 }).notNull().default('0.00'),
-  profil1AvgAssignmentScore: numeric('profil1_avg_assignment_score', { precision: 5, scale: 2 })
-    .notNull()
-    .default('0.00'),
-  profil1AttendanceWeight: numeric('profil1_attendance_weight', { precision: 5, scale: 2 }).notNull().default('0.00'),
-  profil1AvgAttendanceScore: numeric('profil1_avg_attendance_score', { precision: 5, scale: 2 })
-    .notNull()
-    .default('0.00'),
-  profil1TotalScore: numeric('profil1_total_score', { precision: 5, scale: 2 }).notNull().default('0.00'),
-
-  // Profil 2
-  profil2QuizWeight: numeric('profil2_quiz_weight', { precision: 5, scale: 2 }).notNull().default('0.00'),
-  profil2QuizScore: integer('profil2_quiz_score').notNull().default(0),
-  profil2AssignmentWeight: numeric('profil2_assignment_weight', { precision: 5, scale: 2 }).notNull().default('0.00'),
-  profil2AvgAssignmentScore: numeric('profil2_avg_assignment_score', { precision: 5, scale: 2 })
-    .notNull()
-    .default('0.00'),
-  profil2AttendanceWeight: numeric('profil2_attendance_weight', { precision: 5, scale: 2 }).notNull().default('0.00'),
-  profil2AvgAttendanceScore: numeric('profil2_avg_attendance_score', { precision: 5, scale: 2 })
-    .notNull()
-    .default('0.00'),
-  profil2TotalScore: numeric('profil2_total_score', { precision: 5, scale: 2 }).notNull().default('0.00'),
-
-  // Profil 3
-  profil3QuizWeight: numeric('profil3_quiz_weight', { precision: 5, scale: 2 }).notNull().default('0.00'),
-  profil3QuizScore: integer('profil3_quiz_score').notNull().default(0),
-  profil3AssignmentWeight: numeric('profil3_assignment_weight', { precision: 5, scale: 2 }).notNull().default('0.00'),
-  profil3AvgAssignmentScore: numeric('profil3_avg_assignment_score', { precision: 5, scale: 2 })
-    .notNull()
-    .default('0.00'),
-  profil3AttendanceWeight: numeric('profil3_attendance_weight', { precision: 5, scale: 2 }).notNull().default('0.00'),
-  profil3AvgAttendanceScore: numeric('profil3_avg_attendance_score', { precision: 5, scale: 2 })
-    .notNull()
-    .default('0.00'),
-  profil3TotalScore: numeric('profil3_total_score', { precision: 5, scale: 2 }).notNull().default('0.00'),
-
-  // Profil 4
-  profil4QuizWeight: numeric('profil4_quiz_weight', { precision: 5, scale: 2 }).notNull().default('0.00'),
-  profil4QuizScore: integer('profil4_quiz_score').notNull().default(0),
-  profil4AssignmentWeight: numeric('profil4_assignment_weight', { precision: 5, scale: 2 }).notNull().default('0.00'),
-  profil4AvgAssignmentScore: numeric('profil4_avg_assignment_score', { precision: 5, scale: 2 })
-    .notNull()
-    .default('0.00'),
-  profil4AttendanceWeight: numeric('profil4_attendance_weight', { precision: 5, scale: 2 }).notNull().default('0.00'),
-  profil4AvgAttendanceScore: numeric('profil4_avg_attendance_score', { precision: 5, scale: 2 })
-    .notNull()
-    .default('0.00'),
-  profil4TotalScore: numeric('profil4_total_score', { precision: 5, scale: 2 }).notNull().default('0.00'),
-
-  // Profil 5
-  profil5QuizWeight: numeric('profil5_quiz_weight', { precision: 5, scale: 2 }).notNull().default('0.00'),
-  profil5QuizScore: integer('profil5_quiz_score').notNull().default(0),
-  profil5AssignmentWeight: numeric('profil5_assignment_weight', { precision: 5, scale: 2 }).notNull().default('0.00'),
-  profil5AvgAssignmentScore: numeric('profil5_avg_assignment_score', { precision: 5, scale: 2 })
-    .notNull()
-    .default('0.00'),
-  profil5AttendanceWeight: numeric('profil5_attendance_weight', { precision: 5, scale: 2 }).notNull().default('0.00'),
-  profil5AvgAttendanceScore: numeric('profil5_avg_attendance_score', { precision: 5, scale: 2 })
-    .notNull()
-    .default('0.00'),
-  profil5TotalScore: numeric('profil5_total_score', { precision: 5, scale: 2 }).notNull().default('0.00'),
-
-  totalScore: numeric('total_score', { precision: 5, scale: 2 }).notNull().default('0.00'),
-  tiebreakerScore: numeric('tiebreaker_score', { precision: 15, scale: 3 }).notNull().default('0.000'),
-  lastActivityAt: timestamp('last_activity_at'),
-  ranking: integer('ranking').notNull(),
-}).as(sql`
+DROP MATERIALIZED VIEW "public"."user_ranking_view";--> statement-breakpoint
+ALTER TABLE "profil_kats" ALTER COLUMN "quiz_weight" SET DATA TYPE numeric(5, 2);--> statement-breakpoint
+ALTER TABLE "profil_kats" ALTER COLUMN "quiz_weight" SET DEFAULT '0.00';--> statement-breakpoint
+ALTER TABLE "profil_kats" ALTER COLUMN "assignment_weight" SET DATA TYPE numeric(5, 2);--> statement-breakpoint
+ALTER TABLE "profil_kats" ALTER COLUMN "assignment_weight" SET DEFAULT '0.00';--> statement-breakpoint
+ALTER TABLE "profil_kats" ALTER COLUMN "attendance_weight" SET DATA TYPE numeric(5, 2);--> statement-breakpoint
+ALTER TABLE "profil_kats" ALTER COLUMN "attendance_weight" SET DEFAULT '0.00';--> statement-breakpoint
+CREATE MATERIALIZED VIEW "public"."user_ranking_view" AS (
   WITH user_assignment_scores AS (
     SELECT 
       u.id as user_id,
@@ -409,36 +328,4 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
     ) as ranking
   FROM user_scores
   ORDER BY ranking
-`);
-
-// Function to refresh the materialized view
-export async function refreshUserRankingView(db: any) {
-  await db.execute(sql`REFRESH MATERIALIZED VIEW user_ranking_view`);
-}
-
-// Create indexes for the materialized view
-export const createUserRankingViewIndexes = sql`
--- Primary key index (automatically created, but explicit for clarity)
-CREATE UNIQUE INDEX IF NOT EXISTS idx_user_ranking_view_user_id ON user_ranking_view(user_id);
-
--- Most important: ranking index for leaderboards
-CREATE INDEX IF NOT EXISTS idx_user_ranking_view_ranking ON user_ranking_view(ranking);
-
--- Total score index for sorting and filtering
-CREATE INDEX IF NOT EXISTS idx_user_ranking_view_total_score ON user_ranking_view(total_score DESC);
-
--- Combined index for ranking queries with tie-breaking
-CREATE INDEX IF NOT EXISTS idx_user_ranking_view_score_activity ON user_ranking_view(total_score DESC, last_activity_at DESC);
-
--- Fakultas filtering
-CREATE INDEX IF NOT EXISTS idx_user_ranking_view_fakultas ON user_ranking_view(fakultas);
-
--- Combined fakultas + ranking for filtered leaderboards
-CREATE INDEX IF NOT EXISTS idx_user_ranking_view_fakultas_ranking ON user_ranking_view(fakultas, ranking);
-
--- NIM lookup (if you search by NIM)
-CREATE INDEX IF NOT EXISTS idx_user_ranking_view_nim ON user_ranking_view(nim);
-
--- Keluarga filtering
-CREATE INDEX IF NOT EXISTS idx_user_ranking_view_keluarga ON user_ranking_view(keluarga);
-`;
+);

@@ -3,7 +3,6 @@ import {
   integer,
   pgEnum,
   pgTable,
-  real,
   text,
   timestamp,
 } from 'drizzle-orm/pg-core';
