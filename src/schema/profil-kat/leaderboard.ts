@@ -1,6 +1,6 @@
 import {
   pgMaterializedView,
-  numeric,
+  real,
   text,
   integer,
   timestamp,
@@ -18,176 +18,116 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
   fotoMediaId: text('foto_media_id'),
 
   // Profil 1 - all NOT NULL with defaults
-  profil1QuizWeight: numeric('profil1_quiz_weight', { precision: 5, scale: 2 })
+  profil1QuizWeight: real('profil1_quiz_weight')
     .notNull()
-    .default('0.00'),
+    .default(0.0),
   profil1QuizScore: integer('profil1_quiz_score').notNull().default(0),
-  profil1AssignmentWeight: numeric('profil1_assignment_weight', {
-    precision: 5,
-    scale: 2,
-  })
+  profil1AssignmentWeight: real('profil1_assignment_weight')
     .notNull()
-    .default('0.00'),
-  profil1AvgAssignmentScore: numeric('profil1_avg_assignment_score', {
-    precision: 5,
-    scale: 2,
-  })
+    .default(0.0),
+  profil1AvgAssignmentScore: real('profil1_avg_assignment_score')
     .notNull()
-    .default('0.00'),
-  profil1AttendanceWeight: numeric('profil1_attendance_weight', {
-    precision: 5,
-    scale: 2,
-  })
+    .default(0.0),
+  profil1AttendanceWeight: real('profil1_attendance_weight')
     .notNull()
-    .default('0.00'),
-  profil1AvgAttendanceScore: numeric('profil1_avg_attendance_score', {
-    precision: 5,
-    scale: 2,
-  })
+    .default(0.0),
+  profil1AvgAttendanceScore: real('profil1_avg_attendance_score')
     .notNull()
-    .default('0.00'),
-  profil1TotalScore: numeric('profil1_total_score', { precision: 5, scale: 2 })
+    .default(0.0),
+  profil1TotalScore: real('profil1_total_score')
     .notNull()
-    .default('0.00'),
+    .default(0.0),
 
   // Profil 2
-  profil2QuizWeight: numeric('profil2_quiz_weight', { precision: 5, scale: 2 })
+  profil2QuizWeight: real('profil2_quiz_weight')
     .notNull()
-    .default('0.00'),
+    .default(0.0),
   profil2QuizScore: integer('profil2_quiz_score').notNull().default(0),
-  profil2AssignmentWeight: numeric('profil2_assignment_weight', {
-    precision: 5,
-    scale: 2,
-  })
+  profil2AssignmentWeight: real('profil2_assignment_weight')
     .notNull()
-    .default('0.00'),
-  profil2AvgAssignmentScore: numeric('profil2_avg_assignment_score', {
-    precision: 5,
-    scale: 2,
-  })
+    .default(0.0),
+  profil2AvgAssignmentScore: real('profil2_avg_assignment_score')
     .notNull()
-    .default('0.00'),
-  profil2AttendanceWeight: numeric('profil2_attendance_weight', {
-    precision: 5,
-    scale: 2,
-  })
+    .default(0.0),
+  profil2AttendanceWeight: real('profil2_attendance_weight')
     .notNull()
-    .default('0.00'),
-  profil2AvgAttendanceScore: numeric('profil2_avg_attendance_score', {
-    precision: 5,
-    scale: 2,
-  })
+    .default(0.0),
+  profil2AvgAttendanceScore: real('profil2_avg_attendance_score')
     .notNull()
-    .default('0.00'),
-  profil2TotalScore: numeric('profil2_total_score', { precision: 5, scale: 2 })
+    .default(0.0),
+  profil2TotalScore: real('profil2_total_score')
     .notNull()
-    .default('0.00'),
+    .default(0.0),
 
   // Profil 3
-  profil3QuizWeight: numeric('profil3_quiz_weight', { precision: 5, scale: 2 })
+  profil3QuizWeight: real('profil3_quiz_weight')
     .notNull()
-    .default('0.00'),
+    .default(0.0),
   profil3QuizScore: integer('profil3_quiz_score').notNull().default(0),
-  profil3AssignmentWeight: numeric('profil3_assignment_weight', {
-    precision: 5,
-    scale: 2,
-  })
+  profil3AssignmentWeight: real('profil3_assignment_weight')
     .notNull()
-    .default('0.00'),
-  profil3AvgAssignmentScore: numeric('profil3_avg_assignment_score', {
-    precision: 5,
-    scale: 2,
-  })
+    .default(0.0),
+  profil3AvgAssignmentScore: real('profil3_avg_assignment_score')
     .notNull()
-    .default('0.00'),
-  profil3AttendanceWeight: numeric('profil3_attendance_weight', {
-    precision: 5,
-    scale: 2,
-  })
+    .default(0.0),
+  profil3AttendanceWeight: real('profil3_attendance_weight')
     .notNull()
-    .default('0.00'),
-  profil3AvgAttendanceScore: numeric('profil3_avg_attendance_score', {
-    precision: 5,
-    scale: 2,
-  })
+    .default(0.0),
+  profil3AvgAttendanceScore: real('profil3_avg_attendance_score')
     .notNull()
-    .default('0.00'),
-  profil3TotalScore: numeric('profil3_total_score', { precision: 5, scale: 2 })
+    .default(0.0),
+  profil3TotalScore: real('profil3_total_score')
     .notNull()
-    .default('0.00'),
+    .default(0.0),
 
   // Profil 4
-  profil4QuizWeight: numeric('profil4_quiz_weight', { precision: 5, scale: 2 })
+  profil4QuizWeight: real('profil4_quiz_weight')
     .notNull()
-    .default('0.00'),
+    .default(0.0),
   profil4QuizScore: integer('profil4_quiz_score').notNull().default(0),
-  profil4AssignmentWeight: numeric('profil4_assignment_weight', {
-    precision: 5,
-    scale: 2,
-  })
+  profil4AssignmentWeight: real('profil4_assignment_weight')
     .notNull()
-    .default('0.00'),
-  profil4AvgAssignmentScore: numeric('profil4_avg_assignment_score', {
-    precision: 5,
-    scale: 2,
-  })
+    .default(0.0),
+  profil4AvgAssignmentScore: real('profil4_avg_assignment_score')
     .notNull()
-    .default('0.00'),
-  profil4AttendanceWeight: numeric('profil4_attendance_weight', {
-    precision: 5,
-    scale: 2,
-  })
+    .default(0.0),
+  profil4AttendanceWeight: real('profil4_attendance_weight')
     .notNull()
-    .default('0.00'),
-  profil4AvgAttendanceScore: numeric('profil4_avg_attendance_score', {
-    precision: 5,
-    scale: 2,
-  })
+    .default(0.0),
+  profil4AvgAttendanceScore: real('profil4_avg_attendance_score')
     .notNull()
-    .default('0.00'),
-  profil4TotalScore: numeric('profil4_total_score', { precision: 5, scale: 2 })
+    .default(0.0),
+  profil4TotalScore: real('profil4_total_score')
     .notNull()
-    .default('0.00'),
+    .default(0.0),
 
   // Profil 5
-  profil5QuizWeight: numeric('profil5_quiz_weight', { precision: 5, scale: 2 })
+  profil5QuizWeight: real('profil5_quiz_weight')
     .notNull()
-    .default('0.00'),
+    .default(0.0),
   profil5QuizScore: integer('profil5_quiz_score').notNull().default(0),
-  profil5AssignmentWeight: numeric('profil5_assignment_weight', {
-    precision: 5,
-    scale: 2,
-  })
+  profil5AssignmentWeight: real('profil5_assignment_weight')
     .notNull()
-    .default('0.00'),
-  profil5AvgAssignmentScore: numeric('profil5_avg_assignment_score', {
-    precision: 5,
-    scale: 2,
-  })
+    .default(0.0),
+  profil5AvgAssignmentScore: real('profil5_avg_assignment_score')
     .notNull()
-    .default('0.00'),
-  profil5AttendanceWeight: numeric('profil5_attendance_weight', {
-    precision: 5,
-    scale: 2,
-  })
+    .default(0.0),
+  profil5AttendanceWeight: real('profil5_attendance_weight')
     .notNull()
-    .default('0.00'),
-  profil5AvgAttendanceScore: numeric('profil5_avg_attendance_score', {
-    precision: 5,
-    scale: 2,
-  })
+    .default(0.0),
+  profil5AvgAttendanceScore: real('profil5_avg_attendance_score')
     .notNull()
-    .default('0.00'),
-  profil5TotalScore: numeric('profil5_total_score', { precision: 5, scale: 2 })
+    .default(0.0),
+  profil5TotalScore: real('profil5_total_score')
     .notNull()
-    .default('0.00'),
+    .default(0.0),
 
-  totalScore: numeric('total_score', { precision: 5, scale: 2 })
+  totalScore: real('total_score')
     .notNull()
-    .default('0.00'),
-  tiebreakerScore: numeric('tiebreaker_score', { precision: 15, scale: 3 })
+    .default(0.0),
+  tiebreakerScore: real('tiebreaker_score')
     .notNull()
-    .default('0.000'),
+    .default(0.0),
   lastActivityAt: timestamp('last_activity_at'),
   ranking: integer('ranking').notNull(),
 }).as(sql`
@@ -508,7 +448,7 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
         COALESCE(profil2_last_activity, '1970-01-01'::timestamp),
         COALESCE(profil3_last_activity, '1970-01-01'::timestamp),
         COALESCE(profil4_last_activity, '1970-01-01'::timestamp),
-        COALESCE(profil5_last_activity, '1970-01-01'::timestampprofil1_timing_score)
+        COALESCE(profil5_last_activity, '1970-01-01'::timestamp)
       ) DESC
     ) as ranking
   FROM user_scores

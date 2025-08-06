@@ -1406,10 +1406,10 @@ declare const profilKATs: drizzle_orm_pg_core.PgTableWithColumns<{
         quizWeight: drizzle_orm_pg_core.PgColumn<{
             name: "quiz_weight";
             tableName: "profil_kats";
-            dataType: "string";
-            columnType: "PgNumeric";
-            data: string;
-            driverParam: string;
+            dataType: "number";
+            columnType: "PgReal";
+            data: number;
+            driverParam: string | number;
             notNull: true;
             hasDefault: true;
             isPrimaryKey: false;
@@ -1423,10 +1423,10 @@ declare const profilKATs: drizzle_orm_pg_core.PgTableWithColumns<{
         assignmentWeight: drizzle_orm_pg_core.PgColumn<{
             name: "assignment_weight";
             tableName: "profil_kats";
-            dataType: "string";
-            columnType: "PgNumeric";
-            data: string;
-            driverParam: string;
+            dataType: "number";
+            columnType: "PgReal";
+            data: number;
+            driverParam: string | number;
             notNull: true;
             hasDefault: true;
             isPrimaryKey: false;
@@ -1440,10 +1440,10 @@ declare const profilKATs: drizzle_orm_pg_core.PgTableWithColumns<{
         attendanceWeight: drizzle_orm_pg_core.PgColumn<{
             name: "attendance_weight";
             tableName: "profil_kats";
-            dataType: "string";
-            columnType: "PgNumeric";
-            data: string;
-            driverParam: string;
+            dataType: "number";
+            columnType: "PgReal";
+            data: number;
+            driverParam: string | number;
             notNull: true;
             hasDefault: true;
             isPrimaryKey: false;
@@ -2375,10 +2375,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil1QuizWeight: drizzle_orm_pg_core.PgColumn<{
         name: "profil1_quiz_weight";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2409,10 +2409,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil1AssignmentWeight: drizzle_orm_pg_core.PgColumn<{
         name: "profil1_assignment_weight";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2426,10 +2426,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil1AvgAssignmentScore: drizzle_orm_pg_core.PgColumn<{
         name: "profil1_avg_assignment_score";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2443,10 +2443,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil1AttendanceWeight: drizzle_orm_pg_core.PgColumn<{
         name: "profil1_attendance_weight";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2460,10 +2460,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil1AvgAttendanceScore: drizzle_orm_pg_core.PgColumn<{
         name: "profil1_avg_attendance_score";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2477,10 +2477,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil1TotalScore: drizzle_orm_pg_core.PgColumn<{
         name: "profil1_total_score";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2494,10 +2494,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil2QuizWeight: drizzle_orm_pg_core.PgColumn<{
         name: "profil2_quiz_weight";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2528,10 +2528,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil2AssignmentWeight: drizzle_orm_pg_core.PgColumn<{
         name: "profil2_assignment_weight";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2545,10 +2545,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil2AvgAssignmentScore: drizzle_orm_pg_core.PgColumn<{
         name: "profil2_avg_assignment_score";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2562,10 +2562,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil2AttendanceWeight: drizzle_orm_pg_core.PgColumn<{
         name: "profil2_attendance_weight";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2579,10 +2579,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil2AvgAttendanceScore: drizzle_orm_pg_core.PgColumn<{
         name: "profil2_avg_attendance_score";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2596,10 +2596,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil2TotalScore: drizzle_orm_pg_core.PgColumn<{
         name: "profil2_total_score";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2613,10 +2613,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil3QuizWeight: drizzle_orm_pg_core.PgColumn<{
         name: "profil3_quiz_weight";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2647,10 +2647,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil3AssignmentWeight: drizzle_orm_pg_core.PgColumn<{
         name: "profil3_assignment_weight";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2664,10 +2664,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil3AvgAssignmentScore: drizzle_orm_pg_core.PgColumn<{
         name: "profil3_avg_assignment_score";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2681,10 +2681,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil3AttendanceWeight: drizzle_orm_pg_core.PgColumn<{
         name: "profil3_attendance_weight";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2698,10 +2698,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil3AvgAttendanceScore: drizzle_orm_pg_core.PgColumn<{
         name: "profil3_avg_attendance_score";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2715,10 +2715,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil3TotalScore: drizzle_orm_pg_core.PgColumn<{
         name: "profil3_total_score";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2732,10 +2732,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil4QuizWeight: drizzle_orm_pg_core.PgColumn<{
         name: "profil4_quiz_weight";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2766,10 +2766,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil4AssignmentWeight: drizzle_orm_pg_core.PgColumn<{
         name: "profil4_assignment_weight";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2783,10 +2783,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil4AvgAssignmentScore: drizzle_orm_pg_core.PgColumn<{
         name: "profil4_avg_assignment_score";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2800,10 +2800,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil4AttendanceWeight: drizzle_orm_pg_core.PgColumn<{
         name: "profil4_attendance_weight";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2817,10 +2817,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil4AvgAttendanceScore: drizzle_orm_pg_core.PgColumn<{
         name: "profil4_avg_attendance_score";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2834,10 +2834,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil4TotalScore: drizzle_orm_pg_core.PgColumn<{
         name: "profil4_total_score";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2851,10 +2851,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil5QuizWeight: drizzle_orm_pg_core.PgColumn<{
         name: "profil5_quiz_weight";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2885,10 +2885,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil5AssignmentWeight: drizzle_orm_pg_core.PgColumn<{
         name: "profil5_assignment_weight";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2902,10 +2902,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil5AvgAssignmentScore: drizzle_orm_pg_core.PgColumn<{
         name: "profil5_avg_assignment_score";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2919,10 +2919,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil5AttendanceWeight: drizzle_orm_pg_core.PgColumn<{
         name: "profil5_attendance_weight";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2936,10 +2936,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil5AvgAttendanceScore: drizzle_orm_pg_core.PgColumn<{
         name: "profil5_avg_attendance_score";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2953,10 +2953,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     profil5TotalScore: drizzle_orm_pg_core.PgColumn<{
         name: "profil5_total_score";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2970,10 +2970,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     totalScore: drizzle_orm_pg_core.PgColumn<{
         name: "total_score";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;
@@ -2987,10 +2987,10 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     tiebreakerScore: drizzle_orm_pg_core.PgColumn<{
         name: "tiebreaker_score";
         tableName: "user_ranking_view";
-        dataType: "string";
-        columnType: "PgNumeric";
-        data: string;
-        driverParam: string;
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
         notNull: true;
         hasDefault: true;
         isPrimaryKey: false;

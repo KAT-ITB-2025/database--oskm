@@ -64,6 +64,13 @@
       "when": 1754508925849,
       "tag": "0008_MANUAL_leaderboard_index_add_2",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1754509573990,
+      "tag": "0009_secret_spyke",
+      "breakpoints": true
     }
   ]
 }
