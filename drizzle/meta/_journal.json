@@ -57,6 +57,13 @@
       "when": 1754508534763,
       "tag": "0007_shiny_changeling",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1754508925849,
+      "tag": "0008_MANUAL_leaderboard_index_add_2",
+      "breakpoints": true
     }
   ]
 }
