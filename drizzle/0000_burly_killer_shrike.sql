@@ -462,7 +462,7 @@ CREATE MATERIALIZED VIEW "public"."user_ranking_view" AS (
     END as profil5_total_score,
     
     -- Total score across all profils with normalized weights
-    ROUND((CASE 
+    ((CASE 
       WHEN (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight) > 0 THEN
         ((profil1_quiz_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_quiz_score) +
         ((profil1_assignment_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_assignment_score) +
@@ -496,10 +496,10 @@ CREATE MATERIALIZED VIEW "public"."user_ranking_view" AS (
         ((profil5_assignment_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_assignment_score) +
         ((profil5_attendance_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_attendance_score)
       ELSE 0.0
-    END), 2) as total_score,
+    END)) as total_score,
     
     -- Tiebreaker score: total timing across all profils (higher = completed tasks earlier)
-    ROUND((profil1_timing_score + profil2_timing_score + profil3_timing_score + profil4_timing_score + profil5_timing_score) / 1000.0, 3) as tiebreaker_score,
+    ((profil1_timing_score + profil2_timing_score + profil3_timing_score + profil4_timing_score + profil5_timing_score) / 1000.0) as tiebreaker_score,
     
     attendance_total,
 
