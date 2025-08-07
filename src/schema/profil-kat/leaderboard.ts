@@ -285,7 +285,7 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
     LEFT JOIN user_assignment_scores uas ON uas.user_id = u.id AND uas.profil_number = uqs.profil_number
     LEFT JOIN user_attendance_scores uats ON uats.user_id = u.id AND uats.profil_number = uqs.profil_number
     LEFT JOIN user_attendance_total uat ON uat.user_id = u.id
-    GROUP BY u.id, u.nim, u.full_name, u.fakultas, u.keluarga, u.bata, u.rumpun, u.foto_media_id
+    GROUP BY u.id, u.nim, u.full_name, u.fakultas, u.keluarga, u.bata, u.rumpun, u.foto_media_id, uat.attendance_total
   )
   SELECT 
     user_id,

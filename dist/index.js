@@ -141,7 +141,7 @@ import {pgEnum,pgTable,timestamp,text,boolean,integer,serial,primaryKey,real,pgM
       
       COALESCE(SUM(CASE WHEN uqs.profil_number = 5 THEN uqs.quiz_timing_score END), 0) +
       COALESCE(SUM(CASE WHEN uas.profil_number = 5 THEN uas.assignment_timing_score END), 0) +
-      COALESCE(SUM(CASE WHEN uats.profil_number = 5 THEN uats.attendance_timing_score END), 0) as profil5_timing_score
+      COALESCE(SUM(CASE WHEN uats.profil_number = 5 THEN uats.attendance_timing_score END), 0) as profil5_timing_score,
 
       COALESCE(uat.attendance_total, 0) as attendance_total
 
@@ -150,7 +150,7 @@ import {pgEnum,pgTable,timestamp,text,boolean,integer,serial,primaryKey,real,pgM
     LEFT JOIN user_assignment_scores uas ON uas.user_id = u.id AND uas.profil_number = uqs.profil_number
     LEFT JOIN user_attendance_scores uats ON uats.user_id = u.id AND uats.profil_number = uqs.profil_number
     LEFT JOIN user_attendance_total uat ON uat.user_id = u.id
-    GROUP BY u.id, u.nim, u.full_name, u.fakultas, u.keluarga, u.bata, u.rumpun, u.foto_media_id
+    GROUP BY u.id, u.nim, u.full_name, u.fakultas, u.keluarga, u.bata, u.rumpun, u.foto_media_id, uat.attendance_total
   )
   SELECT 
     user_id,
