@@ -129,6 +129,9 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
     .notNull()
     .default(0.0),
   lastActivityAt: timestamp('last_activity_at'),
+  attendanceTotal: integer('attendance_total')
+    .notNull()
+    .default(0),
   ranking: integer('ranking').notNull(),
 }).as(sql`
   WITH user_assignment_scores AS (
@@ -183,7 +186,18 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
     LEFT JOIN attendances a ON a.id = pka.attendance_id
     LEFT JOIN user_attendance ua ON ua.schedule_id = a.id AND ua.user_id = u.id
     WHERE pk.profil_number IN (1, 2, 3, 4, 5)
+      AND a.start_time <= NOW()
     GROUP BY u.id, pk.profil_number
+  ),
+  user_attendance_total AS (
+    SELECT
+      ua.user_id,
+      COUNT(*) AS attendance_total
+    FROM user_attendance ua
+    INNER JOIN attendances a ON a.id = ua.schedule_id
+    WHERE ua.status = 'hadir'
+      AND a.start_time <= NOW()
+    GROUP BY ua.user_id
   ),
   user_scores AS (
     SELECT 
@@ -264,10 +278,13 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
       COALESCE(SUM(CASE WHEN uas.profil_number = 5 THEN uas.assignment_timing_score END), 0) +
       COALESCE(SUM(CASE WHEN uats.profil_number = 5 THEN uats.attendance_timing_score END), 0) as profil5_timing_score
 
+      COALESCE(uat.attendance_total, 0) as attendance_total
+
     FROM users u
     LEFT JOIN user_quiz_scores uqs ON uqs.user_id = u.id
     LEFT JOIN user_assignment_scores uas ON uas.user_id = u.id AND uas.profil_number = uqs.profil_number
     LEFT JOIN user_attendance_scores uats ON uats.user_id = u.id AND uats.profil_number = uqs.profil_number
+    LEFT JOIN user_attendance_total uat ON uat.user_id = u.id
     GROUP BY u.id, u.nim, u.full_name, u.fakultas, u.keluarga, u.bata, u.rumpun, u.foto_media_id
   )
   SELECT 
@@ -394,6 +411,8 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
     -- Tiebreaker score: total timing across all profils (higher = completed tasks earlier)
     ROUND((profil1_timing_score + profil2_timing_score + profil3_timing_score + profil4_timing_score + profil5_timing_score) / 1000.0, 3) as tiebreaker_score,
     
+    attendance_total,
+
     -- Latest activity timestamp
     GREATEST(
       COALESCE(profil1_last_activity, '1970-01-01'::timestamp),

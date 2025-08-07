@@ -3018,6 +3018,23 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
         identity: undefined;
         generated: undefined;
     }, {}, {}>;
+    attendanceTotal: drizzle_orm_pg_core.PgColumn<{
+        name: "attendance_total";
+        tableName: "user_ranking_view";
+        dataType: "number";
+        columnType: "PgInteger";
+        data: number;
+        driverParam: string | number;
+        notNull: true;
+        hasDefault: true;
+        isPrimaryKey: false;
+        isAutoincrement: false;
+        hasRuntimeDefault: false;
+        enumValues: undefined;
+        baseColumn: never;
+        identity: undefined;
+        generated: undefined;
+    }, {}, {}>;
     ranking: drizzle_orm_pg_core.PgColumn<{
         name: "ranking";
         tableName: "user_ranking_view";
