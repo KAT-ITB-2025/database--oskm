@@ -1,1 +1,0 @@
-ALTER TABLE "assignments_profil" ADD COLUMN "start_date" timestamp with time zone NOT NULL;
