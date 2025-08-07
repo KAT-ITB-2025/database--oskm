@@ -17,6 +17,7 @@ export const profilKATs = pgTable('profil_kats', {
     .primaryKey()
     .$defaultFn(() => createId()),
   profilNumber: integer('profil_number').notNull().unique(),
+  stageWeight: real('stage_weight').notNull().default(0.0),
   quizWeight: real('quiz_weight').notNull().default(0.0),
   assignmentWeight: real('assignment_weight').notNull().default(0.0),
   attendanceWeight: real('attendance_weight').notNull().default(0.0),

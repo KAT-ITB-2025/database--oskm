@@ -1403,6 +1403,23 @@ declare const profilKATs: drizzle_orm_pg_core.PgTableWithColumns<{
             identity: undefined;
             generated: undefined;
         }, {}, {}>;
+        stageWeight: drizzle_orm_pg_core.PgColumn<{
+            name: "stage_weight";
+            tableName: "profil_kats";
+            dataType: "number";
+            columnType: "PgReal";
+            data: number;
+            driverParam: string | number;
+            notNull: true;
+            hasDefault: true;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
         quizWeight: drizzle_orm_pg_core.PgColumn<{
             name: "quiz_weight";
             tableName: "profil_kats";
@@ -2969,6 +2986,23 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     }, {}, {}>;
     totalScore: drizzle_orm_pg_core.PgColumn<{
         name: "total_score";
+        tableName: "user_ranking_view";
+        dataType: "number";
+        columnType: "PgReal";
+        data: number;
+        driverParam: string | number;
+        notNull: true;
+        hasDefault: true;
+        isPrimaryKey: false;
+        isAutoincrement: false;
+        hasRuntimeDefault: false;
+        enumValues: undefined;
+        baseColumn: never;
+        identity: undefined;
+        generated: undefined;
+    }, {}, {}>;
+    totalWeightedScore: drizzle_orm_pg_core.PgColumn<{
+        name: "total_weighted_score";
         tableName: "user_ranking_view";
         dataType: "number";
         columnType: "PgReal";
