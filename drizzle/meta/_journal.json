@@ -15,6 +15,13 @@
       "when": 1754576592751,
       "tag": "0001_MANUAL_leaderboard_index_add",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1754577217628,
+      "tag": "0002_absent_gabe_jones",
+      "breakpoints": true
     }
   ]
 }

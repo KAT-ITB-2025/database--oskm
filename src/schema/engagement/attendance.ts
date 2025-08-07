@@ -27,7 +27,10 @@ export const attendances = pgTable('attendances', {
     .$defaultFn(() => createId()),
   attendanceType: attendanceTypeEnum('attendance_type').notNull(),
   dayNumber: integer('day_number').notNull(),
-  startTime: timestamp('start_time').notNull(),
+  startTime: timestamp('start_time', {
+    mode: 'date',
+    withTimezone: true
+  }).notNull(),
   durationMinutes: integer('duration_minutes').notNull(),
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').$onUpdate(getNow),

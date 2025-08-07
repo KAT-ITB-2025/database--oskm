@@ -1,0 +1,1 @@
+ALTER TABLE "attendances" ALTER COLUMN "start_time" SET DATA TYPE timestamp with time zone;

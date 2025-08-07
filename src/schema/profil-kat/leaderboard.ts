@@ -476,7 +476,7 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
 
 // Function to refresh the materialized view
 export async function refreshUserRankingView(db: any) {
-  await db.execute(sql`REFRESH MATERIALIZED VIEW user_ranking_view`);
+  await db.execute(sql`REFRESH MATERIALIZED VIEW CONCURRENTLY user_ranking_view`);
 }
 
 // Create indexes for the materialized view
