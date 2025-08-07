@@ -1,5 +1,5 @@
 {
-  "id": "6ba3cc6c-e736-46f8-8330-e3c6997e5bb1",
+  "id": "87029436-6df0-46c8-a55c-05c0b6396057",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -572,7 +572,7 @@
         },
         "start_time": {
           "name": "start_time",
-          "type": "timestamp",
+          "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": true
         },

@@ -5,22 +5,15 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1754576589566,
-      "tag": "0000_burly_killer_shrike",
+      "when": 1754577372375,
+      "tag": "0000_tranquil_wiccan",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "7",
-      "when": 1754576592751,
+      "when": 1754577378529,
       "tag": "0001_MANUAL_leaderboard_index_add",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1754577217628,
-      "tag": "0002_absent_gabe_jones",
       "breakpoints": true
     }
   ]

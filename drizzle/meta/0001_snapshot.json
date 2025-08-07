@@ -1,6 +1,6 @@
 {
-  "id": "8bfac465-18c3-475e-b2f8-dbed44ae4911",
-  "prevId": "6ba3cc6c-e736-46f8-8330-e3c6997e5bb1",
+  "id": "e2b50839-f436-4acc-a954-975e244b3ff4",
+  "prevId": "87029436-6df0-46c8-a55c-05c0b6396057",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -572,7 +572,7 @@
         },
         "start_time": {
           "name": "start_time",
-          "type": "timestamp",
+          "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": true
         },

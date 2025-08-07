@@ -84,7 +84,7 @@ CREATE TABLE "attendances" (
 	"id" text PRIMARY KEY NOT NULL,
 	"attendance_type" "attendance_type" NOT NULL,
 	"day_number" integer NOT NULL,
-	"start_time" timestamp NOT NULL,
+	"start_time" timestamp with time zone NOT NULL,
 	"duration_minutes" integer NOT NULL,
 	"created_at" timestamp DEFAULT now(),
 	"updated_at" timestamp
