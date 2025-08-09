@@ -15,6 +15,13 @@
       "when": 1754578858045,
       "tag": "0001_MANUAL_leaderboard_index_add",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1754751517658,
+      "tag": "0002_spooky_warbird",
+      "breakpoints": true
     }
   ]
 }

@@ -10,7 +10,7 @@ export const verificationToken = pgTable('verification_token', {
   identifier: text('identifier')
     .notNull()
     .references(() => users.email),
-  token: text('token'),
+  token: text('token').notNull(),
   expiredAt: timestamp('expired_at', {
     mode: 'date',
     withTimezone: true
