@@ -43,7 +43,9 @@ export const usersRelation = relations(users, ({ one, many }) => ({
   analytics: many(endpointAnalytics),
   classRegistrations: many(classRegistrations),
   mentorClasses: many(classes),
-  userMatches: many(userMatches),
+  userMatchesAsFirstUser: many(userMatches, { relationName: 'first_user' }),
+  userMatchesAsSecondUser: many(userMatches, { relationName: 'second_user' }),
+  messages: many(messages, { relationName: 'sender' }),
 }));
 
 export const emailVerificationOtpsRelations = relations(
@@ -235,6 +237,7 @@ export const messagesRelations = relations(messages, ({ one }) => ({
   senderId: one(users, {
     fields: [messages.senderId],
     references: [users.id],
+    relationName: 'sender'
   }),
   userMatch: one(userMatches, {
     fields: [messages.userMatchId],
