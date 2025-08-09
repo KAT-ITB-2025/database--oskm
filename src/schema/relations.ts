@@ -17,6 +17,7 @@ import { endpointAnalytics } from './analytics';
 import { classes, classRegistrations } from './class';
 import { activities } from './rundown';
 import { verificationToken } from './auth/verificationToken';
+import { messages, userMatches } from './chat';
 
 // Auth Relations
 export const accountsRelation = relations(accounts, ({ one }) => ({
@@ -42,6 +43,7 @@ export const usersRelation = relations(users, ({ one, many }) => ({
   analytics: many(endpointAnalytics),
   classRegistrations: many(classRegistrations),
   mentorClasses: many(classes),
+  userMatches: many(userMatches),
 }));
 
 export const emailVerificationOtpsRelations = relations(
@@ -214,3 +216,28 @@ export const endpointAnalyticsRelation = relations(
     }),
   }),
 );
+
+export const userMatchesRelations = relations(userMatches, ({ many, one }) => ({
+  firstUser: one(users, {
+    fields: [userMatches.firstUserId],
+    references: [users.id],
+    relationName: 'first_user',
+  }),
+  secondUser: one(users, {
+    fields: [userMatches.secondUserId],
+    references: [users.id],
+    relationName: 'second_user',
+  }),
+  messages: many(messages),
+}));
+
+export const messagesRelations = relations(messages, ({ one }) => ({
+  senderId: one(users, {
+    fields: [messages.senderId],
+    references: [users.id],
+  }),
+  userMatch: one(userMatches, {
+    fields: [messages.userMatchId],
+    references: [userMatches.id],
+  }),
+}));

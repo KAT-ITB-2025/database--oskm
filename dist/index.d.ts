@@ -3281,6 +3281,7 @@ declare const usersRelation: drizzle_orm.Relations<"users", {
     analytics: drizzle_orm.Many<"endpoint_analytics">;
     classRegistrations: drizzle_orm.Many<"class_registrations">;
     mentorClasses: drizzle_orm.Many<"classes">;
+    userMatches: drizzle_orm.Many<"user_matches">;
 }>;
 declare const emailVerificationOtpsRelations: drizzle_orm.Relations<"email_verification_otps", {
     user: drizzle_orm.One<"users", true>;
@@ -3345,5 +3346,14 @@ declare const classRegistrationsRelation: drizzle_orm.Relations<"class_registrat
 declare const endpointAnalyticsRelation: drizzle_orm.Relations<"endpoint_analytics", {
     user: drizzle_orm.One<"users", false>;
 }>;
+declare const userMatchesRelations: drizzle_orm.Relations<"user_matches", {
+    firstUser: drizzle_orm.One<"users", false>;
+    secondUser: drizzle_orm.One<"users", false>;
+    messages: drizzle_orm.Many<"messages">;
+}>;
+declare const messagesRelations: drizzle_orm.Relations<"messages", {
+    senderId: drizzle_orm.One<"users", false>;
+    userMatch: drizzle_orm.One<"user_matches", false>;
+}>;
 
-export { accounts, accountsRelation, accountsRoleEnum, activities, assignmentsProfil, assignmentsProfilRelation, attendanceStatusEnum, attendanceTypeEnum, attendances, attendancesRelation, classEnum, classRegistrations, classRegistrationsRelation, classes, classesRelation, createUserRankingViewIndexes, emailVerificationOtps, emailVerificationOtpsRelations, endpointAnalytics, endpointAnalyticsRelation, media, mediaBucketEnum, mediaRelation, profilKATAttendances, profilKATAttendancesRelation, profilKATs, profilKATsRelation, questionAnswerOptions, questionAnswerOptionsRelation, questionTypeEnum, questions, questionsRelation, refreshUserRankingView, stageStatusEnum, stages, stagesRelation, submissionsProfil, submissionsProfilRelation, userAttendance, userAttendanceRelation, userRankingView, userStageProgress, userStageProgressRelation, users, usersRelation, verificationToken, verificationTokenRelations };
+export { accounts, accountsRelation, accountsRoleEnum, activities, assignmentsProfil, assignmentsProfilRelation, attendanceStatusEnum, attendanceTypeEnum, attendances, attendancesRelation, classEnum, classRegistrations, classRegistrationsRelation, classes, classesRelation, createUserRankingViewIndexes, emailVerificationOtps, emailVerificationOtpsRelations, endpointAnalytics, endpointAnalyticsRelation, media, mediaBucketEnum, mediaRelation, messagesRelations, profilKATAttendances, profilKATAttendancesRelation, profilKATs, profilKATsRelation, questionAnswerOptions, questionAnswerOptionsRelation, questionTypeEnum, questions, questionsRelation, refreshUserRankingView, stageStatusEnum, stages, stagesRelation, submissionsProfil, submissionsProfilRelation, userAttendance, userAttendanceRelation, userMatchesRelations, userRankingView, userStageProgress, userStageProgressRelation, users, usersRelation, verificationToken, verificationTokenRelations };

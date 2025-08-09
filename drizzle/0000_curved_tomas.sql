@@ -55,7 +55,7 @@ CREATE TABLE "users" (
 --> statement-breakpoint
 CREATE TABLE "verification_token" (
 	"identifier" text NOT NULL,
-	"token" text,
+	"token" text NOT NULL,
 	"expired_at" timestamp with time zone,
 	CONSTRAINT "verification_token_identifier_token_pk" PRIMARY KEY("identifier","token")
 );
@@ -201,6 +201,26 @@ CREATE TABLE "activities" (
 	"updated_at" timestamp
 );
 --> statement-breakpoint
+CREATE TABLE "messages" (
+	"id" bigserial PRIMARY KEY NOT NULL,
+	"user_match_id" text,
+	"sender_id" text,
+	"content" text NOT NULL,
+	"created_at" timestamp with time zone
+);
+--> statement-breakpoint
+CREATE TABLE "user_matches" (
+	"id" text PRIMARY KEY NOT NULL,
+	"topic" text NOT NULL,
+	"is_active" boolean DEFAULT true NOT NULL,
+	"is_anonymous" boolean DEFAULT true NOT NULL,
+	"is_revealed" boolean DEFAULT false NOT NULL,
+	"first_user_id" text,
+	"second_user_id" text,
+	"last_message" text,
+	"created_at" timestamp DEFAULT now()
+);
+--> statement-breakpoint
 ALTER TABLE "endpoint_analytics" ADD CONSTRAINT "endpoint_analytics_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "email_verification_otps" ADD CONSTRAINT "email_verification_otps_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "users" ADD CONSTRAINT "users_id_accounts_id_fk" FOREIGN KEY ("id") REFERENCES "public"."accounts"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
@@ -224,6 +244,10 @@ ALTER TABLE "user_stage_progress" ADD CONSTRAINT "user_stage_progress_user_id_us
 ALTER TABLE "user_stage_progress" ADD CONSTRAINT "user_stage_progress_stage_id_stages_id_fk" FOREIGN KEY ("stage_id") REFERENCES "public"."stages"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "question_answer_options" ADD CONSTRAINT "question_answer_options_question_id_questions_id_fk" FOREIGN KEY ("question_id") REFERENCES "public"."questions"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "questions" ADD CONSTRAINT "questions_stage_id_stages_id_fk" FOREIGN KEY ("stage_id") REFERENCES "public"."stages"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "messages" ADD CONSTRAINT "messages_user_match_id_user_matches_id_fk" FOREIGN KEY ("user_match_id") REFERENCES "public"."user_matches"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "messages" ADD CONSTRAINT "messages_sender_id_users_id_fk" FOREIGN KEY ("sender_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "user_matches" ADD CONSTRAINT "user_matches_first_user_id_users_id_fk" FOREIGN KEY ("first_user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "user_matches" ADD CONSTRAINT "user_matches_second_user_id_users_id_fk" FOREIGN KEY ("second_user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 CREATE MATERIALIZED VIEW "public"."user_ranking_view" AS (
   WITH user_assignment_scores AS (
     SELECT 
