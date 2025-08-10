@@ -1,6 +1,6 @@
 {
-  "id": "6f22a1d0-5843-41cd-a85b-dfaeabe3ee0b",
-  "prevId": "ea7cceaa-1f07-4d59-906c-dbb75d04273f",
+  "id": "271c2dbf-cc13-477c-91aa-f0cfd6312463",
+  "prevId": "8bbe7902-d28d-4a64-b189-e043c75bd1e5",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -1654,7 +1654,8 @@
         "profile",
         "content",
         "documents",
-        "uploads"
+        "uploads",
+        "assignment"
       ]
     },
     "public.status": {

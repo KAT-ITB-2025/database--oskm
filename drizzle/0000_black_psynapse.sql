@@ -2,7 +2,7 @@ CREATE TYPE "public"."accounts_role_enum" AS ENUM('admin', 'mamet', 'mentor', 'u
 CREATE TYPE "public"."class_enum" AS ENUM('sesi_1', 'sesi_2');--> statement-breakpoint
 CREATE TYPE "public"."attendance_status" AS ENUM('hadir', 'tidak_hadir');--> statement-breakpoint
 CREATE TYPE "public"."attendance_type" AS ENUM('opening', 'closing');--> statement-breakpoint
-CREATE TYPE "public"."media_bucket_enum" AS ENUM('profile', 'content', 'documents', 'uploads');--> statement-breakpoint
+CREATE TYPE "public"."media_bucket_enum" AS ENUM('profile', 'content', 'documents', 'uploads', 'assignment');--> statement-breakpoint
 CREATE TYPE "public"."status" AS ENUM('completed', 'not_completed');--> statement-breakpoint
 CREATE TYPE "public"."question_type_enum" AS ENUM('multiple_choice', 'short_answer');--> statement-breakpoint
 CREATE TABLE "endpoint_analytics" (

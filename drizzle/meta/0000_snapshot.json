@@ -1,5 +1,5 @@
 {
-  "id": "ea7cceaa-1f07-4d59-906c-dbb75d04273f",
+  "id": "8bbe7902-d28d-4a64-b189-e043c75bd1e5",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -1654,7 +1654,8 @@
         "profile",
         "content",
         "documents",
-        "uploads"
+        "uploads",
+        "assignment"
       ]
     },
     "public.status": {

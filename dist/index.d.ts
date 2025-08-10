@@ -1220,7 +1220,7 @@ declare const userAttendance: drizzle_orm_pg_core.PgTableWithColumns<{
     dialect: "pg";
 }>;
 
-declare const mediaBucketEnum: drizzle_orm_pg_core.PgEnum<["profile", "content", "documents", "uploads"]>;
+declare const mediaBucketEnum: drizzle_orm_pg_core.PgEnum<["profile", "content", "documents", "uploads", "assignment"]>;
 declare const media: drizzle_orm_pg_core.PgTableWithColumns<{
     name: "media";
     schema: undefined;
@@ -1281,14 +1281,14 @@ declare const media: drizzle_orm_pg_core.PgTableWithColumns<{
             tableName: "media";
             dataType: "string";
             columnType: "PgEnumColumn";
-            data: "profile" | "content" | "documents" | "uploads";
+            data: "profile" | "content" | "documents" | "uploads" | "assignment";
             driverParam: string;
             notNull: true;
             hasDefault: false;
             isPrimaryKey: false;
             isAutoincrement: false;
             hasRuntimeDefault: false;
-            enumValues: ["profile", "content", "documents", "uploads"];
+            enumValues: ["profile", "content", "documents", "uploads", "assignment"];
             baseColumn: never;
             identity: undefined;
             generated: undefined;

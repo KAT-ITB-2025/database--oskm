@@ -14,6 +14,7 @@ export const mediaBucketEnum = pgEnum('media_bucket_enum', [
   'content',
   'documents',
   'uploads',
+  'assignment'
 ]);
 
 export const media = pgTable('media', {
