@@ -146,10 +146,12 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
       -- Tiebreaker: sum of milliseconds from due date to submission (earlier = higher score)
       COALESCE(SUM(EXTRACT(EPOCH FROM (ap.due_date - sp.created_at)) * 1000), 0) as assignment_timing_score
     FROM users u
+    INNER JOIN accounts a ON a.id = u.id
     CROSS JOIN profil_kats pk 
     LEFT JOIN assignments_profil ap ON ap.profil_kat_id = pk.id
     LEFT JOIN submissions_profil sp ON sp.assignment_id = ap.id AND sp.user_id = u.id
     WHERE pk.profil_number IN (1, 2, 3, 4, 5)
+      AND a.role = 'user'
     GROUP BY u.id, pk.profil_number
   ),
   user_quiz_scores AS (
@@ -167,10 +169,12 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
         EXTRACT(EPOCH FROM (CURRENT_TIMESTAMP - usp.completed_at)) * 1000
       ELSE 0 END as quiz_timing_score
     FROM users u
+    INNER JOIN accounts a ON a.id = u.id
     CROSS JOIN profil_kats pk 
     LEFT JOIN stages s ON s.profil_id = pk.id
     LEFT JOIN user_stage_progress usp ON usp.user_id = u.id AND usp.stage_id = s.id AND usp.status = 'completed'
     WHERE pk.profil_number IN (1, 2, 3, 4, 5)
+      AND a.role = 'user'
   ),
   user_attendance_scores AS (
     SELECT 
@@ -185,12 +189,14 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
         ELSE 0 END
       ), 0) as attendance_timing_score
     FROM users u
+    INNER JOIN accounts acc ON acc.id = u.id
     CROSS JOIN profil_kats pk
     LEFT JOIN profil_kat_attendance pka ON pka.profil_kat_id = pk.id
     LEFT JOIN attendances a ON a.id = pka.attendance_id
     LEFT JOIN user_attendance ua ON ua.schedule_id = a.id AND ua.user_id = u.id
     WHERE pk.profil_number IN (1, 2, 3, 4, 5)
       AND a.start_time <= NOW()
+      AND acc.role = 'user'
     GROUP BY u.id, pk.profil_number
   ),
   user_attendance_total AS (
@@ -199,8 +205,11 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
       COUNT(*) AS attendance_total
     FROM user_attendance ua
     INNER JOIN attendances a ON a.id = ua.schedule_id
+    INNER JOIN users u ON u.id = ua.user_id
+    INNER JOIN accounts acc ON acc.id = u.id
     WHERE ua.status = 'hadir'
       AND a.start_time <= NOW()
+      AND acc.role = 'user'
     GROUP BY ua.user_id
   ),
   user_scores AS (
@@ -290,10 +299,12 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
       COALESCE(uat.attendance_total, 0) as attendance_total
 
     FROM users u
+    INNER JOIN accounts a ON a.id = u.id
     LEFT JOIN user_quiz_scores uqs ON uqs.user_id = u.id
     LEFT JOIN user_assignment_scores uas ON uas.user_id = u.id AND uas.profil_number = uqs.profil_number
     LEFT JOIN user_attendance_scores uats ON uats.user_id = u.id AND uats.profil_number = uqs.profil_number
     LEFT JOIN user_attendance_total uat ON uat.user_id = u.id
+    WHERE a.role = 'user'
     GROUP BY u.id, u.nim, u.full_name, u.fakultas, u.keluarga, u.bata, u.rumpun, u.foto_media_id, uat.attendance_total
   )
   SELECT 
