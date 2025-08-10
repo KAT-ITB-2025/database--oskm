@@ -1,6 +1,6 @@
 {
-  "id": "ff0743a2-8089-4d12-ae81-227b1adb37d4",
-  "prevId": "be1adf82-2f8e-4bd6-b074-f6341f0f161d",
+  "id": "74c6f10b-43f4-4eab-9f75-7b0afc0a2486",
+  "prevId": "669635c1-8a84-4d82-97b9-6879ffb23d81",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -1619,7 +1619,8 @@
         "mamet",
         "mentor",
         "user",
-        "guest"
+        "guest",
+        "hr"
       ]
     },
     "public.class_enum": {

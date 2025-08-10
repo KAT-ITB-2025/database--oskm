@@ -179,7 +179,7 @@ declare const endpointAnalytics: drizzle_orm_pg_core.PgTableWithColumns<{
     dialect: "pg";
 }>;
 
-declare const accountsRoleEnum: drizzle_orm_pg_core.PgEnum<["admin", "mamet", "mentor", "user", "guest"]>;
+declare const accountsRoleEnum: drizzle_orm_pg_core.PgEnum<["admin", "mamet", "mentor", "user", "guest", "hr"]>;
 declare const accounts: drizzle_orm_pg_core.PgTableWithColumns<{
     name: "accounts";
     schema: undefined;
@@ -240,14 +240,14 @@ declare const accounts: drizzle_orm_pg_core.PgTableWithColumns<{
             tableName: "accounts";
             dataType: "string";
             columnType: "PgEnumColumn";
-            data: "admin" | "mamet" | "mentor" | "user" | "guest";
+            data: "admin" | "mamet" | "mentor" | "user" | "guest" | "hr";
             driverParam: string;
             notNull: true;
             hasDefault: true;
             isPrimaryKey: false;
             isAutoincrement: false;
             hasRuntimeDefault: false;
-            enumValues: ["admin", "mamet", "mentor", "user", "guest"];
+            enumValues: ["admin", "mamet", "mentor", "user", "guest", "hr"];
             baseColumn: never;
             identity: undefined;
             generated: undefined;

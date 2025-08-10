@@ -1,4 +1,4 @@
-CREATE TYPE "public"."accounts_role_enum" AS ENUM('admin', 'mamet', 'mentor', 'user', 'guest');--> statement-breakpoint
+CREATE TYPE "public"."accounts_role_enum" AS ENUM('admin', 'mamet', 'mentor', 'user', 'guest', 'hr');--> statement-breakpoint
 CREATE TYPE "public"."class_enum" AS ENUM('sesi_1', 'sesi_2');--> statement-breakpoint
 CREATE TYPE "public"."attendance_status" AS ENUM('hadir', 'tidak_hadir');--> statement-breakpoint
 CREATE TYPE "public"."attendance_type" AS ENUM('opening', 'closing');--> statement-breakpoint

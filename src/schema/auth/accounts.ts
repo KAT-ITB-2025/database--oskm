@@ -9,6 +9,7 @@ export const accountsRoleEnum = pgEnum('accounts_role_enum', [
   'mentor',
   'user',
   'guest',
+  'hr'
 ]);
 
 export const accounts = pgTable('accounts', {
