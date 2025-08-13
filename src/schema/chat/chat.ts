@@ -15,8 +15,10 @@ export const userMatches = pgTable('user_matches', {
   isAnonymous: boolean('is_anonymous').notNull().default(true),
   isRevealed: boolean('is_revealed').notNull().default(false),
   firstUserId: text('first_user_id')
+    .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
   secondUserId: text('second_user_id')
+    .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
   lastMessage: text('last_message'),
   createdAt: timestamp('created_at').defaultNow()
@@ -24,8 +26,8 @@ export const userMatches = pgTable('user_matches', {
 
 export const messages = pgTable('messages', {
   id: bigserial('id', { mode: 'number' }).primaryKey(),
-  userMatchId: text('user_match_id').references(() => userMatches.id, { onDelete: "cascade" }),
-  senderId: text('sender_id').references(() => users.id, { onDelete: 'cascade' }),
+  userMatchId: text('user_match_id').notNull().references(() => userMatches.id, { onDelete: "cascade" }),
+  senderId: text('sender_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
   content: text('content').notNull(),
   createdAt: timestamp('created_at', {
     mode: 'date',

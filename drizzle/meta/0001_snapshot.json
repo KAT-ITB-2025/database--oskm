@@ -1,6 +1,6 @@
 {
-  "id": "271c2dbf-cc13-477c-91aa-f0cfd6312463",
-  "prevId": "8bbe7902-d28d-4a64-b189-e043c75bd1e5",
+  "id": "ed734553-e823-4b4d-a6bb-509af974e1f8",
+  "prevId": "58352a96-e27d-4d82-97a3-01e3783c49b3",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -1455,13 +1455,13 @@
           "name": "user_match_id",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "sender_id": {
           "name": "sender_id",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "content": {
           "name": "content",
@@ -1552,13 +1552,13 @@
           "name": "first_user_id",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "second_user_id": {
           "name": "second_user_id",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "last_message": {
           "name": "last_message",

@@ -203,8 +203,8 @@ CREATE TABLE "activities" (
 --> statement-breakpoint
 CREATE TABLE "messages" (
 	"id" bigserial PRIMARY KEY NOT NULL,
-	"user_match_id" text,
-	"sender_id" text,
+	"user_match_id" text NOT NULL,
+	"sender_id" text NOT NULL,
 	"content" text NOT NULL,
 	"created_at" timestamp with time zone
 );
@@ -215,8 +215,8 @@ CREATE TABLE "user_matches" (
 	"is_active" boolean DEFAULT true NOT NULL,
 	"is_anonymous" boolean DEFAULT true NOT NULL,
 	"is_revealed" boolean DEFAULT false NOT NULL,
-	"first_user_id" text,
-	"second_user_id" text,
+	"first_user_id" text NOT NULL,
+	"second_user_id" text NOT NULL,
 	"last_message" text,
 	"created_at" timestamp DEFAULT now()
 );

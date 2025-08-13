@@ -1,3 +1,5 @@
+-- Custom SQL migration file, put your code below! --
+
 -- Primary key index (automatically created, but explicit for clarity)
 CREATE UNIQUE INDEX IF NOT EXISTS idx_user_ranking_view_user_id ON user_ranking_view(user_id);
 

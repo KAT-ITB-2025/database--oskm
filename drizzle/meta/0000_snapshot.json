@@ -1,5 +1,5 @@
 {
-  "id": "8bbe7902-d28d-4a64-b189-e043c75bd1e5",
+  "id": "58352a96-e27d-4d82-97a3-01e3783c49b3",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -1455,13 +1455,13 @@
           "name": "user_match_id",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "sender_id": {
           "name": "sender_id",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "content": {
           "name": "content",
@@ -1552,13 +1552,13 @@
           "name": "first_user_id",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "second_user_id": {
           "name": "second_user_id",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "last_message": {
           "name": "last_message",

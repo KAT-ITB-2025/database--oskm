@@ -3364,7 +3364,7 @@ declare const userMatches: drizzle_orm_pg_core.PgTableWithColumns<{
             columnType: "PgText";
             data: string;
             driverParam: string;
-            notNull: false;
+            notNull: true;
             hasDefault: false;
             isPrimaryKey: false;
             isAutoincrement: false;
@@ -3381,7 +3381,7 @@ declare const userMatches: drizzle_orm_pg_core.PgTableWithColumns<{
             columnType: "PgText";
             data: string;
             driverParam: string;
-            notNull: false;
+            notNull: true;
             hasDefault: false;
             isPrimaryKey: false;
             isAutoincrement: false;
@@ -3456,7 +3456,7 @@ declare const messages: drizzle_orm_pg_core.PgTableWithColumns<{
             columnType: "PgText";
             data: string;
             driverParam: string;
-            notNull: false;
+            notNull: true;
             hasDefault: false;
             isPrimaryKey: false;
             isAutoincrement: false;
@@ -3473,7 +3473,7 @@ declare const messages: drizzle_orm_pg_core.PgTableWithColumns<{
             columnType: "PgText";
             data: string;
             driverParam: string;
-            notNull: false;
+            notNull: true;
             hasDefault: false;
             isPrimaryKey: false;
             isAutoincrement: false;
@@ -3602,13 +3602,13 @@ declare const endpointAnalyticsRelation: drizzle_orm.Relations<"endpoint_analyti
     user: drizzle_orm.One<"users", false>;
 }>;
 declare const userMatchesRelations: drizzle_orm.Relations<"user_matches", {
-    firstUser: drizzle_orm.One<"users", false>;
-    secondUser: drizzle_orm.One<"users", false>;
+    firstUser: drizzle_orm.One<"users", true>;
+    secondUser: drizzle_orm.One<"users", true>;
     messages: drizzle_orm.Many<"messages">;
 }>;
 declare const messagesRelations: drizzle_orm.Relations<"messages", {
-    senderId: drizzle_orm.One<"users", false>;
-    userMatch: drizzle_orm.One<"user_matches", false>;
+    senderId: drizzle_orm.One<"users", true>;
+    userMatch: drizzle_orm.One<"user_matches", true>;
 }>;
 
 export { accounts, accountsRelation, accountsRoleEnum, activities, assignmentsProfil, assignmentsProfilRelation, attendanceStatusEnum, attendanceTypeEnum, attendances, attendancesRelation, classEnum, classRegistrations, classRegistrationsRelation, classes, classesRelation, createUserRankingViewIndexes, emailVerificationOtps, emailVerificationOtpsRelations, endpointAnalytics, endpointAnalyticsRelation, media, mediaBucketEnum, mediaRelation, messages, messagesRelations, profilKATAttendances, profilKATAttendancesRelation, profilKATs, profilKATsRelation, questionAnswerOptions, questionAnswerOptionsRelation, questionTypeEnum, questions, questionsRelation, refreshUserRankingView, stageStatusEnum, stages, stagesRelation, submissionsProfil, submissionsProfilRelation, userAttendance, userAttendanceRelation, userMatches, userMatchesRelations, userRankingView, userStageProgress, userStageProgressRelation, users, usersRelation, verificationToken, verificationTokenRelations };
