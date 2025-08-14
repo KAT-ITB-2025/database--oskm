@@ -46,7 +46,6 @@ export const usersRelation = relations(users, ({ one, many }) => ({
   createdMedia: many(media),
   analytics: many(endpointAnalytics),
   classRegistrations: many(classRegistrations),
-  mentorClasses: many(classes),
   userMatchesAsFirstUser: many(userMatches, { relationName: 'first_user' }),
   userMatchesAsSecondUser: many(userMatches, { relationName: 'second_user' }),
   messages: many(messages, { relationName: 'sender' }),

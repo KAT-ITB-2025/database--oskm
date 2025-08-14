@@ -3533,7 +3533,6 @@ declare const usersRelation: drizzle_orm.Relations<"users", {
     createdMedia: drizzle_orm.Many<"media">;
     analytics: drizzle_orm.Many<"endpoint_analytics">;
     classRegistrations: drizzle_orm.Many<"class_registrations">;
-    mentorClasses: drizzle_orm.Many<"classes">;
     userMatchesAsFirstUser: drizzle_orm.Many<"user_matches">;
     userMatchesAsSecondUser: drizzle_orm.Many<"user_matches">;
     messages: drizzle_orm.Many<"messages">;
