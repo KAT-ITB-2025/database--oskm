@@ -1249,7 +1249,7 @@ declare const media: drizzle_orm_pg_core.PgTableWithColumns<{
             columnType: "PgText";
             data: string;
             driverParam: string;
-            notNull: true;
+            notNull: false;
             hasDefault: false;
             isPrimaryKey: false;
             isAutoincrement: false;
@@ -3544,7 +3544,7 @@ declare const verificationTokenRelations: drizzle_orm.Relations<"verification_to
     user: drizzle_orm.One<"users", true>;
 }>;
 declare const mediaRelation: drizzle_orm.Relations<"media", {
-    creator: drizzle_orm.One<"users", true>;
+    creator: drizzle_orm.One<"users", false>;
     submissions: drizzle_orm.Many<"submissions_profil">;
 }>;
 declare const attendancesRelation: drizzle_orm.Relations<"attendances", {

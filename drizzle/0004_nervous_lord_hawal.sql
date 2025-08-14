@@ -1,0 +1,1 @@
+ALTER TABLE "media" ALTER COLUMN "creator_id" DROP NOT NULL;

@@ -14,16 +14,14 @@ export const mediaBucketEnum = pgEnum('media_bucket_enum', [
   'content',
   'documents',
   'uploads',
-  'assignment'
+  'assignment',
 ]);
 
 export const media = pgTable('media', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => createId()),
-  creatorId: text('creator_id')
-    .notNull()
-    .references((): AnyPgColumn => users.id),
+  creatorId: text('creator_id').references((): AnyPgColumn => users.id),
   name: text('name').notNull(),
   bucket: mediaBucketEnum('bucket').notNull(),
   type: text('type').notNull(),
