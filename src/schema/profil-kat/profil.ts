@@ -33,9 +33,7 @@ export const assignmentsProfil = pgTable('assignments_profil', {
     .notNull()
     .references(() => profilKATs.id),
   title: text('title').notNull(),
-  assignmentMediaId: text('assignment_media_id')
-    .notNull()
-    .references(() => media.id),
+  assignmentMediaId: text('assignment_media_id').references(() => media.id),
   description: text('description'),
   dueDate: timestamp('due_date', {
     mode: 'date',

@@ -1,0 +1,1 @@
+ALTER TABLE "assignments_profil" ALTER COLUMN "assignment_media_id" DROP NOT NULL;

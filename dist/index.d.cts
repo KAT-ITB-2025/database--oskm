@@ -1570,7 +1570,7 @@ declare const assignmentsProfil: drizzle_orm_pg_core.PgTableWithColumns<{
             columnType: "PgText";
             data: string;
             driverParam: string;
-            notNull: true;
+            notNull: false;
             hasDefault: false;
             isPrimaryKey: false;
             isAutoincrement: false;
