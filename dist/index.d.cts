@@ -726,14 +726,14 @@ declare const classes: drizzle_orm_pg_core.PgTableWithColumns<{
             identity: undefined;
             generated: undefined;
         }, {}, {}>;
-        mentorId: drizzle_orm_pg_core.PgColumn<{
-            name: "mentor_id";
+        mentorName: drizzle_orm_pg_core.PgColumn<{
+            name: "mentor_name";
             tableName: "classes";
             dataType: "string";
             columnType: "PgText";
             data: string;
             driverParam: string;
-            notNull: false;
+            notNull: true;
             hasDefault: false;
             isPrimaryKey: false;
             isAutoincrement: false;
@@ -3591,7 +3591,6 @@ declare const submissionsProfilRelation: drizzle_orm.Relations<"submissions_prof
     media: drizzle_orm.One<"media", true>;
 }>;
 declare const classesRelation: drizzle_orm.Relations<"classes", {
-    mentor: drizzle_orm.One<"users", false>;
     registrations: drizzle_orm.Many<"class_registrations">;
 }>;
 declare const classRegistrationsRelation: drizzle_orm.Relations<"class_registrations", {

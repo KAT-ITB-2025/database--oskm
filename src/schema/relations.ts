@@ -3,7 +3,11 @@ import { relations } from 'drizzle-orm';
 // Import all tables
 import { accounts, emailVerificationOtps, users } from './auth';
 import { media } from './media';
-import { attendances, userAttendance, profilKATAttendances } from './engagement';
+import {
+  attendances,
+  userAttendance,
+  profilKATAttendances,
+} from './engagement';
 import {
   stages,
   userStageProgress,
@@ -94,16 +98,19 @@ export const userAttendanceRelation = relations(userAttendance, ({ one }) => ({
   }),
 }));
 
-export const profilKATAttendancesRelation = relations(profilKATAttendances, ({ one }) => ({
-  profilKAT: one(profilKATs, {
-    fields: [profilKATAttendances.profilKATId],
-    references: [profilKATs.id],
+export const profilKATAttendancesRelation = relations(
+  profilKATAttendances,
+  ({ one }) => ({
+    profilKAT: one(profilKATs, {
+      fields: [profilKATAttendances.profilKATId],
+      references: [profilKATs.id],
+    }),
+    attendance: one(attendances, {
+      fields: [profilKATAttendances.attendanceId],
+      references: [attendances.id],
+    }),
   }),
-  attendance: one(attendances, {
-    fields: [profilKATAttendances.attendanceId],
-    references: [attendances.id],
-  }),
-}));
+);
 
 // Learning Relations
 export const stagesRelation = relations(stages, ({ many, one }) => ({
@@ -187,10 +194,6 @@ export const submissionsProfilRelation = relations(
 
 // Classes Relations
 export const classesRelation = relations(classes, ({ one, many }) => ({
-  mentor: one(users, {
-    fields: [classes.mentorId],
-    references: [users.id],
-  }),
   registrations: many(classRegistrations),
 }));
 
@@ -237,7 +240,7 @@ export const messagesRelations = relations(messages, ({ one }) => ({
   senderId: one(users, {
     fields: [messages.senderId],
     references: [users.id],
-    relationName: 'sender'
+    relationName: 'sender',
   }),
   userMatch: one(userMatches, {
     fields: [messages.userMatchId],

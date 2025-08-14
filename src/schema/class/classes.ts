@@ -22,7 +22,7 @@ export const classes = pgTable('classes', {
   className: text('class_name').notNull(),
   room: text('room').notNull(),
   totalQuota: integer('total_quota').notNull(),
-  mentorId: text('mentor_id').references((): AnyPgColumn => users.id),
+  mentorName: text('mentor_name').notNull(),
   classType: classEnum('class_type').notNull(),
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').$onUpdate(getNow),
