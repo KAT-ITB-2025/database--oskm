@@ -1220,7 +1220,6 @@ declare const userAttendance: drizzle_orm_pg_core.PgTableWithColumns<{
     dialect: "pg";
 }>;
 
-declare const mediaBucketEnum: drizzle_orm_pg_core.PgEnum<["profile", "content", "documents", "uploads", "assignment"]>;
 declare const media: drizzle_orm_pg_core.PgTableWithColumns<{
     name: "media";
     schema: undefined;
@@ -1280,15 +1279,15 @@ declare const media: drizzle_orm_pg_core.PgTableWithColumns<{
             name: "bucket";
             tableName: "media";
             dataType: "string";
-            columnType: "PgEnumColumn";
-            data: "profile" | "content" | "documents" | "uploads" | "assignment";
+            columnType: "PgText";
+            data: string;
             driverParam: string;
             notNull: true;
             hasDefault: false;
             isPrimaryKey: false;
             isAutoincrement: false;
             hasRuntimeDefault: false;
-            enumValues: ["profile", "content", "documents", "uploads", "assignment"];
+            enumValues: [string, ...string[]];
             baseColumn: never;
             identity: undefined;
             generated: undefined;
@@ -3609,4 +3608,4 @@ declare const messagesRelations: drizzle_orm.Relations<"messages", {
     userMatch: drizzle_orm.One<"user_matches", true>;
 }>;
 
-export { accounts, accountsRelation, accountsRoleEnum, activities, assignmentsProfil, assignmentsProfilRelation, attendanceStatusEnum, attendanceTypeEnum, attendances, attendancesRelation, classEnum, classRegistrations, classRegistrationsRelation, classes, classesRelation, createUserRankingViewIndexes, emailVerificationOtps, emailVerificationOtpsRelations, endpointAnalytics, endpointAnalyticsRelation, media, mediaBucketEnum, mediaRelation, messages, messagesRelations, profilKATAttendances, profilKATAttendancesRelation, profilKATs, profilKATsRelation, questionAnswerOptions, questionAnswerOptionsRelation, questionTypeEnum, questions, questionsRelation, refreshUserRankingView, stageStatusEnum, stages, stagesRelation, submissionsProfil, submissionsProfilRelation, userAttendance, userAttendanceRelation, userMatches, userMatchesRelations, userRankingView, userStageProgress, userStageProgressRelation, users, usersRelation, verificationToken, verificationTokenRelations };
+export { accounts, accountsRelation, accountsRoleEnum, activities, assignmentsProfil, assignmentsProfilRelation, attendanceStatusEnum, attendanceTypeEnum, attendances, attendancesRelation, classEnum, classRegistrations, classRegistrationsRelation, classes, classesRelation, createUserRankingViewIndexes, emailVerificationOtps, emailVerificationOtpsRelations, endpointAnalytics, endpointAnalyticsRelation, media, mediaRelation, messages, messagesRelations, profilKATAttendances, profilKATAttendancesRelation, profilKATs, profilKATsRelation, questionAnswerOptions, questionAnswerOptionsRelation, questionTypeEnum, questions, questionsRelation, refreshUserRankingView, stageStatusEnum, stages, stagesRelation, submissionsProfil, submissionsProfilRelation, userAttendance, userAttendanceRelation, userMatches, userMatchesRelations, userRankingView, userStageProgress, userStageProgressRelation, users, usersRelation, verificationToken, verificationTokenRelations };
