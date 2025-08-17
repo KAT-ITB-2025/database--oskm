@@ -21,7 +21,8 @@ export const activities = pgTable('activities', {
   startTime: time('start_time').notNull(),
   endTime: time('end_time').notNull(),
   location: text('location'),
-  geolocation: text('geolocation'),
+  lat: integer('lat'),
+  lng: integer('lng'),
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').$onUpdate(getNow),
 });
