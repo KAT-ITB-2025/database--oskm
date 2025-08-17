@@ -1364,6 +1364,48 @@ declare const media: drizzle_orm_pg_core.PgTableWithColumns<{
     dialect: "pg";
 }>;
 
+declare const handbook: drizzle_orm_pg_core.PgTableWithColumns<{
+    name: "handbook";
+    schema: undefined;
+    columns: {
+        mediaId: drizzle_orm_pg_core.PgColumn<{
+            name: "media_id";
+            tableName: "handbook";
+            dataType: "string";
+            columnType: "PgText";
+            data: string;
+            driverParam: string;
+            notNull: true;
+            hasDefault: false;
+            isPrimaryKey: true;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: [string, ...string[]];
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        title: drizzle_orm_pg_core.PgColumn<{
+            name: "title";
+            tableName: "handbook";
+            dataType: "string";
+            columnType: "PgText";
+            data: string;
+            driverParam: string;
+            notNull: false;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: [string, ...string[]];
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+    };
+    dialect: "pg";
+}>;
+
 declare const profilKATs: drizzle_orm_pg_core.PgTableWithColumns<{
     name: "profil_kats";
     schema: undefined;
@@ -3561,6 +3603,7 @@ declare const verificationTokenRelations: drizzle_orm.Relations<"verification_to
 }>;
 declare const mediaRelation: drizzle_orm.Relations<"media", {
     creator: drizzle_orm.One<"users", false>;
+    handbook: drizzle_orm.One<"handbook", true>;
     submissions: drizzle_orm.Many<"submissions_profil">;
 }>;
 declare const attendancesRelation: drizzle_orm.Relations<"attendances", {
@@ -3625,4 +3668,4 @@ declare const messagesRelations: drizzle_orm.Relations<"messages", {
     userMatch: drizzle_orm.One<"user_matches", true>;
 }>;
 
-export { accounts, accountsRelation, accountsRoleEnum, activities, assignmentsProfil, assignmentsProfilRelation, attendanceStatusEnum, attendanceTypeEnum, attendances, attendancesRelation, classEnum, classRegistrations, classRegistrationsRelation, classes, classesRelation, createUserRankingViewIndexes, emailVerificationOtps, emailVerificationOtpsRelations, endpointAnalytics, endpointAnalyticsRelation, media, mediaRelation, messages, messagesRelations, profilKATAttendances, profilKATAttendancesRelation, profilKATs, profilKATsRelation, questionAnswerOptions, questionAnswerOptionsRelation, questionTypeEnum, questions, questionsRelation, refreshUserRankingView, stageStatusEnum, stages, stagesRelation, submissionsProfil, submissionsProfilRelation, userAttendance, userAttendanceRelation, userMatches, userMatchesRelations, userRankingView, userStageProgress, userStageProgressRelation, users, usersRelation, verificationToken, verificationTokenRelations };
+export { accounts, accountsRelation, accountsRoleEnum, activities, assignmentsProfil, assignmentsProfilRelation, attendanceStatusEnum, attendanceTypeEnum, attendances, attendancesRelation, classEnum, classRegistrations, classRegistrationsRelation, classes, classesRelation, createUserRankingViewIndexes, emailVerificationOtps, emailVerificationOtpsRelations, endpointAnalytics, endpointAnalyticsRelation, handbook, media, mediaRelation, messages, messagesRelations, profilKATAttendances, profilKATAttendancesRelation, profilKATs, profilKATsRelation, questionAnswerOptions, questionAnswerOptionsRelation, questionTypeEnum, questions, questionsRelation, refreshUserRankingView, stageStatusEnum, stages, stagesRelation, submissionsProfil, submissionsProfilRelation, userAttendance, userAttendanceRelation, userMatches, userMatchesRelations, userRankingView, userStageProgress, userStageProgressRelation, users, usersRelation, verificationToken, verificationTokenRelations };

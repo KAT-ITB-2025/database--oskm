@@ -2,7 +2,7 @@ import { relations } from 'drizzle-orm';
 
 // Import all tables
 import { accounts, emailVerificationOtps, users } from './auth';
-import { media } from './media';
+import { handbook, media } from './media';
 import {
   attendances,
   userAttendance,
@@ -76,6 +76,10 @@ export const mediaRelation = relations(media, ({ one, many }) => ({
   creator: one(users, {
     fields: [media.creatorId],
     references: [users.id],
+  }),
+  handbook: one(handbook, {
+    fields: [media.id],
+    references: [handbook.mediaId],
   }),
   submissions: many(submissionsProfil),
 }));
