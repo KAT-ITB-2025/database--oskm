@@ -3258,7 +3258,7 @@ declare const activities: drizzle_orm_pg_core.PgTableWithColumns<{
             name: "lat";
             tableName: "activities";
             dataType: "number";
-            columnType: "PgInteger";
+            columnType: "PgReal";
             data: number;
             driverParam: string | number;
             notNull: false;
@@ -3275,7 +3275,7 @@ declare const activities: drizzle_orm_pg_core.PgTableWithColumns<{
             name: "lng";
             tableName: "activities";
             dataType: "number";
-            columnType: "PgInteger";
+            columnType: "PgReal";
             data: number;
             driverParam: string | number;
             notNull: false;

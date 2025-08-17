@@ -4,6 +4,7 @@ import {
   integer,
   pgEnum,
   pgTable,
+  real,
   text,
   time,
   timestamp,
@@ -21,8 +22,8 @@ export const activities = pgTable('activities', {
   startTime: time('start_time').notNull(),
   endTime: time('end_time').notNull(),
   location: text('location'),
-  lat: integer('lat'),
-  lng: integer('lng'),
+  lat: real('lat'),
+  lng: real('lng'),
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').$onUpdate(getNow),
 });
