@@ -1276,8 +1276,8 @@ declare const itbGuesserOptions: drizzle_orm_pg_core.PgTableWithColumns<{
             identity: undefined;
             generated: undefined;
         }, {}, {}>;
-        fotoMediaId: drizzle_orm_pg_core.PgColumn<{
-            name: "foto_media_id";
+        publicUrl: drizzle_orm_pg_core.PgColumn<{
+            name: "public_url";
             tableName: "itb_guesser_options";
             dataType: "string";
             columnType: "PgText";
@@ -4084,7 +4084,6 @@ declare const messagesRelations: drizzle_orm.Relations<"messages", {
     userMatch: drizzle_orm.One<"user_matches", true>;
 }>;
 declare const itbGuesserOptionsRelations: drizzle_orm.Relations<"itb_guesser_options", {
-    foto: drizzle_orm.One<"media", true>;
     submissions: drizzle_orm.Many<"itb_guesser_submissions">;
 }>;
 declare const itbGuesserSubmissionsRelations: drizzle_orm.Relations<"itb_guesser_submissions", {

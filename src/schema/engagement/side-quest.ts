@@ -22,9 +22,7 @@ export const itbGuesserOptions = pgTable('itb_guesser_options', {
     .primaryKey()
     .$defaultFn(() => createId()),
   tempat: itbGuesserTempatEnum('tempat').notNull(),
-  fotoMediaId: text('foto_media_id')
-    .notNull()
-    .references(() => media.id),
+  publicUrl: text('public_url').notNull(),
   lat: real('lat').notNull(),
   lng: real('lng').notNull(),
   createdAt: timestamp('created_at').defaultNow(),
