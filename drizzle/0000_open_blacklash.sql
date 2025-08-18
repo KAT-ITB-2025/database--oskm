@@ -2,7 +2,6 @@ CREATE TYPE "public"."accounts_role_enum" AS ENUM('admin', 'mamet', 'mentor', 'u
 CREATE TYPE "public"."class_enum" AS ENUM('sesi_1', 'sesi_2');--> statement-breakpoint
 CREATE TYPE "public"."attendance_status" AS ENUM('hadir', 'tidak_hadir');--> statement-breakpoint
 CREATE TYPE "public"."attendance_type" AS ENUM('opening', 'closing');--> statement-breakpoint
-CREATE TYPE "public"."media_bucket_enum" AS ENUM('profile', 'content', 'documents', 'uploads', 'assignment');--> statement-breakpoint
 CREATE TYPE "public"."status" AS ENUM('completed', 'not_completed');--> statement-breakpoint
 CREATE TYPE "public"."question_type_enum" AS ENUM('multiple_choice', 'short_answer');--> statement-breakpoint
 CREATE TABLE "endpoint_analytics" (
@@ -74,7 +73,7 @@ CREATE TABLE "classes" (
 	"class_name" text NOT NULL,
 	"room" text NOT NULL,
 	"total_quota" integer NOT NULL,
-	"mentor_id" text,
+	"mentor_name" text NOT NULL,
 	"class_type" "class_enum" NOT NULL,
 	"created_at" timestamp DEFAULT now(),
 	"updated_at" timestamp
@@ -108,20 +107,25 @@ CREATE TABLE "user_attendance" (
 --> statement-breakpoint
 CREATE TABLE "media" (
 	"id" text PRIMARY KEY NOT NULL,
-	"creator_id" text NOT NULL,
+	"creator_id" text,
 	"name" text NOT NULL,
-	"bucket" "media_bucket_enum" NOT NULL,
+	"bucket" text NOT NULL,
 	"type" text NOT NULL,
 	"url" text NOT NULL,
 	"updated_at" timestamp,
 	"created_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
+CREATE TABLE "handbook" (
+	"media_id" text PRIMARY KEY NOT NULL,
+	"title" text
+);
+--> statement-breakpoint
 CREATE TABLE "assignments_profil" (
 	"id" text PRIMARY KEY NOT NULL,
 	"profil_kat_id" text NOT NULL,
 	"title" text NOT NULL,
-	"assignment_media_id" text NOT NULL,
+	"assignment_media_id" text,
 	"description" text,
 	"due_date" timestamp with time zone NOT NULL,
 	"is_open" boolean DEFAULT false NOT NULL,
@@ -196,7 +200,8 @@ CREATE TABLE "activities" (
 	"start_time" time NOT NULL,
 	"end_time" time NOT NULL,
 	"location" text,
-	"geolocation" text,
+	"lat" real,
+	"lng" real,
 	"created_at" timestamp DEFAULT now(),
 	"updated_at" timestamp
 );
@@ -206,7 +211,7 @@ CREATE TABLE "messages" (
 	"user_match_id" text NOT NULL,
 	"sender_id" text NOT NULL,
 	"content" text NOT NULL,
-	"created_at" timestamp with time zone
+	"created_at" timestamp with time zone DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE "user_matches" (
@@ -218,7 +223,7 @@ CREATE TABLE "user_matches" (
 	"first_user_id" text NOT NULL,
 	"second_user_id" text NOT NULL,
 	"last_message" text,
-	"created_at" timestamp DEFAULT now()
+	"created_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 ALTER TABLE "endpoint_analytics" ADD CONSTRAINT "endpoint_analytics_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
@@ -228,12 +233,12 @@ ALTER TABLE "users" ADD CONSTRAINT "users_foto_media_id_media_id_fk" FOREIGN KEY
 ALTER TABLE "verification_token" ADD CONSTRAINT "verification_token_identifier_users_email_fk" FOREIGN KEY ("identifier") REFERENCES "public"."users"("email") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "class_registrations" ADD CONSTRAINT "class_registrations_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "class_registrations" ADD CONSTRAINT "class_registrations_class_id_classes_id_fk" FOREIGN KEY ("class_id") REFERENCES "public"."classes"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "classes" ADD CONSTRAINT "classes_mentor_id_users_id_fk" FOREIGN KEY ("mentor_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "profil_kat_attendance" ADD CONSTRAINT "profil_kat_attendance_profil_kat_id_profil_kats_id_fk" FOREIGN KEY ("profil_kat_id") REFERENCES "public"."profil_kats"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "profil_kat_attendance" ADD CONSTRAINT "profil_kat_attendance_attendance_id_attendances_id_fk" FOREIGN KEY ("attendance_id") REFERENCES "public"."attendances"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "user_attendance" ADD CONSTRAINT "user_attendance_schedule_id_attendances_id_fk" FOREIGN KEY ("schedule_id") REFERENCES "public"."attendances"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "user_attendance" ADD CONSTRAINT "user_attendance_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "media" ADD CONSTRAINT "media_creator_id_users_id_fk" FOREIGN KEY ("creator_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "handbook" ADD CONSTRAINT "handbook_media_id_media_id_fk" FOREIGN KEY ("media_id") REFERENCES "public"."media"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "assignments_profil" ADD CONSTRAINT "assignments_profil_profil_kat_id_profil_kats_id_fk" FOREIGN KEY ("profil_kat_id") REFERENCES "public"."profil_kats"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "assignments_profil" ADD CONSTRAINT "assignments_profil_assignment_media_id_media_id_fk" FOREIGN KEY ("assignment_media_id") REFERENCES "public"."media"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "submissions_profil" ADD CONSTRAINT "submissions_profil_assignment_id_assignments_profil_id_fk" FOREIGN KEY ("assignment_id") REFERENCES "public"."assignments_profil"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint

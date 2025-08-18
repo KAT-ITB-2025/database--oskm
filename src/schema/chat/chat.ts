@@ -21,7 +21,7 @@ export const userMatches = pgTable('user_matches', {
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
   lastMessage: text('last_message'),
-  createdAt: timestamp('created_at').defaultNow()
+  createdAt: timestamp('created_at').notNull().defaultNow()
 });
 
 export const messages = pgTable('messages', {
@@ -32,5 +32,5 @@ export const messages = pgTable('messages', {
   createdAt: timestamp('created_at', {
     mode: 'date',
     withTimezone: true
-  })
+  }).notNull().defaultNow()
 });
