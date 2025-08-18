@@ -5,64 +5,15 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1755084437033,
-      "tag": "0000_charming_iceman",
+      "when": 1755534105195,
+      "tag": "0000_yellow_calypso",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "7",
-      "when": 1755084485071,
+      "when": 1755534139360,
       "tag": "0001_MANUAL_leaderboard_index_add",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1755183740236,
-      "tag": "0002_luxuriant_reaper",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1755194499719,
-      "tag": "0003_green_klaw",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1755196596924,
-      "tag": "0004_nervous_lord_hawal",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1755279411051,
-      "tag": "0005_motionless_ben_parker",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "7",
-      "when": 1755443727018,
-      "tag": "0006_equal_toad",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "7",
-      "when": 1755444366873,
-      "tag": "0007_careful_wild_pack",
-      "breakpoints": true
-    },
-    {
-      "idx": 8,
-      "version": "7",
-      "when": 1755444751520,
-      "tag": "0008_lean_maximus",
       "breakpoints": true
     }
   ]

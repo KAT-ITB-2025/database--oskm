@@ -7,6 +7,8 @@ import {
   attendances,
   userAttendance,
   profilKATAttendances,
+  itbGuesserOptions,
+  itbGuesserSubmissions,
 } from './engagement';
 import {
   stages,
@@ -49,6 +51,7 @@ export const usersRelation = relations(users, ({ one, many }) => ({
   userMatchesAsFirstUser: many(userMatches, { relationName: 'first_user' }),
   userMatchesAsSecondUser: many(userMatches, { relationName: 'second_user' }),
   messages: many(messages, { relationName: 'sender' }),
+  itbGuesserSubmissions: many(itbGuesserSubmissions),
 }));
 
 export const emailVerificationOtpsRelations = relations(
@@ -82,6 +85,7 @@ export const mediaRelation = relations(media, ({ one, many }) => ({
     references: [handbook.mediaId],
   }),
   submissions: many(submissionsProfil),
+  itbGuesserOptions: many(itbGuesserOptions),
 }));
 
 // Engagement Relations
@@ -248,5 +252,25 @@ export const messagesRelations = relations(messages, ({ one }) => ({
   userMatch: one(userMatches, {
     fields: [messages.userMatchId],
     references: [userMatches.id],
+  }),
+}));
+
+// ITB Guesser Relations
+export const itbGuesserOptionsRelations = relations(itbGuesserOptions, ({ one, many }) => ({
+  foto: one(media, {
+    fields: [itbGuesserOptions.fotoMediaId],
+    references: [media.id],
+  }),
+  submissions: many(itbGuesserSubmissions),
+}));
+
+export const itbGuesserSubmissionsRelations = relations(itbGuesserSubmissions, ({ one }) => ({
+  user: one(users, {
+    fields: [itbGuesserSubmissions.userId],
+    references: [users.id],
+  }),
+  option: one(itbGuesserOptions, {
+    fields: [itbGuesserSubmissions.optionId],
+    references: [itbGuesserOptions.id],
   }),
 }));

@@ -2,7 +2,7 @@ CREATE TYPE "public"."accounts_role_enum" AS ENUM('admin', 'mamet', 'mentor', 'u
 CREATE TYPE "public"."class_enum" AS ENUM('sesi_1', 'sesi_2');--> statement-breakpoint
 CREATE TYPE "public"."attendance_status" AS ENUM('hadir', 'tidak_hadir');--> statement-breakpoint
 CREATE TYPE "public"."attendance_type" AS ENUM('opening', 'closing');--> statement-breakpoint
-CREATE TYPE "public"."media_bucket_enum" AS ENUM('profile', 'content', 'documents', 'uploads', 'assignment');--> statement-breakpoint
+CREATE TYPE "public"."itb_guesser_tempat" AS ENUM('Ganesha', 'Jatinangor', 'Cirebon');--> statement-breakpoint
 CREATE TYPE "public"."status" AS ENUM('completed', 'not_completed');--> statement-breakpoint
 CREATE TYPE "public"."question_type_enum" AS ENUM('multiple_choice', 'short_answer');--> statement-breakpoint
 CREATE TABLE "endpoint_analytics" (
@@ -74,7 +74,8 @@ CREATE TABLE "classes" (
 	"class_name" text NOT NULL,
 	"room" text NOT NULL,
 	"total_quota" integer NOT NULL,
-	"mentor_id" text,
+	"mentor_name" text NOT NULL,
+	"description" text NOT NULL,
 	"class_type" "class_enum" NOT NULL,
 	"created_at" timestamp DEFAULT now(),
 	"updated_at" timestamp
@@ -106,22 +107,57 @@ CREATE TABLE "user_attendance" (
 	"updated_at" timestamp
 );
 --> statement-breakpoint
+CREATE TABLE "itb_guesser_options" (
+	"id" text PRIMARY KEY NOT NULL,
+	"tempat" "itb_guesser_tempat" NOT NULL,
+	"foto_media_id" text NOT NULL,
+	"lat" real NOT NULL,
+	"lng" real NOT NULL,
+	"created_at" timestamp DEFAULT now(),
+	"updated_at" timestamp
+);
+--> statement-breakpoint
+CREATE TABLE "itb_guesser_submissions" (
+	"id" text PRIMARY KEY NOT NULL,
+	"user_id" text NOT NULL,
+	"option_id" text NOT NULL,
+	"answer_lat" real NOT NULL,
+	"answer_lng" real NOT NULL,
+	"score" real NOT NULL,
+	"created_at" timestamp DEFAULT now(),
+	"updated_at" timestamp
+);
+--> statement-breakpoint
+CREATE TABLE "memory_game_scores" (
+	"id" text PRIMARY KEY NOT NULL,
+	"user_id" text NOT NULL,
+	"score" integer NOT NULL,
+	"created_at" timestamp DEFAULT now(),
+	"updated_at" timestamp,
+	CONSTRAINT "memory_game_scores_user_id_unique" UNIQUE("user_id")
+);
+--> statement-breakpoint
 CREATE TABLE "media" (
 	"id" text PRIMARY KEY NOT NULL,
-	"creator_id" text NOT NULL,
+	"creator_id" text,
 	"name" text NOT NULL,
-	"bucket" "media_bucket_enum" NOT NULL,
+	"bucket" text NOT NULL,
 	"type" text NOT NULL,
 	"url" text NOT NULL,
 	"updated_at" timestamp,
 	"created_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
+CREATE TABLE "handbook" (
+	"media_id" text PRIMARY KEY NOT NULL,
+	"title" text
+);
+--> statement-breakpoint
 CREATE TABLE "assignments_profil" (
 	"id" text PRIMARY KEY NOT NULL,
 	"profil_kat_id" text NOT NULL,
 	"title" text NOT NULL,
-	"assignment_media_id" text NOT NULL,
+	"assignment_media_id" text,
 	"description" text,
 	"due_date" timestamp with time zone NOT NULL,
 	"is_open" boolean DEFAULT false NOT NULL,
@@ -196,7 +232,8 @@ CREATE TABLE "activities" (
 	"start_time" time NOT NULL,
 	"end_time" time NOT NULL,
 	"location" text,
-	"geolocation" text,
+	"lat" real,
+	"lng" real,
 	"created_at" timestamp DEFAULT now(),
 	"updated_at" timestamp
 );
@@ -228,12 +265,16 @@ ALTER TABLE "users" ADD CONSTRAINT "users_foto_media_id_media_id_fk" FOREIGN KEY
 ALTER TABLE "verification_token" ADD CONSTRAINT "verification_token_identifier_users_email_fk" FOREIGN KEY ("identifier") REFERENCES "public"."users"("email") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "class_registrations" ADD CONSTRAINT "class_registrations_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "class_registrations" ADD CONSTRAINT "class_registrations_class_id_classes_id_fk" FOREIGN KEY ("class_id") REFERENCES "public"."classes"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "classes" ADD CONSTRAINT "classes_mentor_id_users_id_fk" FOREIGN KEY ("mentor_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "profil_kat_attendance" ADD CONSTRAINT "profil_kat_attendance_profil_kat_id_profil_kats_id_fk" FOREIGN KEY ("profil_kat_id") REFERENCES "public"."profil_kats"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "profil_kat_attendance" ADD CONSTRAINT "profil_kat_attendance_attendance_id_attendances_id_fk" FOREIGN KEY ("attendance_id") REFERENCES "public"."attendances"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "user_attendance" ADD CONSTRAINT "user_attendance_schedule_id_attendances_id_fk" FOREIGN KEY ("schedule_id") REFERENCES "public"."attendances"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "user_attendance" ADD CONSTRAINT "user_attendance_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "itb_guesser_options" ADD CONSTRAINT "itb_guesser_options_foto_media_id_media_id_fk" FOREIGN KEY ("foto_media_id") REFERENCES "public"."media"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "itb_guesser_submissions" ADD CONSTRAINT "itb_guesser_submissions_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "itb_guesser_submissions" ADD CONSTRAINT "itb_guesser_submissions_option_id_itb_guesser_options_id_fk" FOREIGN KEY ("option_id") REFERENCES "public"."itb_guesser_options"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "memory_game_scores" ADD CONSTRAINT "memory_game_scores_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "media" ADD CONSTRAINT "media_creator_id_users_id_fk" FOREIGN KEY ("creator_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "handbook" ADD CONSTRAINT "handbook_media_id_media_id_fk" FOREIGN KEY ("media_id") REFERENCES "public"."media"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "assignments_profil" ADD CONSTRAINT "assignments_profil_profil_kat_id_profil_kats_id_fk" FOREIGN KEY ("profil_kat_id") REFERENCES "public"."profil_kats"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "assignments_profil" ADD CONSTRAINT "assignments_profil_assignment_media_id_media_id_fk" FOREIGN KEY ("assignment_media_id") REFERENCES "public"."media"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "submissions_profil" ADD CONSTRAINT "submissions_profil_assignment_id_assignments_profil_id_fk" FOREIGN KEY ("assignment_id") REFERENCES "public"."assignments_profil"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
@@ -324,6 +365,19 @@ CREATE MATERIALIZED VIEW "public"."user_ranking_view" AS (
       AND acc.role = 'user'
     GROUP BY ua.user_id
   ),
+  itb_guesser_max_score AS (
+    SELECT 
+      user_id, 
+      COALESCE(MAX(score), 0.0) AS itb_guesser_max_score
+    FROM itb_guesser_submissions
+    GROUP BY user_id
+  ),
+  memory_game_score AS (
+    SELECT 
+      user_id, 
+      COALESCE(score, 0) AS memory_game_score
+    FROM memory_game_scores
+  ),
   user_scores AS (
     SELECT 
       u.id as user_id,
@@ -408,7 +462,11 @@ CREATE MATERIALIZED VIEW "public"."user_ranking_view" AS (
       COALESCE(SUM(CASE WHEN uas.profil_number = 5 THEN uas.assignment_timing_score END), 0) +
       COALESCE(SUM(CASE WHEN uats.profil_number = 5 THEN uats.attendance_timing_score END), 0) as profil5_timing_score,
 
-      COALESCE(uat.attendance_total, 0) as attendance_total
+      COALESCE(uat.attendance_total, 0) as attendance_total,
+      
+      -- Side Quest Scores
+      COALESCE(igs.itb_guesser_max_score, 0.0) as itb_guesser_max_score,
+      COALESCE(mgs.memory_game_score, 0) as memory_game_score
 
     FROM users u
     INNER JOIN accounts a ON a.id = u.id
@@ -416,8 +474,10 @@ CREATE MATERIALIZED VIEW "public"."user_ranking_view" AS (
     LEFT JOIN user_assignment_scores uas ON uas.user_id = u.id AND uas.profil_number = uqs.profil_number
     LEFT JOIN user_attendance_scores uats ON uats.user_id = u.id AND uats.profil_number = uqs.profil_number
     LEFT JOIN user_attendance_total uat ON uat.user_id = u.id
+    LEFT JOIN itb_guesser_max_score igs ON igs.user_id = u.id
+    LEFT JOIN memory_game_score mgs ON mgs.user_id = u.id
     WHERE a.role = 'user'
-    GROUP BY u.id, u.nim, u.full_name, u.fakultas, u.keluarga, u.bata, u.rumpun, u.foto_media_id, uat.attendance_total
+    GROUP BY u.id, u.nim, u.full_name, u.fakultas, u.keluarga, u.bata, u.rumpun, u.foto_media_id, uat.attendance_total, igs.itb_guesser_max_score, mgs.memory_game_score
   )
   SELECT 
     user_id,
@@ -503,8 +563,12 @@ CREATE MATERIALIZED VIEW "public"."user_ranking_view" AS (
       ELSE 0.0
     END as profil5_total_score,
     
-    -- Total score across all profils with normalized weights
-    ((CASE 
+    -- Side Quest Scores
+    itb_guesser_max_score,
+    memory_game_score,
+    
+    -- Total score across all profils with normalized weights plus side quest scores
+    (((CASE 
       WHEN (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight) > 0 THEN
         ((profil1_quiz_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_quiz_score) +
         ((profil1_assignment_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_assignment_score) +
@@ -538,7 +602,7 @@ CREATE MATERIALIZED VIEW "public"."user_ranking_view" AS (
         ((profil5_assignment_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_assignment_score) +
         ((profil5_attendance_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_attendance_score)
       ELSE 0.0
-    END)) as total_score,
+    END)) + itb_guesser_max_score + memory_game_score) as total_score,
 
     ((CASE 
       WHEN (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight) > 0 THEN
@@ -591,8 +655,8 @@ CREATE MATERIALIZED VIEW "public"."user_ranking_view" AS (
     ) as last_activity_at,
     
     ROW_NUMBER() OVER (ORDER BY 
-      -- Primary sort: total score (higher is better)
-      (CASE 
+      -- Primary sort: total score including side quests (higher is better)
+      ((CASE 
         WHEN (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight) > 0 THEN
           ((profil1_quiz_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_quiz_score) +
           ((profil1_assignment_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_assignment_score) +
@@ -626,7 +690,7 @@ CREATE MATERIALIZED VIEW "public"."user_ranking_view" AS (
           ((profil5_assignment_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_assignment_score) +
           ((profil5_attendance_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_attendance_score)
         ELSE 0.0
-      END) DESC,
+      END) + itb_guesser_max_score + memory_game_score) DESC,
       -- Tiebreaker: timing score (higher = completed tasks earlier)
       (profil1_timing_score + profil2_timing_score + profil3_timing_score + profil4_timing_score + profil5_timing_score) DESC,
       -- Final tiebreaker: latest activity

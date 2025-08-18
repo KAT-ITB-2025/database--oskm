@@ -1,5 +1,5 @@
 {
-  "id": "58352a96-e27d-4d82-97a3-01e3783c49b3",
+  "id": "5b0e3a04-903d-4039-8b5e-d4d15a93f791",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -498,11 +498,17 @@
           "primaryKey": false,
           "notNull": true
         },
-        "mentor_id": {
-          "name": "mentor_id",
+        "mentor_name": {
+          "name": "mentor_name",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
         },
         "class_type": {
           "name": "class_type",
@@ -526,21 +532,7 @@
         }
       },
       "indexes": {},
-      "foreignKeys": {
-        "classes_mentor_id_users_id_fk": {
-          "name": "classes_mentor_id_users_id_fk",
-          "tableFrom": "classes",
-          "tableTo": "users",
-          "columnsFrom": [
-            "mentor_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
+      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "policies": {},
@@ -747,6 +739,232 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
+    "public.itb_guesser_options": {
+      "name": "itb_guesser_options",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "tempat": {
+          "name": "tempat",
+          "type": "itb_guesser_tempat",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto_media_id": {
+          "name": "foto_media_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "lat": {
+          "name": "lat",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "lng": {
+          "name": "lng",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "itb_guesser_options_foto_media_id_media_id_fk": {
+          "name": "itb_guesser_options_foto_media_id_media_id_fk",
+          "tableFrom": "itb_guesser_options",
+          "tableTo": "media",
+          "columnsFrom": [
+            "foto_media_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.itb_guesser_submissions": {
+      "name": "itb_guesser_submissions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "option_id": {
+          "name": "option_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "answer_lat": {
+          "name": "answer_lat",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "answer_lng": {
+          "name": "answer_lng",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "score": {
+          "name": "score",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "itb_guesser_submissions_user_id_users_id_fk": {
+          "name": "itb_guesser_submissions_user_id_users_id_fk",
+          "tableFrom": "itb_guesser_submissions",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "itb_guesser_submissions_option_id_itb_guesser_options_id_fk": {
+          "name": "itb_guesser_submissions_option_id_itb_guesser_options_id_fk",
+          "tableFrom": "itb_guesser_submissions",
+          "tableTo": "itb_guesser_options",
+          "columnsFrom": [
+            "option_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.memory_game_scores": {
+      "name": "memory_game_scores",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "score": {
+          "name": "score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "memory_game_scores_user_id_users_id_fk": {
+          "name": "memory_game_scores_user_id_users_id_fk",
+          "tableFrom": "memory_game_scores",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "memory_game_scores_user_id_unique": {
+          "name": "memory_game_scores_user_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "user_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.media": {
       "name": "media",
       "schema": "",
@@ -761,7 +979,7 @@
           "name": "creator_id",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "name": {
           "name": "name",
@@ -771,8 +989,7 @@
         },
         "bucket": {
           "name": "bucket",
-          "type": "media_bucket_enum",
-          "typeSchema": "public",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
@@ -824,6 +1041,45 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
+    "public.handbook": {
+      "name": "handbook",
+      "schema": "",
+      "columns": {
+        "media_id": {
+          "name": "media_id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "handbook_media_id_media_id_fk": {
+          "name": "handbook_media_id_media_id_fk",
+          "tableFrom": "handbook",
+          "tableTo": "media",
+          "columnsFrom": [
+            "media_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.assignments_profil": {
       "name": "assignments_profil",
       "schema": "",
@@ -850,7 +1106,7 @@
           "name": "assignment_media_id",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "description": {
           "name": "description",
@@ -1413,9 +1669,15 @@
           "primaryKey": false,
           "notNull": false
         },
-        "geolocation": {
-          "name": "geolocation",
-          "type": "text",
+        "lat": {
+          "name": "lat",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lng": {
+          "name": "lng",
+          "type": "real",
           "primaryKey": false,
           "notNull": false
         },
@@ -1647,15 +1909,13 @@
         "closing"
       ]
     },
-    "public.media_bucket_enum": {
-      "name": "media_bucket_enum",
+    "public.itb_guesser_tempat": {
+      "name": "itb_guesser_tempat",
       "schema": "public",
       "values": [
-        "profile",
-        "content",
-        "documents",
-        "uploads",
-        "assignment"
+        "Ganesha",
+        "Jatinangor",
+        "Cirebon"
       ]
     },
     "public.status": {
@@ -1975,6 +2235,20 @@
           "notNull": true,
           "default": 0
         },
+        "itb_guesser_max_score": {
+          "name": "itb_guesser_max_score",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "memory_game_score": {
+          "name": "memory_game_score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
         "total_score": {
           "name": "total_score",
           "type": "real",
@@ -2016,7 +2290,7 @@
           "notNull": true
         }
       },
-      "definition": "\n  WITH user_assignment_scores AS (\n    SELECT \n      u.id as user_id,\n      pk.profil_number,\n      COALESCE(AVG(sp.score), 0) as avg_assignment_score,\n      MAX(sp.created_at) as last_assignment_at,\n      -- Tiebreaker: sum of milliseconds from due date to submission (earlier = higher score)\n      COALESCE(SUM(EXTRACT(EPOCH FROM (ap.due_date - sp.created_at)) * 1000), 0) as assignment_timing_score\n    FROM users u\n    INNER JOIN accounts a ON a.id = u.id\n    CROSS JOIN profil_kats pk \n    LEFT JOIN assignments_profil ap ON ap.profil_kat_id = pk.id\n    LEFT JOIN submissions_profil sp ON sp.assignment_id = ap.id AND sp.user_id = u.id\n    WHERE pk.profil_number IN (1, 2, 3, 4, 5)\n      AND a.role = 'user'\n    GROUP BY u.id, pk.profil_number\n  ),\n  user_quiz_scores AS (\n    SELECT \n      u.id as user_id,\n      pk.profil_number,\n      COALESCE(pk.quiz_weight, 0.0) as quiz_weight,\n      COALESCE(pk.assignment_weight, 0.0) as assignment_weight,\n      COALESCE(pk.attendance_weight, 0.0) as attendance_weight,\n      COALESCE(pk.stage_weight, 0.0) as stage_weight,\n      COALESCE(usp.quiz_score, 0) as quiz_score,\n      usp.completed_at as quiz_completed_at,\n      -- Tiebreaker: use quiz completion timing if available\n      CASE WHEN usp.completed_at IS NOT NULL THEN\n        EXTRACT(EPOCH FROM (CURRENT_TIMESTAMP - usp.completed_at)) * 1000\n      ELSE 0 END as quiz_timing_score\n    FROM users u\n    INNER JOIN accounts a ON a.id = u.id\n    CROSS JOIN profil_kats pk \n    LEFT JOIN stages s ON s.profil_id = pk.id\n    LEFT JOIN user_stage_progress usp ON usp.user_id = u.id AND usp.stage_id = s.id AND usp.status = 'completed'\n    WHERE pk.profil_number IN (1, 2, 3, 4, 5)\n      AND a.role = 'user'\n  ),\n  user_attendance_scores AS (\n    SELECT \n      u.id as user_id,\n      pk.profil_number,\n      COALESCE(AVG(CASE WHEN ua.status = 'hadir' THEN 100.0 ELSE 0.0 END), 0.0) as avg_attendance_score,\n      MAX(ua.updated_at) as last_attendance_at,\n      -- Tiebreaker: sum of milliseconds from attendance deadline to check-in (earlier = higher score)\n      COALESCE(SUM(\n        CASE WHEN ua.status = 'hadir' THEN\n          EXTRACT(EPOCH FROM ((a.start_time + INTERVAL '1 minute' * a.duration_minutes) - ua.updated_at)) * 1000\n        ELSE 0 END\n      ), 0) as attendance_timing_score\n    FROM users u\n    INNER JOIN accounts acc ON acc.id = u.id\n    CROSS JOIN profil_kats pk\n    LEFT JOIN profil_kat_attendance pka ON pka.profil_kat_id = pk.id\n    LEFT JOIN attendances a ON a.id = pka.attendance_id\n    LEFT JOIN user_attendance ua ON ua.schedule_id = a.id AND ua.user_id = u.id\n    WHERE pk.profil_number IN (1, 2, 3, 4, 5)\n      AND a.start_time <= NOW()\n      AND acc.role = 'user'\n    GROUP BY u.id, pk.profil_number\n  ),\n  user_attendance_total AS (\n    SELECT\n      ua.user_id,\n      COUNT(*) AS attendance_total\n    FROM user_attendance ua\n    INNER JOIN attendances a ON a.id = ua.schedule_id\n    INNER JOIN users u ON u.id = ua.user_id\n    INNER JOIN accounts acc ON acc.id = u.id\n    WHERE ua.status = 'hadir'\n      AND a.start_time <= NOW()\n      AND acc.role = 'user'\n    GROUP BY ua.user_id\n  ),\n  user_scores AS (\n    SELECT \n      u.id as user_id,\n      u.nim,\n      u.full_name,\n      u.fakultas,\n      u.keluarga,\n      u.bata,\n      u.rumpun,\n      u.foto_media_id,\n      \n      -- Profil 1 scores (all with COALESCE to ensure NOT NULL)\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 1 THEN uqs.quiz_weight END), 0.0) as profil1_quiz_weight,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 1 THEN uqs.quiz_score END), 0) as profil1_quiz_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 1 THEN uqs.assignment_weight END), 0.0) as profil1_assignment_weight,\n      COALESCE(MAX(CASE WHEN uas.profil_number = 1 THEN uas.avg_assignment_score END), 0.0) as profil1_avg_assignment_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 1 THEN uqs.attendance_weight END), 0.0) as profil1_attendance_weight,\n      COALESCE(MAX(CASE WHEN uats.profil_number = 1 THEN uats.avg_attendance_score END), 0.0) as profil1_avg_attendance_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 1 THEN uqs.stage_weight END), 0.0) as profil1_stage_weight,\n      \n      -- Profil 2 scores  \n      COALESCE(MAX(CASE WHEN uqs.profil_number = 2 THEN uqs.quiz_weight END), 0.0) as profil2_quiz_weight,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 2 THEN uqs.quiz_score END), 0) as profil2_quiz_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 2 THEN uqs.assignment_weight END), 0.0) as profil2_assignment_weight,\n      COALESCE(MAX(CASE WHEN uas.profil_number = 2 THEN uas.avg_assignment_score END), 0.0) as profil2_avg_assignment_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 2 THEN uqs.attendance_weight END), 0.0) as profil2_attendance_weight,\n      COALESCE(MAX(CASE WHEN uats.profil_number = 2 THEN uats.avg_attendance_score END), 0.0) as profil2_avg_attendance_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 2 THEN uqs.stage_weight END), 0.0) as profil2_stage_weight,\n      \n      -- Profil 3 scores\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 3 THEN uqs.quiz_weight END), 0.0) as profil3_quiz_weight,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 3 THEN uqs.quiz_score END), 0) as profil3_quiz_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 3 THEN uqs.assignment_weight END), 0.0) as profil3_assignment_weight,\n      COALESCE(MAX(CASE WHEN uas.profil_number = 3 THEN uas.avg_assignment_score END), 0.0) as profil3_avg_assignment_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 3 THEN uqs.attendance_weight END), 0.0) as profil3_attendance_weight,\n      COALESCE(MAX(CASE WHEN uats.profil_number = 3 THEN uats.avg_attendance_score END), 0.0) as profil3_avg_attendance_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 3 THEN uqs.stage_weight END), 0.0) as profil3_stage_weight,\n\n      -- Profil 4 scores\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 4 THEN uqs.quiz_weight END), 0.0) as profil4_quiz_weight,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 4 THEN uqs.quiz_score END), 0) as profil4_quiz_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 4 THEN uqs.assignment_weight END), 0.0) as profil4_assignment_weight,\n      COALESCE(MAX(CASE WHEN uas.profil_number = 4 THEN uas.avg_assignment_score END), 0.0) as profil4_avg_assignment_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 4 THEN uqs.attendance_weight END), 0.0) as profil4_attendance_weight,\n      COALESCE(MAX(CASE WHEN uats.profil_number = 4 THEN uats.avg_attendance_score END), 0.0) as profil4_avg_attendance_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 4 THEN uqs.stage_weight END), 0.0) as profil4_stage_weight,\n\n      -- Profil 5 scores\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 5 THEN uqs.quiz_weight END), 0.0) as profil5_quiz_weight,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 5 THEN uqs.quiz_score END), 0) as profil5_quiz_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 5 THEN uqs.assignment_weight END), 0.0) as profil5_assignment_weight,\n      COALESCE(MAX(CASE WHEN uas.profil_number = 5 THEN uas.avg_assignment_score END), 0.0) as profil5_avg_assignment_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 5 THEN uqs.attendance_weight END), 0.0) as profil5_attendance_weight,\n      COALESCE(MAX(CASE WHEN uats.profil_number = 5 THEN uats.avg_attendance_score END), 0.0) as profil5_avg_attendance_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 5 THEN uqs.stage_weight END), 0.0) as profil5_stage_weight,\n\n      -- Last activity timestamps\n      MAX(CASE WHEN uqs.profil_number = 1 THEN GREATEST(COALESCE(uqs.quiz_completed_at, '1970-01-01'::timestamp), COALESCE(uas.last_assignment_at, '1970-01-01'::timestamp), COALESCE(uats.last_attendance_at, '1970-01-01'::timestamp)) END) as profil1_last_activity,\n      MAX(CASE WHEN uqs.profil_number = 2 THEN GREATEST(COALESCE(uqs.quiz_completed_at, '1970-01-01'::timestamp), COALESCE(uas.last_assignment_at, '1970-01-01'::timestamp), COALESCE(uats.last_attendance_at, '1970-01-01'::timestamp)) END) as profil2_last_activity,\n      MAX(CASE WHEN uqs.profil_number = 3 THEN GREATEST(COALESCE(uqs.quiz_completed_at, '1970-01-01'::timestamp), COALESCE(uas.last_assignment_at, '1970-01-01'::timestamp), COALESCE(uats.last_attendance_at, '1970-01-01'::timestamp)) END) as profil3_last_activity,\n      MAX(CASE WHEN uqs.profil_number = 4 THEN GREATEST(COALESCE(uqs.quiz_completed_at, '1970-01-01'::timestamp), COALESCE(uas.last_assignment_at, '1970-01-01'::timestamp), COALESCE(uats.last_attendance_at, '1970-01-01'::timestamp)) END) as profil4_last_activity,\n      MAX(CASE WHEN uqs.profil_number = 5 THEN GREATEST(COALESCE(uqs.quiz_completed_at, '1970-01-01'::timestamp), COALESCE(uas.last_assignment_at, '1970-01-01'::timestamp), COALESCE(uats.last_attendance_at, '1970-01-01'::timestamp)) END) as profil5_last_activity,\n\n      -- Tiebreaker timing scores (accumulation of milliseconds)\n      COALESCE(SUM(CASE WHEN uqs.profil_number = 1 THEN uqs.quiz_timing_score END), 0) +\n      COALESCE(SUM(CASE WHEN uas.profil_number = 1 THEN uas.assignment_timing_score END), 0) +\n      COALESCE(SUM(CASE WHEN uats.profil_number = 1 THEN uats.attendance_timing_score END), 0) as profil1_timing_score,\n      \n      COALESCE(SUM(CASE WHEN uqs.profil_number = 2 THEN uqs.quiz_timing_score END), 0) +\n      COALESCE(SUM(CASE WHEN uas.profil_number = 2 THEN uas.assignment_timing_score END), 0) +\n      COALESCE(SUM(CASE WHEN uats.profil_number = 2 THEN uats.attendance_timing_score END), 0) as profil2_timing_score,\n      \n      COALESCE(SUM(CASE WHEN uqs.profil_number = 3 THEN uqs.quiz_timing_score END), 0) +\n      COALESCE(SUM(CASE WHEN uas.profil_number = 3 THEN uas.assignment_timing_score END), 0) +\n      COALESCE(SUM(CASE WHEN uats.profil_number = 3 THEN uats.attendance_timing_score END), 0) as profil3_timing_score,\n      \n      COALESCE(SUM(CASE WHEN uqs.profil_number = 4 THEN uqs.quiz_timing_score END), 0) +\n      COALESCE(SUM(CASE WHEN uas.profil_number = 4 THEN uas.assignment_timing_score END), 0) +\n      COALESCE(SUM(CASE WHEN uats.profil_number = 4 THEN uats.attendance_timing_score END), 0) as profil4_timing_score,\n      \n      COALESCE(SUM(CASE WHEN uqs.profil_number = 5 THEN uqs.quiz_timing_score END), 0) +\n      COALESCE(SUM(CASE WHEN uas.profil_number = 5 THEN uas.assignment_timing_score END), 0) +\n      COALESCE(SUM(CASE WHEN uats.profil_number = 5 THEN uats.attendance_timing_score END), 0) as profil5_timing_score,\n\n      COALESCE(uat.attendance_total, 0) as attendance_total\n\n    FROM users u\n    INNER JOIN accounts a ON a.id = u.id\n    LEFT JOIN user_quiz_scores uqs ON uqs.user_id = u.id\n    LEFT JOIN user_assignment_scores uas ON uas.user_id = u.id AND uas.profil_number = uqs.profil_number\n    LEFT JOIN user_attendance_scores uats ON uats.user_id = u.id AND uats.profil_number = uqs.profil_number\n    LEFT JOIN user_attendance_total uat ON uat.user_id = u.id\n    WHERE a.role = 'user'\n    GROUP BY u.id, u.nim, u.full_name, u.fakultas, u.keluarga, u.bata, u.rumpun, u.foto_media_id, uat.attendance_total\n  )\n  SELECT \n    user_id,\n    nim,\n    full_name,\n    fakultas,\n    keluarga,\n    bata,\n    rumpun,\n    foto_media_id,\n    profil1_quiz_weight,\n    profil1_quiz_score,\n    profil1_assignment_weight,\n    profil1_avg_assignment_score,\n    profil1_attendance_weight,\n    profil1_avg_attendance_score,\n    -- Normalized scoring for profil 1\n    CASE \n      WHEN (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight) > 0 THEN\n        ((profil1_quiz_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_quiz_score) +\n        ((profil1_assignment_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_assignment_score) +\n        ((profil1_attendance_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_attendance_score)\n      ELSE 0.0\n    END as profil1_total_score,\n    \n    profil2_quiz_weight,\n    profil2_quiz_score,\n    profil2_assignment_weight,\n    profil2_avg_assignment_score,\n    profil2_attendance_weight,\n    profil2_avg_attendance_score,\n    -- Normalized scoring for profil 2\n    CASE \n      WHEN (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight) > 0 THEN\n        ((profil2_quiz_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_quiz_score) +\n        ((profil2_assignment_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_avg_assignment_score) +\n        ((profil2_attendance_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_avg_attendance_score)\n      ELSE 0.0\n    END as profil2_total_score,\n    \n    profil3_quiz_weight,\n    profil3_quiz_score,\n    profil3_assignment_weight,\n    profil3_avg_assignment_score,\n    profil3_attendance_weight,\n    profil3_avg_attendance_score,\n    -- Normalized scoring for profil 3\n    CASE \n      WHEN (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight) > 0 THEN\n        ((profil3_quiz_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_quiz_score) +\n        ((profil3_assignment_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_avg_assignment_score) +\n        ((profil3_attendance_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_avg_attendance_score)\n      ELSE 0.0\n    END as profil3_total_score,\n    \n    profil4_quiz_weight,\n    profil4_quiz_score,\n    profil4_assignment_weight,\n    profil4_avg_assignment_score,\n    profil4_attendance_weight,\n    profil4_avg_attendance_score,\n    -- Normalized scoring for profil 4\n    CASE \n      WHEN (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight) > 0 THEN\n        ((profil4_quiz_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_quiz_score) +\n        ((profil4_assignment_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_avg_assignment_score) +\n        ((profil4_attendance_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_avg_attendance_score)\n      ELSE 0.0\n    END as profil4_total_score,\n    \n    profil5_quiz_weight,\n    profil5_quiz_score,\n    profil5_assignment_weight,\n    profil5_avg_assignment_score,\n    profil5_attendance_weight,\n    profil5_avg_attendance_score,\n    -- Normalized scoring for profil 5\n    CASE \n      WHEN (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight) > 0 THEN\n        ((profil5_quiz_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_quiz_score) +\n        ((profil5_assignment_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_assignment_score) +\n        ((profil5_attendance_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_attendance_score)\n      ELSE 0.0\n    END as profil5_total_score,\n    \n    -- Total score across all profils with normalized weights\n    ((CASE \n      WHEN (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight) > 0 THEN\n        ((profil1_quiz_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_quiz_score) +\n        ((profil1_assignment_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_assignment_score) +\n        ((profil1_attendance_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_attendance_score)\n      ELSE 0.0\n    END) + \n    (CASE \n      WHEN (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight) > 0 THEN\n        ((profil2_quiz_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_quiz_score) +\n        ((profil2_assignment_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_avg_assignment_score) +\n        ((profil2_attendance_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_avg_attendance_score)\n      ELSE 0.0\n    END) + \n    (CASE \n      WHEN (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight) > 0 THEN\n        ((profil3_quiz_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_quiz_score) +\n        ((profil3_assignment_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_avg_assignment_score) +\n        ((profil3_attendance_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_avg_attendance_score)\n      ELSE 0.0\n    END) + \n    (CASE \n      WHEN (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight) > 0 THEN\n        ((profil4_quiz_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_quiz_score) +\n        ((profil4_assignment_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_avg_assignment_score) +\n        ((profil4_attendance_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_avg_attendance_score)\n      ELSE 0.0\n    END) + \n    (CASE \n      WHEN (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight) > 0 THEN\n        ((profil5_quiz_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_quiz_score) +\n        ((profil5_assignment_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_assignment_score) +\n        ((profil5_attendance_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_attendance_score)\n      ELSE 0.0\n    END)) as total_score,\n\n    ((CASE \n      WHEN (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight) > 0 THEN\n        ((profil1_quiz_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_quiz_score) +\n        ((profil1_assignment_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_assignment_score) +\n        ((profil1_attendance_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_attendance_score)\n      ELSE 0.0\n    END) * profil1_stage_weight + \n    (CASE \n      WHEN (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight) > 0 THEN\n        ((profil2_quiz_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_quiz_score) +\n        ((profil2_assignment_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_avg_assignment_score) +\n        ((profil2_attendance_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_avg_attendance_score)\n      ELSE 0.0\n    END) * profil2_stage_weight + \n    (CASE \n      WHEN (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight) > 0 THEN\n        ((profil3_quiz_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_quiz_score) +\n        ((profil3_assignment_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_avg_assignment_score) +\n        ((profil3_attendance_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_avg_attendance_score)\n      ELSE 0.0\n    END) * profil3_stage_weight + \n    (CASE \n      WHEN (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight) > 0 THEN\n        ((profil4_quiz_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_quiz_score) +\n        ((profil4_assignment_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_avg_assignment_score) +\n        ((profil4_attendance_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_avg_attendance_score)\n      ELSE 0.0\n    END) * profil4_stage_weight + \n    (CASE \n      WHEN (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight) > 0 THEN\n        ((profil5_quiz_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_quiz_score) +\n        ((profil5_assignment_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_assignment_score) +\n        ((profil5_attendance_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_attendance_score)\n      ELSE 0.0\n    END) * profil5_stage_weight) as total_weighted_score,\n    \n    -- Tiebreaker score: total timing across all profils (higher = completed tasks earlier)\n    ((profil1_timing_score + profil2_timing_score + profil3_timing_score + profil4_timing_score + profil5_timing_score) / 1000.0) as tiebreaker_score,\n    \n    attendance_total,\n\n    -- Latest activity timestamp\n    GREATEST(\n      COALESCE(profil1_last_activity, '1970-01-01'::timestamp),\n      COALESCE(profil2_last_activity, '1970-01-01'::timestamp),\n      COALESCE(profil3_last_activity, '1970-01-01'::timestamp),\n      COALESCE(profil4_last_activity, '1970-01-01'::timestamp),\n      COALESCE(profil5_last_activity, '1970-01-01'::timestamp)\n    ) as last_activity_at,\n    \n    ROW_NUMBER() OVER (ORDER BY \n      -- Primary sort: total score (higher is better)\n      (CASE \n        WHEN (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight) > 0 THEN\n          ((profil1_quiz_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_quiz_score) +\n          ((profil1_assignment_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_assignment_score) +\n          ((profil1_attendance_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_attendance_score)\n        ELSE 0.0\n      END) + \n      (CASE \n        WHEN (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight) > 0 THEN\n          ((profil2_quiz_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_quiz_score) +\n          ((profil2_assignment_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_avg_assignment_score) +\n          ((profil2_attendance_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_avg_attendance_score)\n        ELSE 0.0\n      END) + \n      (CASE \n        WHEN (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight) > 0 THEN\n          ((profil3_quiz_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_quiz_score) +\n          ((profil3_assignment_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_avg_assignment_score) +\n          ((profil3_attendance_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_avg_attendance_score)\n        ELSE 0.0\n      END) + \n      (CASE \n        WHEN (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight) > 0 THEN\n          ((profil4_quiz_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_quiz_score) +\n          ((profil4_assignment_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_avg_assignment_score) +\n          ((profil4_attendance_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_avg_attendance_score)\n        ELSE 0.0\n      END) + \n      (CASE \n        WHEN (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight) > 0 THEN\n          ((profil5_quiz_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_quiz_score) +\n          ((profil5_assignment_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_assignment_score) +\n          ((profil5_attendance_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_attendance_score)\n        ELSE 0.0\n      END) DESC,\n      -- Tiebreaker: timing score (higher = completed tasks earlier)\n      (profil1_timing_score + profil2_timing_score + profil3_timing_score + profil4_timing_score + profil5_timing_score) DESC,\n      -- Final tiebreaker: latest activity\n      GREATEST(\n        COALESCE(profil1_last_activity, '1970-01-01'::timestamp),\n        COALESCE(profil2_last_activity, '1970-01-01'::timestamp),\n        COALESCE(profil3_last_activity, '1970-01-01'::timestamp),\n        COALESCE(profil4_last_activity, '1970-01-01'::timestamp),\n        COALESCE(profil5_last_activity, '1970-01-01'::timestamp)\n      ) DESC\n    ) as ranking\n  FROM user_scores\n  ORDER BY ranking\n",
+      "definition": "\n  WITH user_assignment_scores AS (\n    SELECT \n      u.id as user_id,\n      pk.profil_number,\n      COALESCE(AVG(sp.score), 0) as avg_assignment_score,\n      MAX(sp.created_at) as last_assignment_at,\n      -- Tiebreaker: sum of milliseconds from due date to submission (earlier = higher score)\n      COALESCE(SUM(EXTRACT(EPOCH FROM (ap.due_date - sp.created_at)) * 1000), 0) as assignment_timing_score\n    FROM users u\n    INNER JOIN accounts a ON a.id = u.id\n    CROSS JOIN profil_kats pk \n    LEFT JOIN assignments_profil ap ON ap.profil_kat_id = pk.id\n    LEFT JOIN submissions_profil sp ON sp.assignment_id = ap.id AND sp.user_id = u.id\n    WHERE pk.profil_number IN (1, 2, 3, 4, 5)\n      AND a.role = 'user'\n    GROUP BY u.id, pk.profil_number\n  ),\n  user_quiz_scores AS (\n    SELECT \n      u.id as user_id,\n      pk.profil_number,\n      COALESCE(pk.quiz_weight, 0.0) as quiz_weight,\n      COALESCE(pk.assignment_weight, 0.0) as assignment_weight,\n      COALESCE(pk.attendance_weight, 0.0) as attendance_weight,\n      COALESCE(pk.stage_weight, 0.0) as stage_weight,\n      COALESCE(usp.quiz_score, 0) as quiz_score,\n      usp.completed_at as quiz_completed_at,\n      -- Tiebreaker: use quiz completion timing if available\n      CASE WHEN usp.completed_at IS NOT NULL THEN\n        EXTRACT(EPOCH FROM (CURRENT_TIMESTAMP - usp.completed_at)) * 1000\n      ELSE 0 END as quiz_timing_score\n    FROM users u\n    INNER JOIN accounts a ON a.id = u.id\n    CROSS JOIN profil_kats pk \n    LEFT JOIN stages s ON s.profil_id = pk.id\n    LEFT JOIN user_stage_progress usp ON usp.user_id = u.id AND usp.stage_id = s.id AND usp.status = 'completed'\n    WHERE pk.profil_number IN (1, 2, 3, 4, 5)\n      AND a.role = 'user'\n  ),\n  user_attendance_scores AS (\n    SELECT \n      u.id as user_id,\n      pk.profil_number,\n      COALESCE(AVG(CASE WHEN ua.status = 'hadir' THEN 100.0 ELSE 0.0 END), 0.0) as avg_attendance_score,\n      MAX(ua.updated_at) as last_attendance_at,\n      -- Tiebreaker: sum of milliseconds from attendance deadline to check-in (earlier = higher score)\n      COALESCE(SUM(\n        CASE WHEN ua.status = 'hadir' THEN\n          EXTRACT(EPOCH FROM ((a.start_time + INTERVAL '1 minute' * a.duration_minutes) - ua.updated_at)) * 1000\n        ELSE 0 END\n      ), 0) as attendance_timing_score\n    FROM users u\n    INNER JOIN accounts acc ON acc.id = u.id\n    CROSS JOIN profil_kats pk\n    LEFT JOIN profil_kat_attendance pka ON pka.profil_kat_id = pk.id\n    LEFT JOIN attendances a ON a.id = pka.attendance_id\n    LEFT JOIN user_attendance ua ON ua.schedule_id = a.id AND ua.user_id = u.id\n    WHERE pk.profil_number IN (1, 2, 3, 4, 5)\n      AND a.start_time <= NOW()\n      AND acc.role = 'user'\n    GROUP BY u.id, pk.profil_number\n  ),\n  user_attendance_total AS (\n    SELECT\n      ua.user_id,\n      COUNT(*) AS attendance_total\n    FROM user_attendance ua\n    INNER JOIN attendances a ON a.id = ua.schedule_id\n    INNER JOIN users u ON u.id = ua.user_id\n    INNER JOIN accounts acc ON acc.id = u.id\n    WHERE ua.status = 'hadir'\n      AND a.start_time <= NOW()\n      AND acc.role = 'user'\n    GROUP BY ua.user_id\n  ),\n  itb_guesser_max_score AS (\n    SELECT \n      user_id, \n      COALESCE(MAX(score), 0.0) AS itb_guesser_max_score\n    FROM itb_guesser_submissions\n    GROUP BY user_id\n  ),\n  memory_game_score AS (\n    SELECT \n      user_id, \n      COALESCE(score, 0) AS memory_game_score\n    FROM memory_game_scores\n  ),\n  user_scores AS (\n    SELECT \n      u.id as user_id,\n      u.nim,\n      u.full_name,\n      u.fakultas,\n      u.keluarga,\n      u.bata,\n      u.rumpun,\n      u.foto_media_id,\n      \n      -- Profil 1 scores (all with COALESCE to ensure NOT NULL)\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 1 THEN uqs.quiz_weight END), 0.0) as profil1_quiz_weight,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 1 THEN uqs.quiz_score END), 0) as profil1_quiz_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 1 THEN uqs.assignment_weight END), 0.0) as profil1_assignment_weight,\n      COALESCE(MAX(CASE WHEN uas.profil_number = 1 THEN uas.avg_assignment_score END), 0.0) as profil1_avg_assignment_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 1 THEN uqs.attendance_weight END), 0.0) as profil1_attendance_weight,\n      COALESCE(MAX(CASE WHEN uats.profil_number = 1 THEN uats.avg_attendance_score END), 0.0) as profil1_avg_attendance_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 1 THEN uqs.stage_weight END), 0.0) as profil1_stage_weight,\n      \n      -- Profil 2 scores  \n      COALESCE(MAX(CASE WHEN uqs.profil_number = 2 THEN uqs.quiz_weight END), 0.0) as profil2_quiz_weight,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 2 THEN uqs.quiz_score END), 0) as profil2_quiz_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 2 THEN uqs.assignment_weight END), 0.0) as profil2_assignment_weight,\n      COALESCE(MAX(CASE WHEN uas.profil_number = 2 THEN uas.avg_assignment_score END), 0.0) as profil2_avg_assignment_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 2 THEN uqs.attendance_weight END), 0.0) as profil2_attendance_weight,\n      COALESCE(MAX(CASE WHEN uats.profil_number = 2 THEN uats.avg_attendance_score END), 0.0) as profil2_avg_attendance_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 2 THEN uqs.stage_weight END), 0.0) as profil2_stage_weight,\n      \n      -- Profil 3 scores\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 3 THEN uqs.quiz_weight END), 0.0) as profil3_quiz_weight,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 3 THEN uqs.quiz_score END), 0) as profil3_quiz_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 3 THEN uqs.assignment_weight END), 0.0) as profil3_assignment_weight,\n      COALESCE(MAX(CASE WHEN uas.profil_number = 3 THEN uas.avg_assignment_score END), 0.0) as profil3_avg_assignment_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 3 THEN uqs.attendance_weight END), 0.0) as profil3_attendance_weight,\n      COALESCE(MAX(CASE WHEN uats.profil_number = 3 THEN uats.avg_attendance_score END), 0.0) as profil3_avg_attendance_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 3 THEN uqs.stage_weight END), 0.0) as profil3_stage_weight,\n\n      -- Profil 4 scores\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 4 THEN uqs.quiz_weight END), 0.0) as profil4_quiz_weight,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 4 THEN uqs.quiz_score END), 0) as profil4_quiz_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 4 THEN uqs.assignment_weight END), 0.0) as profil4_assignment_weight,\n      COALESCE(MAX(CASE WHEN uas.profil_number = 4 THEN uas.avg_assignment_score END), 0.0) as profil4_avg_assignment_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 4 THEN uqs.attendance_weight END), 0.0) as profil4_attendance_weight,\n      COALESCE(MAX(CASE WHEN uats.profil_number = 4 THEN uats.avg_attendance_score END), 0.0) as profil4_avg_attendance_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 4 THEN uqs.stage_weight END), 0.0) as profil4_stage_weight,\n\n      -- Profil 5 scores\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 5 THEN uqs.quiz_weight END), 0.0) as profil5_quiz_weight,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 5 THEN uqs.quiz_score END), 0) as profil5_quiz_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 5 THEN uqs.assignment_weight END), 0.0) as profil5_assignment_weight,\n      COALESCE(MAX(CASE WHEN uas.profil_number = 5 THEN uas.avg_assignment_score END), 0.0) as profil5_avg_assignment_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 5 THEN uqs.attendance_weight END), 0.0) as profil5_attendance_weight,\n      COALESCE(MAX(CASE WHEN uats.profil_number = 5 THEN uats.avg_attendance_score END), 0.0) as profil5_avg_attendance_score,\n      COALESCE(MAX(CASE WHEN uqs.profil_number = 5 THEN uqs.stage_weight END), 0.0) as profil5_stage_weight,\n\n      -- Last activity timestamps\n      MAX(CASE WHEN uqs.profil_number = 1 THEN GREATEST(COALESCE(uqs.quiz_completed_at, '1970-01-01'::timestamp), COALESCE(uas.last_assignment_at, '1970-01-01'::timestamp), COALESCE(uats.last_attendance_at, '1970-01-01'::timestamp)) END) as profil1_last_activity,\n      MAX(CASE WHEN uqs.profil_number = 2 THEN GREATEST(COALESCE(uqs.quiz_completed_at, '1970-01-01'::timestamp), COALESCE(uas.last_assignment_at, '1970-01-01'::timestamp), COALESCE(uats.last_attendance_at, '1970-01-01'::timestamp)) END) as profil2_last_activity,\n      MAX(CASE WHEN uqs.profil_number = 3 THEN GREATEST(COALESCE(uqs.quiz_completed_at, '1970-01-01'::timestamp), COALESCE(uas.last_assignment_at, '1970-01-01'::timestamp), COALESCE(uats.last_attendance_at, '1970-01-01'::timestamp)) END) as profil3_last_activity,\n      MAX(CASE WHEN uqs.profil_number = 4 THEN GREATEST(COALESCE(uqs.quiz_completed_at, '1970-01-01'::timestamp), COALESCE(uas.last_assignment_at, '1970-01-01'::timestamp), COALESCE(uats.last_attendance_at, '1970-01-01'::timestamp)) END) as profil4_last_activity,\n      MAX(CASE WHEN uqs.profil_number = 5 THEN GREATEST(COALESCE(uqs.quiz_completed_at, '1970-01-01'::timestamp), COALESCE(uas.last_assignment_at, '1970-01-01'::timestamp), COALESCE(uats.last_attendance_at, '1970-01-01'::timestamp)) END) as profil5_last_activity,\n\n      -- Tiebreaker timing scores (accumulation of milliseconds)\n      COALESCE(SUM(CASE WHEN uqs.profil_number = 1 THEN uqs.quiz_timing_score END), 0) +\n      COALESCE(SUM(CASE WHEN uas.profil_number = 1 THEN uas.assignment_timing_score END), 0) +\n      COALESCE(SUM(CASE WHEN uats.profil_number = 1 THEN uats.attendance_timing_score END), 0) as profil1_timing_score,\n      \n      COALESCE(SUM(CASE WHEN uqs.profil_number = 2 THEN uqs.quiz_timing_score END), 0) +\n      COALESCE(SUM(CASE WHEN uas.profil_number = 2 THEN uas.assignment_timing_score END), 0) +\n      COALESCE(SUM(CASE WHEN uats.profil_number = 2 THEN uats.attendance_timing_score END), 0) as profil2_timing_score,\n      \n      COALESCE(SUM(CASE WHEN uqs.profil_number = 3 THEN uqs.quiz_timing_score END), 0) +\n      COALESCE(SUM(CASE WHEN uas.profil_number = 3 THEN uas.assignment_timing_score END), 0) +\n      COALESCE(SUM(CASE WHEN uats.profil_number = 3 THEN uats.attendance_timing_score END), 0) as profil3_timing_score,\n      \n      COALESCE(SUM(CASE WHEN uqs.profil_number = 4 THEN uqs.quiz_timing_score END), 0) +\n      COALESCE(SUM(CASE WHEN uas.profil_number = 4 THEN uas.assignment_timing_score END), 0) +\n      COALESCE(SUM(CASE WHEN uats.profil_number = 4 THEN uats.attendance_timing_score END), 0) as profil4_timing_score,\n      \n      COALESCE(SUM(CASE WHEN uqs.profil_number = 5 THEN uqs.quiz_timing_score END), 0) +\n      COALESCE(SUM(CASE WHEN uas.profil_number = 5 THEN uas.assignment_timing_score END), 0) +\n      COALESCE(SUM(CASE WHEN uats.profil_number = 5 THEN uats.attendance_timing_score END), 0) as profil5_timing_score,\n\n      COALESCE(uat.attendance_total, 0) as attendance_total,\n      \n      -- Side Quest Scores\n      COALESCE(igs.itb_guesser_max_score, 0.0) as itb_guesser_max_score,\n      COALESCE(mgs.memory_game_score, 0) as memory_game_score\n\n    FROM users u\n    INNER JOIN accounts a ON a.id = u.id\n    LEFT JOIN user_quiz_scores uqs ON uqs.user_id = u.id\n    LEFT JOIN user_assignment_scores uas ON uas.user_id = u.id AND uas.profil_number = uqs.profil_number\n    LEFT JOIN user_attendance_scores uats ON uats.user_id = u.id AND uats.profil_number = uqs.profil_number\n    LEFT JOIN user_attendance_total uat ON uat.user_id = u.id\n    LEFT JOIN itb_guesser_max_score igs ON igs.user_id = u.id\n    LEFT JOIN memory_game_score mgs ON mgs.user_id = u.id\n    WHERE a.role = 'user'\n    GROUP BY u.id, u.nim, u.full_name, u.fakultas, u.keluarga, u.bata, u.rumpun, u.foto_media_id, uat.attendance_total, igs.itb_guesser_max_score, mgs.memory_game_score\n  )\n  SELECT \n    user_id,\n    nim,\n    full_name,\n    fakultas,\n    keluarga,\n    bata,\n    rumpun,\n    foto_media_id,\n    profil1_quiz_weight,\n    profil1_quiz_score,\n    profil1_assignment_weight,\n    profil1_avg_assignment_score,\n    profil1_attendance_weight,\n    profil1_avg_attendance_score,\n    -- Normalized scoring for profil 1\n    CASE \n      WHEN (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight) > 0 THEN\n        ((profil1_quiz_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_quiz_score) +\n        ((profil1_assignment_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_assignment_score) +\n        ((profil1_attendance_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_attendance_score)\n      ELSE 0.0\n    END as profil1_total_score,\n    \n    profil2_quiz_weight,\n    profil2_quiz_score,\n    profil2_assignment_weight,\n    profil2_avg_assignment_score,\n    profil2_attendance_weight,\n    profil2_avg_attendance_score,\n    -- Normalized scoring for profil 2\n    CASE \n      WHEN (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight) > 0 THEN\n        ((profil2_quiz_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_quiz_score) +\n        ((profil2_assignment_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_avg_assignment_score) +\n        ((profil2_attendance_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_avg_attendance_score)\n      ELSE 0.0\n    END as profil2_total_score,\n    \n    profil3_quiz_weight,\n    profil3_quiz_score,\n    profil3_assignment_weight,\n    profil3_avg_assignment_score,\n    profil3_attendance_weight,\n    profil3_avg_attendance_score,\n    -- Normalized scoring for profil 3\n    CASE \n      WHEN (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight) > 0 THEN\n        ((profil3_quiz_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_quiz_score) +\n        ((profil3_assignment_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_avg_assignment_score) +\n        ((profil3_attendance_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_avg_attendance_score)\n      ELSE 0.0\n    END as profil3_total_score,\n    \n    profil4_quiz_weight,\n    profil4_quiz_score,\n    profil4_assignment_weight,\n    profil4_avg_assignment_score,\n    profil4_attendance_weight,\n    profil4_avg_attendance_score,\n    -- Normalized scoring for profil 4\n    CASE \n      WHEN (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight) > 0 THEN\n        ((profil4_quiz_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_quiz_score) +\n        ((profil4_assignment_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_avg_assignment_score) +\n        ((profil4_attendance_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_avg_attendance_score)\n      ELSE 0.0\n    END as profil4_total_score,\n    \n    profil5_quiz_weight,\n    profil5_quiz_score,\n    profil5_assignment_weight,\n    profil5_avg_assignment_score,\n    profil5_attendance_weight,\n    profil5_avg_attendance_score,\n    -- Normalized scoring for profil 5\n    CASE \n      WHEN (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight) > 0 THEN\n        ((profil5_quiz_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_quiz_score) +\n        ((profil5_assignment_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_assignment_score) +\n        ((profil5_attendance_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_attendance_score)\n      ELSE 0.0\n    END as profil5_total_score,\n    \n    -- Side Quest Scores\n    itb_guesser_max_score,\n    memory_game_score,\n    \n    -- Total score across all profils with normalized weights plus side quest scores\n    (((CASE \n      WHEN (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight) > 0 THEN\n        ((profil1_quiz_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_quiz_score) +\n        ((profil1_assignment_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_assignment_score) +\n        ((profil1_attendance_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_attendance_score)\n      ELSE 0.0\n    END) + \n    (CASE \n      WHEN (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight) > 0 THEN\n        ((profil2_quiz_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_quiz_score) +\n        ((profil2_assignment_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_avg_assignment_score) +\n        ((profil2_attendance_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_avg_attendance_score)\n      ELSE 0.0\n    END) + \n    (CASE \n      WHEN (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight) > 0 THEN\n        ((profil3_quiz_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_quiz_score) +\n        ((profil3_assignment_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_avg_assignment_score) +\n        ((profil3_attendance_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_avg_attendance_score)\n      ELSE 0.0\n    END) + \n    (CASE \n      WHEN (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight) > 0 THEN\n        ((profil4_quiz_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_quiz_score) +\n        ((profil4_assignment_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_avg_assignment_score) +\n        ((profil4_attendance_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_avg_attendance_score)\n      ELSE 0.0\n    END) + \n    (CASE \n      WHEN (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight) > 0 THEN\n        ((profil5_quiz_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_quiz_score) +\n        ((profil5_assignment_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_assignment_score) +\n        ((profil5_attendance_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_attendance_score)\n      ELSE 0.0\n    END)) + itb_guesser_max_score + memory_game_score) as total_score,\n\n    ((CASE \n      WHEN (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight) > 0 THEN\n        ((profil1_quiz_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_quiz_score) +\n        ((profil1_assignment_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_assignment_score) +\n        ((profil1_attendance_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_attendance_score)\n      ELSE 0.0\n    END) * profil1_stage_weight + \n    (CASE \n      WHEN (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight) > 0 THEN\n        ((profil2_quiz_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_quiz_score) +\n        ((profil2_assignment_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_avg_assignment_score) +\n        ((profil2_attendance_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_avg_attendance_score)\n      ELSE 0.0\n    END) * profil2_stage_weight + \n    (CASE \n      WHEN (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight) > 0 THEN\n        ((profil3_quiz_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_quiz_score) +\n        ((profil3_assignment_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_avg_assignment_score) +\n        ((profil3_attendance_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_avg_attendance_score)\n      ELSE 0.0\n    END) * profil3_stage_weight + \n    (CASE \n      WHEN (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight) > 0 THEN\n        ((profil4_quiz_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_quiz_score) +\n        ((profil4_assignment_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_avg_assignment_score) +\n        ((profil4_attendance_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_avg_attendance_score)\n      ELSE 0.0\n    END) * profil4_stage_weight + \n    (CASE \n      WHEN (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight) > 0 THEN\n        ((profil5_quiz_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_quiz_score) +\n        ((profil5_assignment_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_assignment_score) +\n        ((profil5_attendance_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_attendance_score)\n      ELSE 0.0\n    END) * profil5_stage_weight) as total_weighted_score,\n    \n    -- Tiebreaker score: total timing across all profils (higher = completed tasks earlier)\n    ((profil1_timing_score + profil2_timing_score + profil3_timing_score + profil4_timing_score + profil5_timing_score) / 1000.0) as tiebreaker_score,\n    \n    attendance_total,\n\n    -- Latest activity timestamp\n    GREATEST(\n      COALESCE(profil1_last_activity, '1970-01-01'::timestamp),\n      COALESCE(profil2_last_activity, '1970-01-01'::timestamp),\n      COALESCE(profil3_last_activity, '1970-01-01'::timestamp),\n      COALESCE(profil4_last_activity, '1970-01-01'::timestamp),\n      COALESCE(profil5_last_activity, '1970-01-01'::timestamp)\n    ) as last_activity_at,\n    \n    ROW_NUMBER() OVER (ORDER BY \n      -- Primary sort: total score including side quests (higher is better)\n      ((CASE \n        WHEN (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight) > 0 THEN\n          ((profil1_quiz_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_quiz_score) +\n          ((profil1_assignment_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_assignment_score) +\n          ((profil1_attendance_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_attendance_score)\n        ELSE 0.0\n      END) + \n      (CASE \n        WHEN (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight) > 0 THEN\n          ((profil2_quiz_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_quiz_score) +\n          ((profil2_assignment_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_avg_assignment_score) +\n          ((profil2_attendance_weight / (profil2_quiz_weight + profil2_assignment_weight + profil2_attendance_weight)) * profil2_avg_attendance_score)\n        ELSE 0.0\n      END) + \n      (CASE \n        WHEN (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight) > 0 THEN\n          ((profil3_quiz_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_quiz_score) +\n          ((profil3_assignment_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_avg_assignment_score) +\n          ((profil3_attendance_weight / (profil3_quiz_weight + profil3_assignment_weight + profil3_attendance_weight)) * profil3_avg_attendance_score)\n        ELSE 0.0\n      END) + \n      (CASE \n        WHEN (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight) > 0 THEN\n          ((profil4_quiz_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_quiz_score) +\n          ((profil4_assignment_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_avg_assignment_score) +\n          ((profil4_attendance_weight / (profil4_quiz_weight + profil4_assignment_weight + profil4_attendance_weight)) * profil4_avg_attendance_score)\n        ELSE 0.0\n      END) + \n      (CASE \n        WHEN (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight) > 0 THEN\n          ((profil5_quiz_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_quiz_score) +\n          ((profil5_assignment_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_assignment_score) +\n          ((profil5_attendance_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_attendance_score)\n        ELSE 0.0\n      END) + itb_guesser_max_score + memory_game_score) DESC,\n      -- Tiebreaker: timing score (higher = completed tasks earlier)\n      (profil1_timing_score + profil2_timing_score + profil3_timing_score + profil4_timing_score + profil5_timing_score) DESC,\n      -- Final tiebreaker: latest activity\n      GREATEST(\n        COALESCE(profil1_last_activity, '1970-01-01'::timestamp),\n        COALESCE(profil2_last_activity, '1970-01-01'::timestamp),\n        COALESCE(profil3_last_activity, '1970-01-01'::timestamp),\n        COALESCE(profil4_last_activity, '1970-01-01'::timestamp),\n        COALESCE(profil5_last_activity, '1970-01-01'::timestamp)\n      ) DESC\n    ) as ranking\n  FROM user_scores\n  ORDER BY ranking\n",
       "name": "user_ranking_view",
       "schema": "public",
       "isExisting": false,

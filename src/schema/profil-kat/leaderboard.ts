@@ -122,6 +122,14 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
     .notNull()
     .default(0.0),
 
+  // Side Quest Scores
+  itbGuesserMaxScore: real('itb_guesser_max_score')
+    .notNull()
+    .default(0.0),
+  memoryGameScore: integer('memory_game_score')
+    .notNull()
+    .default(0),
+
   totalScore: real('total_score')
     .notNull()
     .default(0.0),
@@ -212,6 +220,19 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
       AND acc.role = 'user'
     GROUP BY ua.user_id
   ),
+  itb_guesser_max_score AS (
+    SELECT 
+      user_id, 
+      COALESCE(MAX(score), 0.0) AS itb_guesser_max_score
+    FROM itb_guesser_submissions
+    GROUP BY user_id
+  ),
+  memory_game_score AS (
+    SELECT 
+      user_id, 
+      COALESCE(score, 0) AS memory_game_score
+    FROM memory_game_scores
+  ),
   user_scores AS (
     SELECT 
       u.id as user_id,
@@ -296,7 +317,11 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
       COALESCE(SUM(CASE WHEN uas.profil_number = 5 THEN uas.assignment_timing_score END), 0) +
       COALESCE(SUM(CASE WHEN uats.profil_number = 5 THEN uats.attendance_timing_score END), 0) as profil5_timing_score,
 
-      COALESCE(uat.attendance_total, 0) as attendance_total
+      COALESCE(uat.attendance_total, 0) as attendance_total,
+      
+      -- Side Quest Scores
+      COALESCE(igs.itb_guesser_max_score, 0.0) as itb_guesser_max_score,
+      COALESCE(mgs.memory_game_score, 0) as memory_game_score
 
     FROM users u
     INNER JOIN accounts a ON a.id = u.id
@@ -304,8 +329,10 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
     LEFT JOIN user_assignment_scores uas ON uas.user_id = u.id AND uas.profil_number = uqs.profil_number
     LEFT JOIN user_attendance_scores uats ON uats.user_id = u.id AND uats.profil_number = uqs.profil_number
     LEFT JOIN user_attendance_total uat ON uat.user_id = u.id
+    LEFT JOIN itb_guesser_max_score igs ON igs.user_id = u.id
+    LEFT JOIN memory_game_score mgs ON mgs.user_id = u.id
     WHERE a.role = 'user'
-    GROUP BY u.id, u.nim, u.full_name, u.fakultas, u.keluarga, u.bata, u.rumpun, u.foto_media_id, uat.attendance_total
+    GROUP BY u.id, u.nim, u.full_name, u.fakultas, u.keluarga, u.bata, u.rumpun, u.foto_media_id, uat.attendance_total, igs.itb_guesser_max_score, mgs.memory_game_score
   )
   SELECT 
     user_id,
@@ -391,8 +418,12 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
       ELSE 0.0
     END as profil5_total_score,
     
-    -- Total score across all profils with normalized weights
-    ((CASE 
+    -- Side Quest Scores
+    itb_guesser_max_score,
+    memory_game_score,
+    
+    -- Total score across all profils with normalized weights plus side quest scores
+    (((CASE 
       WHEN (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight) > 0 THEN
         ((profil1_quiz_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_quiz_score) +
         ((profil1_assignment_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_assignment_score) +
@@ -426,7 +457,7 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
         ((profil5_assignment_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_assignment_score) +
         ((profil5_attendance_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_attendance_score)
       ELSE 0.0
-    END)) as total_score,
+    END)) + itb_guesser_max_score + memory_game_score) as total_score,
 
     ((CASE 
       WHEN (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight) > 0 THEN
@@ -479,8 +510,8 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
     ) as last_activity_at,
     
     ROW_NUMBER() OVER (ORDER BY 
-      -- Primary sort: total score (higher is better)
-      (CASE 
+      -- Primary sort: total score including side quests (higher is better)
+      ((CASE 
         WHEN (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight) > 0 THEN
           ((profil1_quiz_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_quiz_score) +
           ((profil1_assignment_weight / (profil1_quiz_weight + profil1_assignment_weight + profil1_attendance_weight)) * profil1_avg_assignment_score) +
@@ -514,7 +545,7 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
           ((profil5_assignment_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_assignment_score) +
           ((profil5_attendance_weight / (profil5_quiz_weight + profil5_assignment_weight + profil5_attendance_weight)) * profil5_avg_attendance_score)
         ELSE 0.0
-      END) DESC,
+      END) + itb_guesser_max_score + memory_game_score) DESC,
       -- Tiebreaker: timing score (higher = completed tasks earlier)
       (profil1_timing_score + profil2_timing_score + profil3_timing_score + profil4_timing_score + profil5_timing_score) DESC,
       -- Final tiebreaker: latest activity
