@@ -3887,7 +3887,7 @@ declare const userMatches: drizzle_orm_pg_core.PgTableWithColumns<{
             columnType: "PgTimestamp";
             data: Date;
             driverParam: string;
-            notNull: false;
+            notNull: true;
             hasDefault: true;
             isPrimaryKey: false;
             isAutoincrement: false;
@@ -3979,8 +3979,8 @@ declare const messages: drizzle_orm_pg_core.PgTableWithColumns<{
             columnType: "PgTimestamp";
             data: Date;
             driverParam: string;
-            notNull: false;
-            hasDefault: false;
+            notNull: true;
+            hasDefault: true;
             isPrimaryKey: false;
             isAutoincrement: false;
             hasRuntimeDefault: false;

@@ -1,55 +1,308 @@
-enum account_role_enum {
+enum accounts_role_enum {
   admin
   mamet
   mentor
   user
   guest
+  hr
 }
 
-enum media_bucket_enum {
-  core
-  oskm
-  dikpus
-  profile
-  "submission-dikpus"
-  "submission-oskm"
-  other
+enum attendance_status {
+  hadir
+  tidak_hadir
 }
 
-table account {
+enum attendance_type {
+  opening
+  closing
+}
+
+enum class_enum {
+  sesi_1
+  sesi_2
+}
+
+enum question_type_enum {
+  multiple_choice
+  short_answer
+}
+
+enum status {
+  completed
+  not_completed
+}
+
+table accounts {
   id text [pk, not null]
   nim text [not null, unique]
   password text [not null]
-  role account_role_enum [not null, default: 'user']
+  role accounts_role_enum [not null, default: 'user']
+  last_logged_in timestamp
   created_at timestamp [default: `now()`]
   updated_at timestamp
+}
+
+table activities {
+  id text [pk, not null]
+  day integer [not null]
+  title text [not null]
+  description text
+  start_time time [not null]
+  end_time time [not null]
+  location text
+  lat real
+  lng real
+  created_at timestamp [default: `now()`]
+  updated_at timestamp
+}
+
+table assignments_profil {
+  id text [pk, not null]
+  profil_kat_id text [not null]
+  title text [not null]
+  assignment_media_id text
+  description text
+  due_date "timestamp with time zone" [not null]
+  is_open boolean [not null, default: false]
+  start_date "timestamp with time zone" [not null]
+  created_at timestamp [default: `now()`]
+  updated_at timestamp
+}
+
+table attendances {
+  id text [pk, not null]
+  attendance_type attendance_type [not null]
+  day_number integer [not null]
+  start_time "timestamp with time zone" [not null]
+  duration_minutes integer [not null]
+  created_at timestamp [default: `now()`]
+  updated_at timestamp
+}
+
+table class_registrations {
+  id text [pk, not null]
+  user_id text [not null]
+  class_id text [not null]
+  registered_at timestamp [default: `now()`]
+  created_at timestamp [default: `now()`]
+  updated_at timestamp
+}
+
+table classes {
+  id text [pk, not null]
+  class_name text [not null]
+  room text [not null]
+  total_quota integer [not null]
+  mentor_name text [not null]
+  class_type class_enum [not null]
+  created_at timestamp [default: `now()`]
+  updated_at timestamp
+}
+
+table email_verification_otps {
+  user_id text [not null]
+  otp text [not null]
+  expires_at "timestamp with time zone" [not null]
+  created_at timestamp [default: `now()`]
+}
+
+table endpoint_analytics {
+  id serial [pk, not null, increment]
+  user_id text
+  endpoint text [not null]
+  method text [not null]
+  status_code integer [not null]
+  response_time_ms integer
+  url_query text
+  request_body text
+  error_message text
+  created_at timestamp [default: `now()`]
+}
+
+table handbook {
+  media_id text [pk, not null]
+  title text
 }
 
 table media {
   id text [pk, not null]
-  creator_id text [not null]
-  name text [not null, unique]
-  bucket media_bucket_enum [not null, default: 'other']
+  creator_id text
+  name text [not null]
+  bucket text [not null]
   type text [not null]
   url text [not null]
-  updated_at "timestamp with time zone" [not null]
+  updated_at timestamp
+  created_at timestamp [default: `now()`]
+}
+
+table messages {
+  id bigserial [pk, not null, increment]
+  user_match_id text [not null]
+  sender_id text [not null]
+  content text [not null]
   created_at "timestamp with time zone" [not null, default: `now()`]
 }
 
-table user {
+table profil_kat_attendance {
   id text [pk, not null]
-  nim text [not null, unique]
-  email text [unique]
-  full_name text
-  birth_date date
-  phone_number text
-  id_line text
-  id_discord text
-  id_instagram text
+  profil_kat_id text [not null]
+  attendance_id text [not null]
   created_at timestamp [default: `now()`]
   updated_at timestamp
 }
 
-ref media_creator_id_user_id_fk: media.creator_id > user.id [delete: cascade, update: no action]
+table profil_kats {
+  id text [pk, not null]
+  profil_number integer [not null, unique]
+  stage_weight real [not null, default: 0]
+  quiz_weight real [not null, default: 0]
+  assignment_weight real [not null, default: 0]
+  attendance_weight real [not null, default: 0]
+  title text [not null]
+  description text
+}
 
-ref user_id_account_id_fk: user.id > account.id [delete: no action, update: no action]
+table question_answer_options {
+  id text [pk, not null]
+  question_id text [not null]
+  answer_text text [not null]
+  is_correct boolean [not null, default: false]
+  created_at timestamp [default: `now()`]
+  updated_at timestamp
+}
+
+table questions {
+  id text [pk, not null]
+  stage_id text [not null]
+  question_text text [not null]
+  question_type question_type_enum [not null]
+  created_at timestamp [default: `now()`]
+  updated_at timestamp
+}
+
+table stages {
+  id text [pk, not null]
+  profil_id text [not null]
+  stage_number integer [not null]
+  created_at timestamp [default: `now()`]
+  updated_at timestamp
+}
+
+table submissions_profil {
+  id text [pk, not null]
+  assignment_id text [not null]
+  user_id text [not null]
+  submission_media_id text [not null]
+  score integer [not null, default: 0]
+  created_at timestamp [default: `now()`]
+  updated_at timestamp
+}
+
+table user_attendance {
+  id text [pk, not null]
+  schedule_id text [not null]
+  user_id text [not null]
+  status attendance_status [not null, default: 'tidak_hadir']
+  updated_at timestamp
+}
+
+table user_matches {
+  id text [pk, not null]
+  topic text [not null]
+  is_active boolean [not null, default: true]
+  is_anonymous boolean [not null, default: true]
+  is_revealed boolean [not null, default: false]
+  first_user_id text [not null]
+  second_user_id text [not null]
+  last_message text
+  created_at timestamp [not null, default: `now()`]
+}
+
+table user_stage_progress {
+  id text [pk, not null]
+  user_id text [not null]
+  stage_id text [not null]
+  status status [not null]
+  completed_at timestamp
+  quiz_score integer
+  updated_at timestamp
+}
+
+table users {
+  id text [pk, not null]
+  nim text [not null, unique]
+  email text [unique]
+  email_verified boolean [not null, default: false]
+  full_name text
+  fakultas text
+  keluarga text
+  bata text
+  rumpun text
+  foto_media_id text
+  created_at timestamp [default: `now()`]
+  updated_at timestamp
+}
+
+table verification_token {
+  identifier text [not null]
+  token text [not null]
+  expired_at "timestamp with time zone"
+
+  indexes {
+    (identifier, token) [pk]
+  }
+}
+
+ref assignments_profil_profil_kat_id_profil_kats_id_fk: assignments_profil.profil_kat_id > profil_kats.id [delete: no action, update: no action]
+
+ref assignments_profil_assignment_media_id_media_id_fk: assignments_profil.assignment_media_id > media.id [delete: no action, update: no action]
+
+ref class_registrations_user_id_users_id_fk: class_registrations.user_id > users.id [delete: no action, update: no action]
+
+ref class_registrations_class_id_classes_id_fk: class_registrations.class_id > classes.id [delete: no action, update: no action]
+
+ref email_verification_otps_user_id_users_id_fk: email_verification_otps.user_id > users.id [delete: cascade, update: no action]
+
+ref endpoint_analytics_user_id_users_id_fk: endpoint_analytics.user_id > users.id [delete: set null, update: no action]
+
+ref handbook_media_id_media_id_fk: handbook.media_id > media.id [delete: no action, update: no action]
+
+ref media_creator_id_users_id_fk: media.creator_id > users.id [delete: no action, update: no action]
+
+ref messages_user_match_id_user_matches_id_fk: messages.user_match_id > user_matches.id [delete: cascade, update: no action]
+
+ref messages_sender_id_users_id_fk: messages.sender_id > users.id [delete: cascade, update: no action]
+
+ref profil_kat_attendance_profil_kat_id_profil_kats_id_fk: profil_kat_attendance.profil_kat_id > profil_kats.id [delete: no action, update: no action]
+
+ref profil_kat_attendance_attendance_id_attendances_id_fk: profil_kat_attendance.attendance_id > attendances.id [delete: no action, update: no action]
+
+ref question_answer_options_question_id_questions_id_fk: question_answer_options.question_id > questions.id [delete: no action, update: no action]
+
+ref questions_stage_id_stages_id_fk: questions.stage_id > stages.id [delete: no action, update: no action]
+
+ref stages_profil_id_profil_kats_id_fk: stages.profil_id > profil_kats.id [delete: no action, update: no action]
+
+ref submissions_profil_assignment_id_assignments_profil_id_fk: submissions_profil.assignment_id > assignments_profil.id [delete: no action, update: no action]
+
+ref submissions_profil_user_id_users_id_fk: submissions_profil.user_id > users.id [delete: no action, update: no action]
+
+ref submissions_profil_submission_media_id_media_id_fk: submissions_profil.submission_media_id > media.id [delete: no action, update: no action]
+
+ref user_attendance_schedule_id_attendances_id_fk: user_attendance.schedule_id > attendances.id [delete: no action, update: no action]
+
+ref user_attendance_user_id_users_id_fk: user_attendance.user_id > users.id [delete: no action, update: no action]
+
+ref user_matches_first_user_id_users_id_fk: user_matches.first_user_id > users.id [delete: cascade, update: no action]
+
+ref user_matches_second_user_id_users_id_fk: user_matches.second_user_id > users.id [delete: cascade, update: no action]
+
+ref user_stage_progress_user_id_users_id_fk: user_stage_progress.user_id > users.id [delete: no action, update: no action]
+
+ref user_stage_progress_stage_id_stages_id_fk: user_stage_progress.stage_id > stages.id [delete: no action, update: no action]
+
+ref users_id_accounts_id_fk: users.id > accounts.id [delete: no action, update: no action]
+
+ref users_foto_media_id_media_id_fk: users.foto_media_id > media.id [delete: no action, update: no action]
+
+ref verification_token_identifier_users_email_fk: verification_token.identifier > users.email [delete: no action, update: no action]

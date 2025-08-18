@@ -243,7 +243,7 @@ CREATE TABLE "messages" (
 	"user_match_id" text NOT NULL,
 	"sender_id" text NOT NULL,
 	"content" text NOT NULL,
-	"created_at" timestamp with time zone
+	"created_at" timestamp with time zone DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE "user_matches" (
@@ -255,7 +255,7 @@ CREATE TABLE "user_matches" (
 	"first_user_id" text NOT NULL,
 	"second_user_id" text NOT NULL,
 	"last_message" text,
-	"created_at" timestamp DEFAULT now()
+	"created_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 ALTER TABLE "endpoint_analytics" ADD CONSTRAINT "endpoint_analytics_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
