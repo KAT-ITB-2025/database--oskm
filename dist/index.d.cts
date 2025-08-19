@@ -386,7 +386,7 @@ declare const users: drizzle_orm_pg_core.PgTableWithColumns<{
             columnType: "PgText";
             data: string;
             driverParam: string;
-            notNull: false;
+            notNull: true;
             hasDefault: false;
             isPrimaryKey: false;
             isAutoincrement: false;
@@ -403,7 +403,7 @@ declare const users: drizzle_orm_pg_core.PgTableWithColumns<{
             columnType: "PgText";
             data: string;
             driverParam: string;
-            notNull: false;
+            notNull: true;
             hasDefault: false;
             isPrimaryKey: false;
             isAutoincrement: false;
@@ -420,7 +420,7 @@ declare const users: drizzle_orm_pg_core.PgTableWithColumns<{
             columnType: "PgText";
             data: string;
             driverParam: string;
-            notNull: false;
+            notNull: true;
             hasDefault: false;
             isPrimaryKey: false;
             isAutoincrement: false;
@@ -437,7 +437,7 @@ declare const users: drizzle_orm_pg_core.PgTableWithColumns<{
             columnType: "PgText";
             data: string;
             driverParam: string;
-            notNull: false;
+            notNull: true;
             hasDefault: false;
             isPrimaryKey: false;
             isAutoincrement: false;

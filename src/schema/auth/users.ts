@@ -19,10 +19,10 @@ export const users = pgTable('users', {
   nim: text('nim').notNull().unique(),
   email: text('email').unique(),
   emailVerified: boolean('email_verified').notNull().default(false),
-  fullName: text('full_name'),
-  fakultas: text('fakultas'),
-  keluarga: text('keluarga'),
-  bata: text('bata'),
+  fullName: text('full_name').notNull(),
+  fakultas: text('fakultas').notNull(),
+  keluarga: text('keluarga').notNull(),
+  bata: text('bata').notNull(),
   rumpun: text('rumpun'),
   fotoMediaId: text('foto_media_id').references((): AnyPgColumn => media.id),
   createdAt: timestamp('created_at').defaultNow(),
@@ -36,8 +36,7 @@ export const emailVerificationOtps = pgTable('email_verification_otps', {
   otp: text('otp').notNull(),
   expiresAt: timestamp('expires_at', {
     mode: 'date',
-    withTimezone: true
-  })
-    .notNull(),
+    withTimezone: true,
+  }).notNull(),
   createdAt: timestamp('created_at').defaultNow(),
 });
