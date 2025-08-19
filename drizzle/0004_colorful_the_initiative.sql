@@ -1,0 +1,1 @@
+ALTER TABLE "users" ALTER COLUMN "bata" SET DATA TYPE integer;
