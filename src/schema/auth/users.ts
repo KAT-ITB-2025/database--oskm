@@ -22,7 +22,7 @@ export const users = pgTable('users', {
   emailVerified: boolean('email_verified').notNull().default(false),
   fullName: text('full_name').notNull(),
   fakultas: text('fakultas').notNull(),
-  keluarga: text('keluarga').notNull(),
+  keluarga: integer('keluarga').notNull(),
   bata: integer('bata').notNull(),
   rumpun: text('rumpun'),
   fotoMediaId: text('foto_media_id').references((): AnyPgColumn => media.id),
