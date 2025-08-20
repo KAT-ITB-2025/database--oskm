@@ -41,10 +41,10 @@ CREATE TABLE "users" (
 	"nim" text NOT NULL,
 	"email" text,
 	"email_verified" boolean DEFAULT false NOT NULL,
-	"full_name" text,
-	"fakultas" text,
-	"keluarga" text,
-	"bata" text,
+	"full_name" text NOT NULL,
+	"fakultas" text NOT NULL,
+	"keluarga" integer NOT NULL,
+	"bata" integer NOT NULL,
 	"rumpun" text,
 	"foto_media_id" text,
 	"created_at" timestamp DEFAULT now(),
@@ -110,7 +110,7 @@ CREATE TABLE "user_attendance" (
 CREATE TABLE "itb_guesser_options" (
 	"id" text PRIMARY KEY NOT NULL,
 	"tempat" "itb_guesser_tempat" NOT NULL,
-	"foto_media_id" text NOT NULL,
+	"public_url" text NOT NULL,
 	"lat" real NOT NULL,
 	"lng" real NOT NULL,
 	"created_at" timestamp DEFAULT now(),
@@ -269,7 +269,6 @@ ALTER TABLE "profil_kat_attendance" ADD CONSTRAINT "profil_kat_attendance_profil
 ALTER TABLE "profil_kat_attendance" ADD CONSTRAINT "profil_kat_attendance_attendance_id_attendances_id_fk" FOREIGN KEY ("attendance_id") REFERENCES "public"."attendances"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "user_attendance" ADD CONSTRAINT "user_attendance_schedule_id_attendances_id_fk" FOREIGN KEY ("schedule_id") REFERENCES "public"."attendances"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "user_attendance" ADD CONSTRAINT "user_attendance_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "itb_guesser_options" ADD CONSTRAINT "itb_guesser_options_foto_media_id_media_id_fk" FOREIGN KEY ("foto_media_id") REFERENCES "public"."media"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "itb_guesser_submissions" ADD CONSTRAINT "itb_guesser_submissions_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "itb_guesser_submissions" ADD CONSTRAINT "itb_guesser_submissions_option_id_itb_guesser_options_id_fk" FOREIGN KEY ("option_id") REFERENCES "public"."itb_guesser_options"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "memory_game_scores" ADD CONSTRAINT "memory_game_scores_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint

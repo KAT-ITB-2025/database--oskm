@@ -1,6 +1,6 @@
 {
-  "id": "2a34fd4b-4257-4e96-b322-1289887db367",
-  "prevId": "781dda90-aa0e-4124-9ec4-dc6ef8c7bf13",
+  "id": "4a76d64d-729d-4b62-b70f-6aeead5d6e68",
+  "prevId": "c888d756-2523-4d1b-95c5-c944d7173852",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -243,25 +243,25 @@
           "name": "full_name",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "fakultas": {
           "name": "fakultas",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "keluarga": {
           "name": "keluarga",
-          "type": "text",
+          "type": "integer",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "bata": {
           "name": "bata",
-          "type": "text",
+          "type": "integer",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "rumpun": {
           "name": "rumpun",
@@ -756,8 +756,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "foto_media_id": {
-          "name": "foto_media_id",
+        "public_url": {
+          "name": "public_url",
           "type": "text",
           "primaryKey": false,
           "notNull": true
@@ -789,21 +789,7 @@
         }
       },
       "indexes": {},
-      "foreignKeys": {
-        "itb_guesser_options_foto_media_id_media_id_fk": {
-          "name": "itb_guesser_options_foto_media_id_media_id_fk",
-          "tableFrom": "itb_guesser_options",
-          "columnsFrom": [
-            "foto_media_id"
-          ],
-          "tableTo": "media",
-          "columnsTo": [
-            "id"
-          ],
-          "onUpdate": "no action",
-          "onDelete": "no action"
-        }
-      },
+      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "policies": {},

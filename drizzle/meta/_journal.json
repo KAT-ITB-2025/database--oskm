@@ -5,43 +5,15 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1755534258090,
-      "tag": "0000_round_silver_sable",
+      "when": 1755681910252,
+      "tag": "0000_famous_namor",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "7",
-      "when": 1755534262058,
+      "when": 1755681933129,
       "tag": "0001_MANUAL_leaderboard_index_add",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1755535531447,
-      "tag": "0002_cultured_phil_sheldon",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1755615627207,
-      "tag": "0003_supreme_sue_storm",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1755615725954,
-      "tag": "0004_colorful_the_initiative",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1755681719597,
-      "tag": "0005_shallow_luckman",
       "breakpoints": true
     }
   ]
