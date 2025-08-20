@@ -1,6 +1,6 @@
 {
-  "id": "4a76d64d-729d-4b62-b70f-6aeead5d6e68",
-  "prevId": "c888d756-2523-4d1b-95c5-c944d7173852",
+  "id": "b2549025-e931-427b-afa1-254738127abd",
+  "prevId": "d726fa30-ffd9-4802-96dc-0d0b5866f839",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -1954,13 +1954,13 @@
         },
         "keluarga": {
           "name": "keluarga",
-          "type": "text",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false
         },
         "bata": {
           "name": "bata",
-          "type": "text",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false
         },

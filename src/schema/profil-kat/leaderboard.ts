@@ -12,15 +12,13 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
   nim: text('nim'),
   fullName: text('full_name'),
   fakultas: text('fakultas'),
-  keluarga: text('keluarga'),
-  bata: text('bata'),
+  keluarga: integer('keluarga'),
+  bata: integer('bata'),
   rumpun: text('rumpun'),
   fotoMediaId: text('foto_media_id'),
 
   // Profil 1 - all NOT NULL with defaults
-  profil1QuizWeight: real('profil1_quiz_weight')
-    .notNull()
-    .default(0.0),
+  profil1QuizWeight: real('profil1_quiz_weight').notNull().default(0.0),
   profil1QuizScore: integer('profil1_quiz_score').notNull().default(0),
   profil1AssignmentWeight: real('profil1_assignment_weight')
     .notNull()
@@ -34,14 +32,10 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
   profil1AvgAttendanceScore: real('profil1_avg_attendance_score')
     .notNull()
     .default(0.0),
-  profil1TotalScore: real('profil1_total_score')
-    .notNull()
-    .default(0.0),
+  profil1TotalScore: real('profil1_total_score').notNull().default(0.0),
 
   // Profil 2
-  profil2QuizWeight: real('profil2_quiz_weight')
-    .notNull()
-    .default(0.0),
+  profil2QuizWeight: real('profil2_quiz_weight').notNull().default(0.0),
   profil2QuizScore: integer('profil2_quiz_score').notNull().default(0),
   profil2AssignmentWeight: real('profil2_assignment_weight')
     .notNull()
@@ -55,14 +49,10 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
   profil2AvgAttendanceScore: real('profil2_avg_attendance_score')
     .notNull()
     .default(0.0),
-  profil2TotalScore: real('profil2_total_score')
-    .notNull()
-    .default(0.0),
+  profil2TotalScore: real('profil2_total_score').notNull().default(0.0),
 
   // Profil 3
-  profil3QuizWeight: real('profil3_quiz_weight')
-    .notNull()
-    .default(0.0),
+  profil3QuizWeight: real('profil3_quiz_weight').notNull().default(0.0),
   profil3QuizScore: integer('profil3_quiz_score').notNull().default(0),
   profil3AssignmentWeight: real('profil3_assignment_weight')
     .notNull()
@@ -76,14 +66,10 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
   profil3AvgAttendanceScore: real('profil3_avg_attendance_score')
     .notNull()
     .default(0.0),
-  profil3TotalScore: real('profil3_total_score')
-    .notNull()
-    .default(0.0),
+  profil3TotalScore: real('profil3_total_score').notNull().default(0.0),
 
   // Profil 4
-  profil4QuizWeight: real('profil4_quiz_weight')
-    .notNull()
-    .default(0.0),
+  profil4QuizWeight: real('profil4_quiz_weight').notNull().default(0.0),
   profil4QuizScore: integer('profil4_quiz_score').notNull().default(0),
   profil4AssignmentWeight: real('profil4_assignment_weight')
     .notNull()
@@ -97,14 +83,10 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
   profil4AvgAttendanceScore: real('profil4_avg_attendance_score')
     .notNull()
     .default(0.0),
-  profil4TotalScore: real('profil4_total_score')
-    .notNull()
-    .default(0.0),
+  profil4TotalScore: real('profil4_total_score').notNull().default(0.0),
 
   // Profil 5
-  profil5QuizWeight: real('profil5_quiz_weight')
-    .notNull()
-    .default(0.0),
+  profil5QuizWeight: real('profil5_quiz_weight').notNull().default(0.0),
   profil5QuizScore: integer('profil5_quiz_score').notNull().default(0),
   profil5AssignmentWeight: real('profil5_assignment_weight')
     .notNull()
@@ -118,31 +100,17 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
   profil5AvgAttendanceScore: real('profil5_avg_attendance_score')
     .notNull()
     .default(0.0),
-  profil5TotalScore: real('profil5_total_score')
-    .notNull()
-    .default(0.0),
+  profil5TotalScore: real('profil5_total_score').notNull().default(0.0),
 
   // Side Quest Scores
-  itbGuesserMaxScore: real('itb_guesser_max_score')
-    .notNull()
-    .default(0.0),
-  memoryGameScore: integer('memory_game_score')
-    .notNull()
-    .default(0),
+  itbGuesserMaxScore: real('itb_guesser_max_score').notNull().default(0.0),
+  memoryGameScore: integer('memory_game_score').notNull().default(0),
 
-  totalScore: real('total_score')
-    .notNull()
-    .default(0.0),
-  totalWeightedScore: real('total_weighted_score')
-    .notNull()
-    .default(0.0),
-  tiebreakerScore: real('tiebreaker_score')
-    .notNull()
-    .default(0.0),
+  totalScore: real('total_score').notNull().default(0.0),
+  totalWeightedScore: real('total_weighted_score').notNull().default(0.0),
+  tiebreakerScore: real('tiebreaker_score').notNull().default(0.0),
   lastActivityAt: timestamp('last_activity_at'),
-  attendanceTotal: integer('attendance_total')
-    .notNull()
-    .default(0),
+  attendanceTotal: integer('attendance_total').notNull().default(0),
   ranking: integer('ranking').notNull(),
 }).as(sql`
   WITH user_assignment_scores AS (
@@ -563,7 +531,9 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
 
 // Function to refresh the materialized view
 export async function refreshUserRankingView(db: any) {
-  await db.execute(sql`REFRESH MATERIALIZED VIEW CONCURRENTLY user_ranking_view`);
+  await db.execute(
+    sql`REFRESH MATERIALIZED VIEW CONCURRENTLY user_ranking_view`,
+  );
 }
 
 // Create indexes for the materialized view
