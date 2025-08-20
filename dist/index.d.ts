@@ -416,16 +416,16 @@ declare const users: drizzle_orm_pg_core.PgTableWithColumns<{
         keluarga: drizzle_orm_pg_core.PgColumn<{
             name: "keluarga";
             tableName: "users";
-            dataType: "number";
-            columnType: "PgInteger";
-            data: number;
-            driverParam: string | number;
+            dataType: "string";
+            columnType: "PgText";
+            data: string;
+            driverParam: string;
             notNull: true;
             hasDefault: false;
             isPrimaryKey: false;
             isAutoincrement: false;
             hasRuntimeDefault: false;
-            enumValues: undefined;
+            enumValues: [string, ...string[]];
             baseColumn: never;
             identity: undefined;
             generated: undefined;
@@ -433,16 +433,16 @@ declare const users: drizzle_orm_pg_core.PgTableWithColumns<{
         bata: drizzle_orm_pg_core.PgColumn<{
             name: "bata";
             tableName: "users";
-            dataType: "number";
-            columnType: "PgInteger";
-            data: number;
-            driverParam: string | number;
+            dataType: "string";
+            columnType: "PgText";
+            data: string;
+            driverParam: string;
             notNull: true;
             hasDefault: false;
             isPrimaryKey: false;
             isAutoincrement: false;
             hasRuntimeDefault: false;
-            enumValues: undefined;
+            enumValues: [string, ...string[]];
             baseColumn: never;
             identity: undefined;
             generated: undefined;
@@ -2745,16 +2745,16 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     keluarga: drizzle_orm_pg_core.PgColumn<{
         name: "keluarga";
         tableName: "user_ranking_view";
-        dataType: "number";
-        columnType: "PgInteger";
-        data: number;
-        driverParam: string | number;
+        dataType: "string";
+        columnType: "PgText";
+        data: string;
+        driverParam: string;
         notNull: false;
         hasDefault: false;
         isPrimaryKey: false;
         isAutoincrement: false;
         hasRuntimeDefault: false;
-        enumValues: undefined;
+        enumValues: [string, ...string[]];
         baseColumn: never;
         identity: undefined;
         generated: undefined;
@@ -2762,16 +2762,16 @@ declare const userRankingView: drizzle_orm_pg_core.PgMaterializedViewWithSelecti
     bata: drizzle_orm_pg_core.PgColumn<{
         name: "bata";
         tableName: "user_ranking_view";
-        dataType: "number";
-        columnType: "PgInteger";
-        data: number;
-        driverParam: string | number;
+        dataType: "string";
+        columnType: "PgText";
+        data: string;
+        driverParam: string;
         notNull: false;
         hasDefault: false;
         isPrimaryKey: false;
         isAutoincrement: false;
         hasRuntimeDefault: false;
-        enumValues: undefined;
+        enumValues: [string, ...string[]];
         baseColumn: never;
         identity: undefined;
         generated: undefined;

@@ -12,8 +12,8 @@ export const userRankingView = pgMaterializedView('user_ranking_view', {
   nim: text('nim'),
   fullName: text('full_name'),
   fakultas: text('fakultas'),
-  keluarga: integer('keluarga'),
-  bata: integer('bata'),
+  keluarga: text('keluarga'),
+  bata: text('bata'),
   rumpun: text('rumpun'),
   fotoMediaId: text('foto_media_id'),
 
