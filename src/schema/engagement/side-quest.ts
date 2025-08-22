@@ -36,11 +36,6 @@ export const itbGuesserSubmissions = pgTable('itb_guesser_submissions', {
   userId: text('user_id')
     .notNull()
     .references(() => users.id),
-  optionId: text('option_id')
-    .notNull()
-    .references(() => itbGuesserOptions.id),
-  answerLat: real('answer_lat').notNull(),
-  answerLng: real('answer_lng').notNull(),
   score: real('score').notNull(),
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').$onUpdate(getNow),

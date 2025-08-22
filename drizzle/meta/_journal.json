@@ -15,6 +15,13 @@
       "when": 1755700206426,
       "tag": "0001_MANUAL_leaderboard_index_add",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1755875984577,
+      "tag": "0002_needy_snowbird",
+      "breakpoints": true
     }
   ]
 }

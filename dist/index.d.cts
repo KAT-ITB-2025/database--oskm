@@ -1402,57 +1402,6 @@ declare const itbGuesserSubmissions: drizzle_orm_pg_core.PgTableWithColumns<{
             identity: undefined;
             generated: undefined;
         }, {}, {}>;
-        optionId: drizzle_orm_pg_core.PgColumn<{
-            name: "option_id";
-            tableName: "itb_guesser_submissions";
-            dataType: "string";
-            columnType: "PgText";
-            data: string;
-            driverParam: string;
-            notNull: true;
-            hasDefault: false;
-            isPrimaryKey: false;
-            isAutoincrement: false;
-            hasRuntimeDefault: false;
-            enumValues: [string, ...string[]];
-            baseColumn: never;
-            identity: undefined;
-            generated: undefined;
-        }, {}, {}>;
-        answerLat: drizzle_orm_pg_core.PgColumn<{
-            name: "answer_lat";
-            tableName: "itb_guesser_submissions";
-            dataType: "number";
-            columnType: "PgReal";
-            data: number;
-            driverParam: string | number;
-            notNull: true;
-            hasDefault: false;
-            isPrimaryKey: false;
-            isAutoincrement: false;
-            hasRuntimeDefault: false;
-            enumValues: undefined;
-            baseColumn: never;
-            identity: undefined;
-            generated: undefined;
-        }, {}, {}>;
-        answerLng: drizzle_orm_pg_core.PgColumn<{
-            name: "answer_lng";
-            tableName: "itb_guesser_submissions";
-            dataType: "number";
-            columnType: "PgReal";
-            data: number;
-            driverParam: string | number;
-            notNull: true;
-            hasDefault: false;
-            isPrimaryKey: false;
-            isAutoincrement: false;
-            hasRuntimeDefault: false;
-            enumValues: undefined;
-            baseColumn: never;
-            identity: undefined;
-            generated: undefined;
-        }, {}, {}>;
         score: drizzle_orm_pg_core.PgColumn<{
             name: "score";
             tableName: "itb_guesser_submissions";
@@ -4083,12 +4032,8 @@ declare const messagesRelations: drizzle_orm.Relations<"messages", {
     senderId: drizzle_orm.One<"users", true>;
     userMatch: drizzle_orm.One<"user_matches", true>;
 }>;
-declare const itbGuesserOptionsRelations: drizzle_orm.Relations<"itb_guesser_options", {
-    submissions: drizzle_orm.Many<"itb_guesser_submissions">;
-}>;
 declare const itbGuesserSubmissionsRelations: drizzle_orm.Relations<"itb_guesser_submissions", {
     user: drizzle_orm.One<"users", true>;
-    option: drizzle_orm.One<"itb_guesser_options", true>;
 }>;
 
-export { accounts, accountsRelation, accountsRoleEnum, activities, assignmentsProfil, assignmentsProfilRelation, attendanceStatusEnum, attendanceTypeEnum, attendances, attendancesRelation, classEnum, classRegistrations, classRegistrationsRelation, classes, classesRelation, createUserRankingViewIndexes, emailVerificationOtps, emailVerificationOtpsRelations, endpointAnalytics, endpointAnalyticsRelation, handbook, itbGuesserOptions, itbGuesserOptionsRelations, itbGuesserSubmissions, itbGuesserSubmissionsRelations, itbGuesserTempatEnum, media, mediaRelation, memoryGameScores, messages, messagesRelations, profilKATAttendances, profilKATAttendancesRelation, profilKATs, profilKATsRelation, questionAnswerOptions, questionAnswerOptionsRelation, questionTypeEnum, questions, questionsRelation, refreshUserRankingView, stageStatusEnum, stages, stagesRelation, submissionsProfil, submissionsProfilRelation, userAttendance, userAttendanceRelation, userMatches, userMatchesRelations, userRankingView, userStageProgress, userStageProgressRelation, users, usersRelation, verificationToken, verificationTokenRelations };
+export { accounts, accountsRelation, accountsRoleEnum, activities, assignmentsProfil, assignmentsProfilRelation, attendanceStatusEnum, attendanceTypeEnum, attendances, attendancesRelation, classEnum, classRegistrations, classRegistrationsRelation, classes, classesRelation, createUserRankingViewIndexes, emailVerificationOtps, emailVerificationOtpsRelations, endpointAnalytics, endpointAnalyticsRelation, handbook, itbGuesserOptions, itbGuesserSubmissions, itbGuesserSubmissionsRelations, itbGuesserTempatEnum, media, mediaRelation, memoryGameScores, messages, messagesRelations, profilKATAttendances, profilKATAttendancesRelation, profilKATs, profilKATsRelation, questionAnswerOptions, questionAnswerOptionsRelation, questionTypeEnum, questions, questionsRelation, refreshUserRankingView, stageStatusEnum, stages, stagesRelation, submissionsProfil, submissionsProfilRelation, userAttendance, userAttendanceRelation, userMatches, userMatchesRelations, userRankingView, userStageProgress, userStageProgressRelation, users, usersRelation, verificationToken, verificationTokenRelations };

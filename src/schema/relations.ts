@@ -255,24 +255,12 @@ export const messagesRelations = relations(messages, ({ one }) => ({
   }),
 }));
 
-// ITB Guesser Relations
-export const itbGuesserOptionsRelations = relations(
-  itbGuesserOptions,
-  ({ one, many }) => ({
-    submissions: many(itbGuesserSubmissions),
-  }),
-);
-
 export const itbGuesserSubmissionsRelations = relations(
   itbGuesserSubmissions,
   ({ one }) => ({
     user: one(users, {
       fields: [itbGuesserSubmissions.userId],
       references: [users.id],
-    }),
-    option: one(itbGuesserOptions, {
-      fields: [itbGuesserSubmissions.optionId],
-      references: [itbGuesserOptions.id],
     }),
   }),
 );
