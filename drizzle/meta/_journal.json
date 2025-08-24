@@ -22,6 +22,13 @@
       "when": 1755875984577,
       "tag": "0002_needy_snowbird",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1756051004254,
+      "tag": "0003_magical_darkhawk",
+      "breakpoints": true
     }
   ]
 }

@@ -9,6 +9,8 @@ import {
   profilKATAttendances,
   itbGuesserOptions,
   itbGuesserSubmissions,
+  memoryGameScores,
+  userPersonality,
 } from './engagement';
 import {
   stages,
@@ -52,6 +54,8 @@ export const usersRelation = relations(users, ({ one, many }) => ({
   userMatchesAsSecondUser: many(userMatches, { relationName: 'second_user' }),
   messages: many(messages, { relationName: 'sender' }),
   itbGuesserSubmissions: many(itbGuesserSubmissions),
+  memoryGameScore: one(memoryGameScores),
+  personality: one(userPersonality),
 }));
 
 export const emailVerificationOtpsRelations = relations(

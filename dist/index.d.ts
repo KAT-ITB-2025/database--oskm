@@ -1549,6 +1549,83 @@ declare const memoryGameScores: drizzle_orm_pg_core.PgTableWithColumns<{
     dialect: "pg";
 }>;
 
+declare const personalityEnum: drizzle_orm_pg_core.PgEnum<["Direwolf", "Gigantopithecus", "Jeholornis", "Brontothere", "Saber Tooth", "Mammoth", "Deinonychus", "T-Rex", "Diplodocus", "Troodon", "Quetzalcoatlus", "Parasaurolophus", "Velociraptor", "Ankylosaurus", "Megaloceros", "Argentavis Magnificens"]>;
+declare const userPersonality: drizzle_orm_pg_core.PgTableWithColumns<{
+    name: "user_personality";
+    schema: undefined;
+    columns: {
+        userId: drizzle_orm_pg_core.PgColumn<{
+            name: "user_id";
+            tableName: "user_personality";
+            dataType: "string";
+            columnType: "PgText";
+            data: string;
+            driverParam: string;
+            notNull: true;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: [string, ...string[]];
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        personality: drizzle_orm_pg_core.PgColumn<{
+            name: "personality";
+            tableName: "user_personality";
+            dataType: "string";
+            columnType: "PgEnumColumn";
+            data: "Direwolf" | "Gigantopithecus" | "Jeholornis" | "Brontothere" | "Saber Tooth" | "Mammoth" | "Deinonychus" | "T-Rex" | "Diplodocus" | "Troodon" | "Quetzalcoatlus" | "Parasaurolophus" | "Velociraptor" | "Ankylosaurus" | "Megaloceros" | "Argentavis Magnificens";
+            driverParam: string;
+            notNull: true;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: ["Direwolf", "Gigantopithecus", "Jeholornis", "Brontothere", "Saber Tooth", "Mammoth", "Deinonychus", "T-Rex", "Diplodocus", "Troodon", "Quetzalcoatlus", "Parasaurolophus", "Velociraptor", "Ankylosaurus", "Megaloceros", "Argentavis Magnificens"];
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        createdAt: drizzle_orm_pg_core.PgColumn<{
+            name: "created_at";
+            tableName: "user_personality";
+            dataType: "date";
+            columnType: "PgTimestamp";
+            data: Date;
+            driverParam: string;
+            notNull: false;
+            hasDefault: true;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+        updatedAt: drizzle_orm_pg_core.PgColumn<{
+            name: "updated_at";
+            tableName: "user_personality";
+            dataType: "date";
+            columnType: "PgTimestamp";
+            data: Date;
+            driverParam: string;
+            notNull: false;
+            hasDefault: true;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            baseColumn: never;
+            identity: undefined;
+            generated: undefined;
+        }, {}, {}>;
+    };
+    dialect: "pg";
+}>;
+
 declare const media: drizzle_orm_pg_core.PgTableWithColumns<{
     name: "media";
     schema: undefined;
@@ -3958,6 +4035,8 @@ declare const usersRelation: drizzle_orm.Relations<"users", {
     userMatchesAsSecondUser: drizzle_orm.Many<"user_matches">;
     messages: drizzle_orm.Many<"messages">;
     itbGuesserSubmissions: drizzle_orm.Many<"itb_guesser_submissions">;
+    memoryGameScore: drizzle_orm.One<"memory_game_scores", false>;
+    personality: drizzle_orm.One<"user_personality", false>;
 }>;
 declare const emailVerificationOtpsRelations: drizzle_orm.Relations<"email_verification_otps", {
     user: drizzle_orm.One<"users", true>;
@@ -4036,4 +4115,4 @@ declare const itbGuesserSubmissionsRelations: drizzle_orm.Relations<"itb_guesser
     user: drizzle_orm.One<"users", true>;
 }>;
 
-export { accounts, accountsRelation, accountsRoleEnum, activities, assignmentsProfil, assignmentsProfilRelation, attendanceStatusEnum, attendanceTypeEnum, attendances, attendancesRelation, classEnum, classRegistrations, classRegistrationsRelation, classes, classesRelation, createUserRankingViewIndexes, emailVerificationOtps, emailVerificationOtpsRelations, endpointAnalytics, endpointAnalyticsRelation, handbook, itbGuesserOptions, itbGuesserSubmissions, itbGuesserSubmissionsRelations, itbGuesserTempatEnum, media, mediaRelation, memoryGameScores, messages, messagesRelations, profilKATAttendances, profilKATAttendancesRelation, profilKATs, profilKATsRelation, questionAnswerOptions, questionAnswerOptionsRelation, questionTypeEnum, questions, questionsRelation, refreshUserRankingView, stageStatusEnum, stages, stagesRelation, submissionsProfil, submissionsProfilRelation, userAttendance, userAttendanceRelation, userMatches, userMatchesRelations, userRankingView, userStageProgress, userStageProgressRelation, users, usersRelation, verificationToken, verificationTokenRelations };
+export { accounts, accountsRelation, accountsRoleEnum, activities, assignmentsProfil, assignmentsProfilRelation, attendanceStatusEnum, attendanceTypeEnum, attendances, attendancesRelation, classEnum, classRegistrations, classRegistrationsRelation, classes, classesRelation, createUserRankingViewIndexes, emailVerificationOtps, emailVerificationOtpsRelations, endpointAnalytics, endpointAnalyticsRelation, handbook, itbGuesserOptions, itbGuesserSubmissions, itbGuesserSubmissionsRelations, itbGuesserTempatEnum, media, mediaRelation, memoryGameScores, messages, messagesRelations, personalityEnum, profilKATAttendances, profilKATAttendancesRelation, profilKATs, profilKATsRelation, questionAnswerOptions, questionAnswerOptionsRelation, questionTypeEnum, questions, questionsRelation, refreshUserRankingView, stageStatusEnum, stages, stagesRelation, submissionsProfil, submissionsProfilRelation, userAttendance, userAttendanceRelation, userMatches, userMatchesRelations, userPersonality, userRankingView, userStageProgress, userStageProgressRelation, users, usersRelation, verificationToken, verificationTokenRelations };
